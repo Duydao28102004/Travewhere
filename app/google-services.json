@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1008968567382",
+    "project_id": "travewhere-ede39",
+    "storage_bucket": "travewhere-ede39.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008968567382:android:c7d6d1bbdf5b5b4f8a09f7",
+        "android_client_info": {
+          "package_name": "com.example.travewhere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4N8NQ81GgOLwXRE08XJG1R8aQF6RGVf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
