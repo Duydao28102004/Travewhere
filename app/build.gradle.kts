@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
