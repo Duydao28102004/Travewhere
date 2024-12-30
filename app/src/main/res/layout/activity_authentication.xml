@@ -14,7 +14,8 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_marginHorizontal="24dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/loginTitle"
@@ -28,7 +29,7 @@
             android:textColor="@color/black"/>
 
         <EditText
-            android:id="@+id/emailEditText"
+            android:id="@+id/loginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -39,7 +40,7 @@
             android:textColor="@color/secondary_text" />
 
         <EditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -105,15 +106,91 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:padding="16dp"
+        android:layout_marginHorizontal="24dp"
+        android:gravity="center"
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/signupTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Signup"
-            android:textSize="24sp"
-            android:layout_gravity="center" />
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="start"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/fullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:drawableEnd="@drawable/ic_username"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/secondary_text" />
+
+        <EditText
+            android:id="@+id/signupEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:drawableEnd="@drawable/ic_email"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/secondary_text" />
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:drawableEnd="@drawable/ic_phone_number"
+            android:inputType="phone"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/secondary_text" />
+
+        <EditText
+            android:id="@+id/signupPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:drawableEnd="@drawable/ic_lock"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/secondary_text" />
+
+        <CheckBox
+            android:id="@+id/checkboxAccommodationOwner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="Are you an accommodation owner?" />
+
+        <CheckBox
+            android:id="@+id/checkboxTermsAndConditions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="By checking the box you agree to our Terms and Conditions." />
+
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SIGNUP"
+            android:backgroundTint="@color/accent"
+            android:textColor="@android:color/white"
+            android:layout_marginVertical="10dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/switchToLogin"
