@@ -198,6 +198,7 @@
             android:layout_height="wrap_content"
             android:text="Already have an account? Log in here"
             android:textColor="@color/highlight_state"
+            android:textStyle="bold"
             android:textSize="14sp"
             android:layout_gravity="center"
             android:clickable="true" />
