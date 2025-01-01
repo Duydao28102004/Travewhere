@@ -13,30 +13,13 @@ import java.util.Map;
 public class AuthenticationRepository {
 
     private final FirebaseAuth auth;
-    private final FirebaseFirestore firestore;
 
     public AuthenticationRepository() {
         auth = FirebaseAuth.getInstance();
-        firestore = FirebaseFirestore.getInstance();
     }
 
     public Task<AuthResult> signup(String email, String password) {
         return auth.createUserWithEmailAndPassword(email, password);
-    }
-
-    public Task<Void> saveUserData(String name, String email, String phone) {
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser != null) {
-            String uid = currentUser.getUid();
-            Map<String, Object> userData = new HashMap<>();
-            userData.put("name", name);
-            userData.put("email", email);
-            userData.put("phone", phone);
-
-            return firestore.collection("users").document(uid).set(userData);
-        } else {
-            return Tasks.forException(new Exception("User is not logged in"));
-        }
     }
 
     public Task<AuthResult> login(String email, String password) {

@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class AuthenticationActivity extends AppCompatActivity {
 
     private LinearLayout loginLayout, signupLayout;
@@ -23,6 +25,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     private CheckBox checkboxAccommodationOwner, checkboxTermsAndConditions;
 
     private AuthenticationRepository authRepository;
+    private FirestoreRepository firestoreRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         // Initialize the repository
         authRepository = new AuthenticationRepository();
+        firestoreRepository = new FirestoreRepository(this);
 
         // Link UI components
         loginLayout = findViewById(R.id.loginLayout);
@@ -122,18 +126,16 @@ public class AuthenticationActivity extends AppCompatActivity {
             authRepository.signup(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            // Save additional user data
-                            authRepository.saveUserData(name, email, phone)
-                                    .addOnSuccessListener(aVoid -> {
-                                        Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
-                                        // Navigate to the main activity or dashboard
-                                        loginLayout.setVisibility(View.VISIBLE);
-                                        signupLayout.setVisibility(View.GONE);
+                            // save customer data to Firestore
+                            FirebaseUser user = authRepository.getCurrentUser();
+                            firestoreRepository.createCustomer(user.getUid(), name, email, phone);
+                            Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
+                            // Navigate to the main activity or dashboard
+                            loginLayout.setVisibility(View.VISIBLE);
+                            signupLayout.setVisibility(View.GONE);
 
-                                        clearSignupFields(fullName, signupEmail, signupPassword,
-                                                phoneNumber, checkboxTermsAndConditions);
-                                    })
-                                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show());
+                            clearSignupFields(fullName, signupEmail, signupPassword,
+                                    phoneNumber, checkboxTermsAndConditions);
                         } else {
                             String errorMessage = task.getException() != null ? task.getException().getMessage() : "Signup failed";
                             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
