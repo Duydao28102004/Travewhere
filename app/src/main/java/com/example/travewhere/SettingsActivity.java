@@ -1,5 +1,6 @@
 package com.example.travewhere;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
@@ -9,7 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +22,11 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout languageSettingsButtonButton = findViewById(R.id.language_settings);
         languageSettingsButtonButton.setOnClickListener(v -> {
             // Open the language settings activity
+            Intent intent = new Intent(SettingsActivity.this, LanguageSettingsActivity.class);
+            startActivity(intent);
         });
 
-        LinearLayout preferencesSettingsButton = findViewById(R.id.preference_settings);
+        LinearLayout preferencesSettingsButton = findViewById(R.id.preferences_settings);
         preferencesSettingsButton.setOnClickListener(v -> {
             // Open the preferences settings activity
         });
