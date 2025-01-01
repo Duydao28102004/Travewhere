@@ -103,6 +103,16 @@ public class AuthenticationActivity extends AppCompatActivity {
                 return;
             }
 
+            if (!isValidEmail(email)) {
+                Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!isValidVietnamesePhone(phone)) {
+                Toast.makeText(this, "Invalid Vietnamese phone number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             if (!checkboxTermsAndConditions.isChecked()) {
                 Toast.makeText(this, "You must agree to the Terms and Conditions", Toast.LENGTH_SHORT).show();
                 return;
@@ -130,6 +140,16 @@ public class AuthenticationActivity extends AppCompatActivity {
                         }
                     });
         });
+    }
+
+    private boolean isValidVietnamesePhone(String phoneNumber) {
+        String vietnamesePhonePattern = "^(03|05|07|08|09)\\d{8}$";
+        return !TextUtils.isEmpty(phoneNumber) && phoneNumber.matches(vietnamesePhonePattern);
+    }
+
+
+    private boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private void clearSignupFields(EditText fullName, EditText email, EditText password,
