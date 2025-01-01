@@ -14,4 +14,8 @@
     <string name="about_us_label">Về chúng tôi</string>
     <string name="logout">Đăng xuất</string>
     <string name="user_profile_image">Ảnh người dùng</string>
+    <string name="languages_selection">Lựa chọn ngôn ngữ</string>
+    <string name="language_en">Tiếng Anh</string>
+    <string name="language_vn">Tiếng Việt</string>
+    <string name="language_es">Tiếng Tây Ban Nha</string>
 </resources>
