@@ -1,4 +1,4 @@
-package com.example.travewhere.model;
+package com.example.travewhere.models;
 
 public class User {
     private String name;

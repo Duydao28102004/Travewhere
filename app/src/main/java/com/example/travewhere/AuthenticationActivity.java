@@ -13,8 +13,6 @@ import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.travewhere.helpers.AuthFormHelper;
-
 public class AuthenticationActivity extends AppCompatActivity {
 
     private LinearLayout loginLayout, signupLayout;
@@ -84,7 +82,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
                             // Navigate to the main activity or dashboard
-                            startActivity(new Intent(AuthenticationActivity.this, HomeActivity.class));
+                            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
                         } else {
                             String errorMessage = task.getException() != null ? task.getException().getMessage() : "Login failed";
                             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
@@ -122,7 +120,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                                         loginLayout.setVisibility(View.VISIBLE);
                                         signupLayout.setVisibility(View.GONE);
 
-                                        AuthFormHelper.clearSignupFields(fullName, signupEmail, signupPassword,
+                                        clearSignupFields(fullName, signupEmail, signupPassword,
                                                 phoneNumber, checkboxTermsAndConditions);
                                     })
                                     .addOnFailureListener(e -> Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show());
@@ -134,6 +132,12 @@ public class AuthenticationActivity extends AppCompatActivity {
         });
     }
 
-
-
+    private void clearSignupFields(EditText fullName, EditText email, EditText password,
+                                         EditText phoneNumber, CheckBox termsAndConditionsCheck) {
+        fullName.setText("");
+        email.setText("");
+        password.setText("");
+        phoneNumber.setText("");
+        termsAndConditionsCheck.setChecked(false);
+    }
 }

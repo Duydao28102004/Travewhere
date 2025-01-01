@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="120dp"
-        android:src="@drawable/sample_hotel"
+        android:src="@drawable/testingimage"
         android:scaleType="centerCrop" />
 
     <TextView
