@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+    implementation(libs.appcompat.v161)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.firebase.firestore)
