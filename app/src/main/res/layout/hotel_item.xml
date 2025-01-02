@@ -8,12 +8,14 @@
     android:layout_margin="8dp">
 
     <ImageView
+        android:id="@+id/accommodationImage"
         android:layout_width="200dp"
         android:layout_height="120dp"
         android:src="@drawable/testingimage"
         android:scaleType="centerCrop" />
 
     <TextView
+        android:id="@+id/accommodationPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -22,6 +24,7 @@
         android:textColor="@android:color/darker_gray" />
 
     <TextView
+        android:id="@+id/accommodationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hotel Mui Ne"
@@ -36,6 +39,7 @@
         android:layout_marginTop="4dp">
 
         <TextView
+            android:id="@+id/ratingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10/10"
@@ -43,6 +47,7 @@
             android:textColor="@android:color/holo_green_dark" />
 
         <TextView
+            android:id="@+id/reviewsCountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(85)"
@@ -52,6 +57,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/priceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="500.000 VND"
