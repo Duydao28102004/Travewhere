@@ -56,7 +56,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         TextView ratingTextView;
         TextView reviewsCountTextView;
         TextView priceTextView;
-        TextView taxTextView;
 
         public HotelViewHolder(@NonNull View itemView) {
             super(itemView);

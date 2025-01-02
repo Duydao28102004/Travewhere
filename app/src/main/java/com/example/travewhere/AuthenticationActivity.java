@@ -135,7 +135,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
                             //determine if the user is an accommodation owner
                             if (checkboxAccommodationOwner.isActivated()) {
-                                firestoreRepository.createCustomer(user.getUid(), name, email, phone);
+                                firestoreRepository.createManager(user.getUid(), name, email, phone);
                             } else {
                                 firestoreRepository.createCustomer(user.getUid(), name, email, phone);
                             }
