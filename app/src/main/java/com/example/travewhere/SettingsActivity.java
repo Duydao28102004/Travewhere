@@ -12,6 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class SettingsActivity extends BaseActivity {
 
+    private static final int REQUEST_CODE_LANGUAGE_SETTINGS = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,14 +23,15 @@ public class SettingsActivity extends BaseActivity {
         // Initialize the settings buttons and set their onClickListeners
         LinearLayout languageSettingsButtonButton = findViewById(R.id.language_settings);
         languageSettingsButtonButton.setOnClickListener(v -> {
-            // Open the language settings activity
             Intent intent = new Intent(SettingsActivity.this, LanguageSettingsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE_LANGUAGE_SETTINGS);
         });
 
         LinearLayout preferencesSettingsButton = findViewById(R.id.preferences_settings);
         preferencesSettingsButton.setOnClickListener(v -> {
             // Open the preferences settings activity
+            Intent intent = new Intent(SettingsActivity.this, PreferencesSettingsActivity.class);
+            startActivity(intent);
         });
 
         LinearLayout securitySettingsButton = findViewById(R.id.security_settings);
@@ -60,5 +63,13 @@ public class SettingsActivity extends BaseActivity {
         customLogoutButton.setOnClickListener(v -> {
             // Logout the user
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_LANGUAGE_SETTINGS && resultCode == RESULT_OK) {
+            recreate(); // Reload the activity to apply the new language
+        }
     }
 }

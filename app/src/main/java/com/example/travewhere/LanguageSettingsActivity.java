@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import java.util.Locale;
 
@@ -14,7 +14,6 @@ public class LanguageSettingsActivity extends BaseActivity {
 
     private RadioButton englishRadioButton;
     private RadioButton vietnameseRadioButton;
-    private RadioButton spanishRadioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,31 +23,25 @@ public class LanguageSettingsActivity extends BaseActivity {
         RadioGroup languageRadioGroup = findViewById(R.id.languages_selection);
         englishRadioButton = findViewById(R.id.english);
         vietnameseRadioButton = findViewById(R.id.vietnamese);
-        spanishRadioButton = findViewById(R.id.spanish);
+        LinearLayout confirmButton = findViewById(R.id.confirm_language_button);
 
-        // Set the current language selection
         setCurrentLanguageSelection();
 
-        // Set the listener for language change
-        languageRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.english) {
-                changeLanguage("en");
-            } else if (checkedId == R.id.vietnamese) {
-                changeLanguage("vi");
-            } else if (checkedId == R.id.spanish) {
-                changeLanguage("es");
-            }
+        confirmButton.setOnClickListener(v -> {
+            String selectedLanguage = englishRadioButton.isChecked() ? "en" : "vi";
+            changeLanguage(selectedLanguage);
+            setResult(RESULT_OK); // Notify parent activity
+            finish();
         });
     }
 
     private void setCurrentLanguageSelection() {
         String currentLanguage = getPreferredLanguage(this);
+
         if ("en".equals(currentLanguage)) {
             englishRadioButton.setChecked(true);
         } else if ("vi".equals(currentLanguage)) {
             vietnameseRadioButton.setChecked(true);
-        } else if ("es".equals(currentLanguage)) {
-            spanishRadioButton.setChecked(true);
         }
     }
 
@@ -58,21 +51,9 @@ public class LanguageSettingsActivity extends BaseActivity {
 
         Locale newLocale = new Locale(languageCode);
         Locale.setDefault(newLocale);
+
         Configuration config = new Configuration();
         config.setLocale(newLocale);
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-
-        // Restart the activity to apply the language change
-        recreate();
-    }
-
-    private void updateUI() {
-        // Update the text of UI elements to reflect the new language
-        TextView languageSelectionTitle = findViewById(R.id.language_selection_title);
-        languageSelectionTitle.setText(R.string.languages_selection);
-
-        englishRadioButton.setText(R.string.language_en);
-        vietnameseRadioButton.setText(R.string.language_vn);
-        spanishRadioButton.setText(R.string.language_es);
     }
 }
