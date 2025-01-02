@@ -11,50 +11,51 @@
         android:id="@+id/loginLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_marginHorizontal="24dp"
         android:gravity="center"
-        android:visibility="gone">
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="24dp">
 
         <TextView
             android:id="@+id/loginTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="24dp"
             android:layout_gravity="start"
-            android:textColor="@color/black"/>
+            android:layout_marginBottom="24dp"
+            android:text="Login"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/loginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:layout_marginBottom="16dp"
             android:drawableEnd="@drawable/ic_email"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:padding="12dp"
-            android:layout_marginBottom="16dp"
             android:textColor="@color/secondary_text" />
 
         <EditText
             android:id="@+id/loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:layout_marginBottom="16dp"
             android:drawableEnd="@drawable/ic_lock"
+            android:hint="Password"
             android:inputType="textPassword"
             android:padding="12dp"
-            android:layout_marginBottom="16dp"
             android:textColor="@color/secondary_text" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/checkboxRememberMe"
@@ -67,37 +68,37 @@
                 android:id="@+id/forgetPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="end"
                 android:text="Forget password?"
                 android:textColor="@color/highlight_state"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:gravity="end"
-                android:layout_weight="1"
-                android:clickable="true" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="LOGIN"
-            android:backgroundTint="@color/primary"
-            android:background="@drawable/button_background"
-            android:textColor="@android:color/white"
             android:layout_marginBottom="24dp"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/primary"
+            android:gravity="center"
             android:padding="12dp"
-            android:gravity="center" />
+            android:text="LOGIN"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/switchToSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
             android:text="Don't have an account? Sign up here"
             android:textColor="@color/highlight_state"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:clickable="true" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -105,65 +106,66 @@
         android:id="@+id/signupLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_marginHorizontal="24dp"
         android:gravity="center"
-        android:visibility="visible">
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="24dp">
 
         <TextView
             android:id="@+id/signupTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Signup"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="24dp"
             android:layout_gravity="start"
-            android:textColor="@color/black"/>
+            android:layout_marginBottom="24dp"
+            android:text="Signup"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/fullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
+            android:layout_marginBottom="16dp"
             android:drawableEnd="@drawable/ic_username"
+            android:hint="Full Name"
             android:inputType="textPersonName"
             android:padding="12dp"
-            android:layout_marginBottom="16dp"
             android:textColor="@color/secondary_text" />
 
         <EditText
             android:id="@+id/signupEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:layout_marginBottom="16dp"
             android:drawableEnd="@drawable/ic_email"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:padding="12dp"
-            android:layout_marginBottom="16dp"
             android:textColor="@color/secondary_text" />
 
         <EditText
             android:id="@+id/phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:layout_marginBottom="16dp"
             android:drawableEnd="@drawable/ic_phone_number"
+            android:hint="Phone Number"
             android:inputType="phone"
             android:padding="12dp"
-            android:layout_marginBottom="16dp"
             android:textColor="@color/secondary_text" />
 
         <EditText
             android:id="@+id/signupPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:layout_marginBottom="16dp"
             android:drawableEnd="@drawable/ic_lock"
+            android:hint="Password"
             android:inputType="textPassword"
             android:padding="12dp"
-            android:layout_marginBottom="16dp"
             android:textColor="@color/secondary_text" />
 
         <CheckBox
@@ -184,24 +186,24 @@
             android:id="@+id/signupButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SIGNUP"
-            android:backgroundTint="@color/accent"
-            android:textColor="@android:color/white"
             android:layout_marginVertical="10dp"
             android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/accent"
+            android:gravity="center"
             android:padding="12dp"
-            android:gravity="center" />
+            android:text="SIGNUP"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/switchToLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
             android:text="Already have an account? Log in here"
             android:textColor="@color/highlight_state"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:layout_gravity="center"
-            android:clickable="true" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 

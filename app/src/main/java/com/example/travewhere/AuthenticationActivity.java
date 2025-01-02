@@ -32,6 +32,9 @@ public class AuthenticationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
+        // Hide the top bar
+        getSupportActionBar().hide();
+
         // Initialize the repository
         authRepository = new AuthenticationRepository();
         firestoreRepository = new FirestoreRepository(this);
@@ -87,6 +90,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
                             // Navigate to the main activity or dashboard
                             startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+                            finish();
                         } else {
                             String errorMessage = task.getException() != null ? task.getException().getMessage() : "Login failed";
                             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
@@ -128,7 +132,14 @@ public class AuthenticationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // save customer data to Firestore
                             FirebaseUser user = authRepository.getCurrentUser();
-                            firestoreRepository.createCustomer(user.getUid(), name, email, phone);
+
+                            //determine if the user is an accommodation owner
+                            if (checkboxAccommodationOwner.isActivated()) {
+                                firestoreRepository.createCustomer(user.getUid(), name, email, phone);
+                            } else {
+                                firestoreRepository.createCustomer(user.getUid(), name, email, phone);
+                            }
+
                             Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
                             // Navigate to the main activity or dashboard
                             loginLayout.setVisibility(View.VISIBLE);
