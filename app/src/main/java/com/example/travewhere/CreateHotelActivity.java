@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,7 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travewhere.adapters.RoomAdapter;
+import com.example.travewhere.models.Room;
+import com.example.travewhere.viewmodels.HotelViewModel;
+import com.example.travewhere.viewmodels.RoomViewModel;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
@@ -35,6 +42,14 @@ public class CreateHotelActivity extends AppCompatActivity {
     private PlacesClient placesClient;
     private ArrayAdapter<String> adapter;
 
+    private Button selectAddressButton;
+    private EditText roomTypeEditText, priceEditText, capacityEditText;
+    private RecyclerView roomRecyclerView;
+    private RoomAdapter roomAdapter;
+
+    private HotelViewModel hotelViewModel;
+    private RoomViewModel roomViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +60,41 @@ public class CreateHotelActivity extends AppCompatActivity {
             Places.initialize(getApplicationContext(), "AIzaSyAmYG0ewlmb4zaJAkC6pBsFjqi0NBQu-Po");
         }
 
-        Button selectAddressButton = findViewById(R.id.selectAddressButton);
+        // Add instance in ViewModel
+        hotelViewModel = new HotelViewModel();
+        roomViewModel = new RoomViewModel();
+
+        selectAddressButton = findViewById(R.id.selectAddressButton);
+        roomTypeEditText = findViewById(R.id.roomTypeEditText);
+        priceEditText = findViewById(R.id.priceEditText);
+        capacityEditText = findViewById(R.id.capacityEditText);
+        roomRecyclerView = findViewById(R.id.roomRecyclerView);
 
         selectAddressButton.setOnClickListener(v -> openAutocomplete());
 
+        roomAdapter = new RoomAdapter(this, roomViewModel.getRoomList());
 
+        roomRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        roomRecyclerView.setAdapter(roomAdapter);
+
+        findViewById(R.id.addRoomButton).setOnClickListener(v -> addRoom());
+    }
+
+    private void addRoom() {
+        String roomType = roomTypeEditText.getText().toString();
+        String priceStr = priceEditText.getText().toString();
+        String capacityStr = capacityEditText.getText().toString();
+
+        if (!roomType.isEmpty() && !priceStr.isEmpty() && !capacityStr.isEmpty()) {
+            double price = Double.parseDouble(priceStr);
+            int capacity = Integer.parseInt(capacityStr);
+            roomViewModel.getRoomList().add(new Room("",roomType, price,"", capacity));
+            roomAdapter.notifyItemInserted(roomViewModel.getRoomList().size() - 1);
+
+            roomTypeEditText.setText("");
+            priceEditText.setText("");
+            capacityEditText.setText("");
+        }
     }
 
     // Method to open Google Places Autocomplete
