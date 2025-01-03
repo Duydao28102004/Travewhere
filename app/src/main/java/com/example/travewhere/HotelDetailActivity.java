@@ -1,24 +1,123 @@
 package com.example.travewhere;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.travewhere.helpers.DateTimeHelper;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class HotelDetailActivity extends AppCompatActivity {
+    private static final String TAG = "HotelDetailActivity";
+    private ImageButton btnBack;
+    private ImageView imgHotel, imgCall, imgDirections, imgReviews;
+    private TextView tvHotelName, tvHotelLocation, tvPhoneNumber, tvEmail, tvCallAccommodation, getDirection, showReviews;
+    private RatingBar ratingBar;
+    private Button btnCheckInTime, btnCheckOutTime, btnAddToBookingList;
+
+    private FirestoreRepository firestoreRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_hotel_detail);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        firestoreRepository = new FirestoreRepository(this);
+
+        // Initialize UI components
+        btnBack = findViewById(R.id.btnBack);
+        imgHotel = findViewById(R.id.imgHotel);
+        tvHotelName = findViewById(R.id.tvHotelName);
+        tvHotelLocation = findViewById(R.id.tvHotelLocation);
+        tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
+        tvEmail = findViewById(R.id.tvEmail);
+        ratingBar = findViewById(R.id.ratingBar);
+        btnCheckInTime = findViewById(R.id.btnCheckInTime);
+        btnCheckOutTime = findViewById(R.id.btnCheckOutTime);
+        btnAddToBookingList = findViewById(R.id.btnAddToBookingList);
+        imgCall = findViewById(R.id.imgCallAccommodation);
+        imgDirections = findViewById(R.id.imgDirections);
+        imgReviews = findViewById(R.id.imgReviews);
+        tvCallAccommodation = findViewById(R.id.tvCallAccommodation);
+        getDirection = findViewById(R.id.getDirection);
+        showReviews = findViewById(R.id.showReviews);
+
+        // Get the hotel ID from the intent
+        String hotelId = getIntent().getStringExtra("HOTEL_ID");
+        if (hotelId != null) {
+            fetchHotelDetails(hotelId);
+        } else {
+            Toast.makeText(this, "No hotel ID provided!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        btnBack.setOnClickListener(v -> finish());
+
+        imgCall.setOnClickListener(v -> makePhoneCall());
+        tvCallAccommodation.setOnClickListener(v -> makePhoneCall());
+
+        imgDirections.setOnClickListener(v -> openDirections());
+        getDirection.setOnClickListener(v -> openDirections());
+
+        imgReviews.setOnClickListener(v -> showReviews());
+        showReviews.setOnClickListener(v -> showReviews());
+
+        btnCheckInTime.setOnClickListener(v -> DateTimeHelper.showTimePicker(this, btnCheckInTime));
+        btnCheckOutTime.setOnClickListener(v -> DateTimeHelper.showTimePicker(this, btnCheckOutTime));
+
+        btnAddToBookingList.setOnClickListener(v -> {
+            Toast.makeText(HotelDetailActivity.this, "Added to booking list!", Toast.LENGTH_SHORT).show();
+        });
+    }
+    
+    private void makePhoneCall() {
+        String phone = "+1234567890";
+        Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
+        startActivity(callIntent);
+    }
+
+    private void openDirections() {
+        String location = "geo:0,0?q=Hotel+Mui+Ne,+Phan+Thiet,+Vietnam";
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(location));
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
+
+    private void showReviews() {
+        Toast.makeText(this, "Navigating to reviews...", Toast.LENGTH_SHORT).show();
+    }
+
+    private void fetchHotelDetails(String hotelId) {
+        firestoreRepository.fetchHotelDetails(hotelId, new FirestoreRepository.HotelDetailsCallback() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String name = documentSnapshot.getString("name");
+                String address = documentSnapshot.getString("address");
+                String phoneNumber = documentSnapshot.getString("phoneNumber");
+                String email = documentSnapshot.getString("email");
+                double rating = documentSnapshot.contains("rating")
+                        ? documentSnapshot.getDouble("rating") : 0.0;
+
+                tvHotelName.setText(name);
+                tvHotelLocation.setText(address);
+                tvPhoneNumber.setText(phoneNumber);
+                tvEmail.setText(email);
+                ratingBar.setRating((float) rating);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.e(TAG, "Failed to fetch hotel details", e);
+            }
         });
     }
 }

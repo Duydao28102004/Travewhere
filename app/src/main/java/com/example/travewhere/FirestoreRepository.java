@@ -1,9 +1,13 @@
 package com.example.travewhere;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.travewhere.models.Customer;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -35,4 +39,29 @@ public class FirestoreRepository {
                     Toast.makeText(context, "Error adding customer", Toast.LENGTH_SHORT).show();
                 });
     }
+
+    public interface HotelDetailsCallback {
+        void onSuccess(DocumentSnapshot documentSnapshot);
+
+        void onFailure(Exception e);
+    }
+
+    public void fetchHotelDetails(String hotelId, HotelDetailsCallback callback) {
+        db.collection("hotels").document(hotelId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        callback.onSuccess(documentSnapshot);
+                    } else {
+                        Toast.makeText(context, "Hotel not found!", Toast.LENGTH_SHORT).show();
+                        callback.onFailure(new Exception("Hotel not found"));
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error fetching hotel details", e);
+                    Toast.makeText(context, "Error fetching details.", Toast.LENGTH_SHORT).show();
+                    callback.onFailure(e);
+                });
+    }
+
 }

@@ -189,7 +189,7 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:id="@+id/imgCall"
+                    android:id="@+id/imgCallAccommodation"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_call" />
