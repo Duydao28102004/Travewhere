@@ -89,7 +89,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
                             // Navigate to the main activity or dashboard
-                            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+                            startActivity(new Intent(AuthenticationActivity.this, ManagerActivity.class));
                             finish();
                         } else {
                             String errorMessage = task.getException() != null ? task.getException().getMessage() : "Login failed";

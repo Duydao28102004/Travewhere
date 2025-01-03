@@ -18,8 +18,8 @@ public class SampleData {
         Room room2 = new Room("R2", "Suite Room", 2000000.0, "H1", 2);
         Room room3 = new Room("R3", "Standard Room", 500000.0,"H1", 2);
 
-        List<Room> roomList1 = new ArrayList<>(Arrays.asList(room1, room2));
-        List<Room> roomList2 = new ArrayList<>(Arrays.asList(room2, room3));
+        List<String> roomList1 = new ArrayList<>(Arrays.asList("1", "2"));
+        List<String> roomList2 = new ArrayList<>(Arrays.asList("1", "2"));
 
         Hotel hotel1 = new Hotel(
                 "H1",
