@@ -62,14 +62,6 @@ public class HotelDetailActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> finish());
 
-        imgCall.setOnClickListener(v -> makePhoneCall());
-        tvCallAccommodation.setOnClickListener(v -> makePhoneCall());
-
-        imgDirections.setOnClickListener(v -> openDirections());
-        getDirection.setOnClickListener(v -> openDirections());
-
-        imgReviews.setOnClickListener(v -> showReviews());
-        showReviews.setOnClickListener(v -> showReviews());
 
         btnCheckInTime.setOnClickListener(v -> DateTimeHelper.showTimePicker(this, btnCheckInTime));
         btnCheckOutTime.setOnClickListener(v -> DateTimeHelper.showTimePicker(this, btnCheckOutTime));
@@ -77,23 +69,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         btnAddToBookingList.setOnClickListener(v -> {
             Toast.makeText(HotelDetailActivity.this, "Added to booking list!", Toast.LENGTH_SHORT).show();
         });
-    }
-    
-    private void makePhoneCall() {
-        String phone = "+1234567890";
-        Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
-        startActivity(callIntent);
-    }
-
-    private void openDirections() {
-        String location = "geo:0,0?q=Hotel+Mui+Ne,+Phan+Thiet,+Vietnam";
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(location));
-        mapIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapIntent);
-    }
-
-    private void showReviews() {
-        Toast.makeText(this, "Navigating to reviews...", Toast.LENGTH_SHORT).show();
     }
 
     private void fetchHotelDetails(String hotelId) {
