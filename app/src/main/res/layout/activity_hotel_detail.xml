@@ -64,7 +64,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Hotel Mui Ne"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -74,8 +73,23 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_location"
                 android:drawablePadding="8dp"
-                android:text="Phan Thiet, Mui Ne, Vietnam"
                 android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
@@ -114,12 +128,13 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvCheckInDate"
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/btnCheckInTime"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="12 May, 2024\n12:00 AM"
-                    android:textSize="12sp" />
+                    android:text="Select Check-In Time"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/secondary_text"/>
             </LinearLayout>
 
             <ImageView
@@ -145,12 +160,13 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvCheckOutDate"
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/btnCheckOutTime"
+                    android:layout_width="166dp"
                     android:layout_height="wrap_content"
-                    android:text="30 May, 2024\n12:00 AM"
-                    android:textSize="12sp" />
+                    android:backgroundTint="@color/white"
+                    android:text="Select Check-Out Time"
+                    android:textColor="@color/secondary_text" />
             </LinearLayout>
         </LinearLayout>
 
@@ -263,7 +279,7 @@
         <Button
             android:id="@+id/btnAddToBookingList"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="72dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/secondary"
             android:text="Add To Booking List"
