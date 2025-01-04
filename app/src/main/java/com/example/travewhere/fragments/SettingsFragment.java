@@ -1,4 +1,4 @@
-package com.example.travewhere;
+package com.example.travewhere.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.example.travewhere.LanguageSettingsActivity;
+import com.example.travewhere.PreferencesSettingsActivity;
+import com.example.travewhere.R;
 
 
 public class SettingsFragment extends Fragment {
