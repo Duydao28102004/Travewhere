@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.appcompat.v161)
+    implementation("com.google.android.libraries.places:places:4.1.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -41,11 +41,12 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.database)
+    implementation(libs.lifecycle.viewmodel.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
