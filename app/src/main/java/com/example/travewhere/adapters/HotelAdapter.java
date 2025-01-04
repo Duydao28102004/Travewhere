@@ -19,10 +19,16 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
 
     private Context context;
     private List<Hotel> hotelList;
+    private OnHotelClickListener onHotelClickListener;
 
-    public HotelAdapter(Context context, List<Hotel> hotelList) {
+    public interface OnHotelClickListener {
+        void onHotelClick(String hotelId);
+    }
+
+    public HotelAdapter(Context context, List<Hotel> hotelList, OnHotelClickListener onHotelClickListener) {
         this.context = context;
         this.hotelList = hotelList;
+        this.onHotelClickListener = onHotelClickListener;
     }
 
     @NonNull
@@ -42,6 +48,13 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         holder.ratingTextView.setText("10/10"); // Example static rating, replace with real data if available
         holder.reviewsCountTextView.setText("(85)"); // Example static reviews count, replace with real data if available
         holder.priceTextView.setText("500.000 VND"); // Replace with dynamic price data
+
+        // Set click listener
+        holder.itemView.setOnClickListener(v -> {
+            if (onHotelClickListener != null) {
+                onHotelClickListener.onHotelClick(hotel.getId());
+            }
+        });
     }
 
     @Override

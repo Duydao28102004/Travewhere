@@ -14,6 +14,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travewhere.helpers.DateTimeHelper;
+import com.example.travewhere.models.Hotel;
+import com.example.travewhere.repositories.HotelRepository;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class HotelDetailActivity extends AppCompatActivity {
@@ -24,14 +28,14 @@ public class HotelDetailActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private Button btnCheckInTime, btnCheckOutTime, btnAddToBookingList;
 
-    private FirestoreRepository firestoreRepository;
+    private HotelRepository hotelRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
 
-        firestoreRepository = new FirestoreRepository(this);
+        hotelRepository = new HotelRepository();
 
         // Initialize UI components
         btnBack = findViewById(R.id.btnBack);
@@ -72,27 +76,27 @@ public class HotelDetailActivity extends AppCompatActivity {
     }
 
     private void fetchHotelDetails(String hotelId) {
-        firestoreRepository.fetchHotelDetails(hotelId, new FirestoreRepository.HotelDetailsCallback() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String name = documentSnapshot.getString("name");
-                String address = documentSnapshot.getString("address");
-                String phoneNumber = documentSnapshot.getString("phoneNumber");
-                String email = documentSnapshot.getString("email");
-                double rating = documentSnapshot.contains("rating")
-                        ? documentSnapshot.getDouble("rating") : 0.0;
+        hotelRepository.getHotelById(hotelId)
+                .addOnSuccessListener(new OnSuccessListener<Hotel>() {
+                    @Override
+                    public void onSuccess(Hotel hotel) {
+                        if (hotel != null) {
+                            tvHotelName.setText(hotel.getName());
+                            tvHotelLocation.setText(hotel.getAddress());
+                            tvPhoneNumber.setText(hotel.getPhoneNumber());
+                            tvEmail.setText(hotel.getEmail());
 
-                tvHotelName.setText(name);
-                tvHotelLocation.setText(address);
-                tvPhoneNumber.setText(phoneNumber);
-                tvEmail.setText(email);
-                ratingBar.setRating((float) rating);
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                Log.e(TAG, "Failed to fetch hotel details", e);
-            }
-        });
+                            // ratingBar.setRating((float) hotel.getRating());
+                            //  imgHotel.setImageResource(hotel.getImageResourceId());
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.e(TAG, "Failed to fetch hotel details", e);
+                        Toast.makeText(HotelDetailActivity.this, "Failed to fetch hotel details", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

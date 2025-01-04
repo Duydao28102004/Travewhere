@@ -1,78 +1,84 @@
 package com.example.travewhere.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.travewhere.HotelDetailActivity;
 import com.example.travewhere.R;
-import com.example.travewhere.SampleData;
 import com.example.travewhere.adapters.HotelAdapter;
+import com.example.travewhere.models.Hotel;
+import com.example.travewhere.repositories.HotelRepository;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomepageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HomepageFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class HomepageFragment extends Fragment implements HotelAdapter.OnHotelClickListener {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomepageFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomepageFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomepageFragment newInstance(String param1, String param2) {
-        HomepageFragment fragment = new HomepageFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private RecyclerView hotelRecyclerView;
+    private HotelAdapter hotelAdapter;
+    private List<Hotel> hotelList;
+    private HotelRepository hotelRepository;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        hotelRepository = new HotelRepository();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
-        RecyclerView hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
+        hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
 
-        // Get sample data
+        // Set layout manager for the RecyclerView
+        hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        hotelRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        HotelAdapter adapter = new HotelAdapter(getContext(), SampleData.getSampleHotels());
-        hotelRecyclerView.setAdapter(adapter);
+        // Initialize the list and adapter
+        hotelList = new ArrayList<>();
+        hotelAdapter = new HotelAdapter(getContext(), hotelList, this);
+        hotelRecyclerView.setAdapter(hotelAdapter);
+
+        // Fetch all hotels and update the RecyclerView
+        fetchHotels();
+
         return view;
+    }
+
+    private void fetchHotels() {
+        hotelRepository.getAllHotels()
+                .addOnCompleteListener(new OnCompleteListener<List<Hotel>>() {
+                    @Override
+                    public void onComplete(@NonNull Task<List<Hotel>> task) {
+                        if (task.isSuccessful()) {
+                            List<Hotel> hotels = task.getResult();
+                            if (hotels != null) {
+                                hotelList.clear();
+                                hotelList.addAll(hotels);
+                                hotelAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Log.e("HomepageFragment", "Error getting hotels: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onHotelClick(String hotelId) {
+        Intent intent = new Intent(requireContext(), HotelDetailActivity.class);
+        intent.putExtra("HOTEL_ID", hotelId);
+        startActivity(intent);
     }
 }

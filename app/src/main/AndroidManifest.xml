@@ -24,6 +24,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".HotelDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".AuthenticationActivity"
             android:exported="true">
             <intent-filter>
