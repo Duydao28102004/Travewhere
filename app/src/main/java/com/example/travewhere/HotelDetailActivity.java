@@ -63,8 +63,8 @@ public class HotelDetailActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
 
 
-        btnCheckInTime.setOnClickListener(v -> DateTimeHelper.showTimePicker(this, btnCheckInTime));
-        btnCheckOutTime.setOnClickListener(v -> DateTimeHelper.showTimePicker(this, btnCheckOutTime));
+        btnCheckInTime.setOnClickListener(v -> DateTimeHelper.showDateTimePicker(this, btnCheckInTime));
+        btnCheckOutTime.setOnClickListener(v -> DateTimeHelper.showDateTimePicker(this, btnCheckOutTime));
 
         btnAddToBookingList.setOnClickListener(v -> {
             Toast.makeText(HotelDetailActivity.this, "Added to booking list!", Toast.LENGTH_SHORT).show();
