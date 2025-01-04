@@ -1,24 +1,176 @@
 package com.example.travewhere;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseUser;
 
 public class AuthenticationActivity extends AppCompatActivity {
+
+    private LinearLayout loginLayout, signupLayout;
+    private Button loginButton, signupButton;
+    private TextView switchToSignup, switchToLogin;
+    private EditText loginEmail, loginPassword;
+    private EditText signupEmail, signupPassword, fullName, phoneNumber;
+    private CheckBox checkboxAccommodationOwner, checkboxTermsAndConditions;
+
+    private AuthenticationRepository authRepository;
+    private FirestoreRepository firestoreRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_authentication);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        // Hide the top bar
+        getSupportActionBar().hide();
+
+        // Initialize the repository
+        authRepository = new AuthenticationRepository();
+        firestoreRepository = new FirestoreRepository(this);
+
+        // Link UI components
+        loginLayout = findViewById(R.id.loginLayout);
+        signupLayout = findViewById(R.id.signupLayout);
+        loginButton = findViewById(R.id.loginButton);
+        signupButton = findViewById(R.id.signupButton);
+        switchToLogin = findViewById(R.id.switchToLogin);
+        switchToSignup = findViewById(R.id.switchToSignup);
+        loginEmail = findViewById(R.id.loginEmail);
+        loginPassword = findViewById(R.id.loginPassword);
+        signupEmail = findViewById(R.id.signupEmail);
+        signupPassword = findViewById(R.id.signupPassword);
+        fullName = findViewById(R.id.fullName);
+        phoneNumber = findViewById(R.id.phoneNumber);
+        checkboxAccommodationOwner = findViewById(R.id.checkboxAccommodationOwner);
+        checkboxTermsAndConditions = findViewById(R.id.checkboxTermsAndConditions);
+
+        // Set up UI interactions
+        setupSwitchListeners();
+        setupLoginListener();
+        setupSignupListener();
+    }
+
+    private void setupSwitchListeners() {
+        switchToLogin.setOnClickListener(v -> {
+            loginLayout.setVisibility(View.VISIBLE);
+            signupLayout.setVisibility(View.GONE);
         });
+
+        switchToSignup.setOnClickListener(v -> {
+            loginLayout.setVisibility(View.GONE);
+            signupLayout.setVisibility(View.VISIBLE);
+        });
+    }
+
+    private void setupLoginListener() {
+        loginButton.setOnClickListener(v -> {
+            String email = loginEmail.getText().toString().trim();
+            String password = loginPassword.getText().toString().trim();
+
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                Toast.makeText(this, "Please fill in both fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Call the login method from the repository
+            authRepository.login(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+                            // Navigate to the main activity or dashboard
+                            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+                            finish();
+                        } else {
+                            String errorMessage = task.getException() != null ? task.getException().getMessage() : "Login failed";
+                            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
+    }
+
+    private void setupSignupListener() {
+        signupButton.setOnClickListener(v -> {
+            String name = fullName.getText().toString().trim();
+            String email = signupEmail.getText().toString().trim();
+            String password = signupPassword.getText().toString().trim();
+            String phone = phoneNumber.getText().toString().trim();
+
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(phone)) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!isValidVietnamesePhone(phone)) {
+                Toast.makeText(this, "Invalid Vietnamese phone number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!checkboxTermsAndConditions.isChecked()) {
+                Toast.makeText(this, "You must agree to the Terms and Conditions", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Call the signup method from the repository
+            authRepository.signup(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // save customer data to Firestore
+                            FirebaseUser user = authRepository.getCurrentUser();
+
+                            //determine if the user is an accommodation owner
+                            if (checkboxAccommodationOwner.isActivated()) {
+                                firestoreRepository.createCustomer(user.getUid(), name, email, phone);
+                            } else {
+                                firestoreRepository.createCustomer(user.getUid(), name, email, phone);
+                            }
+
+                            Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
+                            // Navigate to the main activity or dashboard
+                            loginLayout.setVisibility(View.VISIBLE);
+                            signupLayout.setVisibility(View.GONE);
+
+                            clearSignupFields(fullName, signupEmail, signupPassword,
+                                    phoneNumber, checkboxTermsAndConditions);
+                        } else {
+                            String errorMessage = task.getException() != null ? task.getException().getMessage() : "Signup failed";
+                            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
+    }
+
+    private boolean isValidVietnamesePhone(String phoneNumber) {
+        String vietnamesePhonePattern = "^(03|05|07|08|09)\\d{8}$";
+        return !TextUtils.isEmpty(phoneNumber) && phoneNumber.matches(vietnamesePhonePattern);
+    }
+
+
+    private boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private void clearSignupFields(EditText fullName, EditText email, EditText password,
+                                         EditText phoneNumber, CheckBox termsAndConditionsCheck) {
+        fullName.setText("");
+        email.setText("");
+        password.setText("");
+        phoneNumber.setText("");
+        termsAndConditionsCheck.setChecked(false);
     }
 }
