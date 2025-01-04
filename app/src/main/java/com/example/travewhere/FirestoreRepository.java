@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.travewhere.models.Customer;
+import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Manager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
