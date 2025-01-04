@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".LanguageSettingsActivity">
+
+    <TextView
+        android:id="@+id/language_selection_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/languages_selection"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/neutral_text"
+        android:layout_marginBottom="32dp"/>
+
+    <RadioGroup
+        android:id="@+id/languages_selection"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/english"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/language_en"
+            android:textSize="24sp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/neutral_text"
+            android:buttonTint="@color/neutral_text"/>
+
+        <RadioButton
+            android:id="@+id/vietnamese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/language_vn"
+            android:textSize="24sp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/neutral_text"
+            android:buttonTint="@color/neutral_text"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/confirm_language_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@drawable/corner_button_background"
+        android:backgroundTint="@color/primary"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
