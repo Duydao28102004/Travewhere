@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,8 +21,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travewhere.adapters.RoomAdapter;
+import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Room;
+import com.example.travewhere.repositories.AuthenticationRepository;
 import com.example.travewhere.viewmodels.HotelViewModel;
+import com.example.travewhere.viewmodels.ManagerViewModel;
 import com.example.travewhere.viewmodels.RoomViewModel;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
@@ -41,7 +45,9 @@ public class CreateHotelActivity extends AppCompatActivity {
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private PlacesClient placesClient;
     private ArrayAdapter<String> adapter;
+    private Place selectedPlace;
 
+    private TextView nameTextView, phoneTextView;
     private Button selectAddressButton;
     private EditText roomTypeEditText, priceEditText, capacityEditText;
     private RecyclerView roomRecyclerView;
@@ -49,6 +55,8 @@ public class CreateHotelActivity extends AppCompatActivity {
 
     private HotelViewModel hotelViewModel;
     private RoomViewModel roomViewModel;
+    private ManagerViewModel managerViewModel;
+    private AuthenticationRepository authenticationRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +71,13 @@ public class CreateHotelActivity extends AppCompatActivity {
         // Add instance in ViewModel
         hotelViewModel = new HotelViewModel();
         roomViewModel = new RoomViewModel();
+        managerViewModel = new ManagerViewModel();
 
+        authenticationRepository = new AuthenticationRepository();
+
+        // Set up the UI
+        nameTextView = findViewById(R.id.nameEditText);
+        phoneTextView = findViewById(R.id.phoneEditText);
         selectAddressButton = findViewById(R.id.selectAddressButton);
         roomTypeEditText = findViewById(R.id.roomTypeEditText);
         priceEditText = findViewById(R.id.priceEditText);
@@ -78,6 +92,24 @@ public class CreateHotelActivity extends AppCompatActivity {
         roomRecyclerView.setAdapter(roomAdapter);
 
         findViewById(R.id.addRoomButton).setOnClickListener(v -> addRoom());
+        findViewById(R.id.saveButton).setOnClickListener(v -> saveHotel());
+    }
+
+    private void saveHotel() {
+        Toast.makeText(this, "Saving hotel...", Toast.LENGTH_SHORT).show();
+        List<String> roomIdList = new ArrayList<>();
+        for (Room room : roomViewModel.getRoomList()) {
+            roomIdList.add(room.getId());
+        }
+        String hotelId = hotelViewModel.getUID();
+        managerViewModel.getManagerById(authenticationRepository.getCurrentUser().getUid()).observe(this, manager -> {
+            hotelViewModel.addHotel(new Hotel(hotelId, nameTextView.getText().toString(), selectedPlace.getAddress(), phoneTextView.getText().toString(), "", manager, roomIdList));
+            for (Room room : roomViewModel.getRoomList()) {
+                room.setHotelId(hotelId);
+                roomViewModel.addRoom(room);
+            }
+            finish();
+        });
     }
 
     private void addRoom() {
@@ -88,7 +120,7 @@ public class CreateHotelActivity extends AppCompatActivity {
         if (!roomType.isEmpty() && !priceStr.isEmpty() && !capacityStr.isEmpty()) {
             double price = Double.parseDouble(priceStr);
             int capacity = Integer.parseInt(capacityStr);
-            roomViewModel.getRoomList().add(new Room("",roomType, price,"", capacity));
+            roomViewModel.getRoomList().add(new Room(roomViewModel.getUID(), roomType, price,"", capacity));
             roomAdapter.notifyItemInserted(roomViewModel.getRoomList().size() - 1);
 
             roomTypeEditText.setText("");
@@ -113,7 +145,7 @@ public class CreateHotelActivity extends AppCompatActivity {
 
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK && data != null) {
-                Place place = Autocomplete.getPlaceFromIntent(data);
+                selectedPlace= Autocomplete.getPlaceFromIntent(data);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.e("AutocompleteError", status.getStatusMessage());
