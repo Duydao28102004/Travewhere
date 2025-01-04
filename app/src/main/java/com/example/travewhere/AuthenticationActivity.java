@@ -3,6 +3,7 @@ package com.example.travewhere;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
 import android.view.View;
@@ -13,7 +14,16 @@ import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.travewhere.models.Customer;
+import com.example.travewhere.models.Manager;
+import com.example.travewhere.repositories.AuthenticationRepository;
+import com.example.travewhere.repositories.CustomerRepository;
+import com.example.travewhere.repositories.ManagerRepository;
+import com.example.travewhere.viewmodels.CustomerViewModel;
+import com.example.travewhere.viewmodels.ManagerViewModel;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.checkerframework.checker.units.qual.C;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
@@ -26,15 +36,22 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     private AuthenticationRepository authRepository;
     private FirestoreRepository firestoreRepository;
+    private CustomerViewModel customerViewModel;
+    private ManagerViewModel managerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
+        // Hide the top bar
+        getSupportActionBar().hide();
+
         // Initialize the repository
         authRepository = new AuthenticationRepository();
         firestoreRepository = new FirestoreRepository(this);
+        customerViewModel = new CustomerViewModel();
+        managerViewModel = new ManagerViewModel();
 
         // Link UI components
         loginLayout = findViewById(R.id.loginLayout);
@@ -84,9 +101,36 @@ public class AuthenticationActivity extends AppCompatActivity {
             authRepository.login(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-                            // Navigate to the main activity or dashboard
-                            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+                            FirebaseUser user = authRepository.getCurrentUser();
+                            if (user == null) {
+                                Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            String userId = user.getUid();
+
+                            // Check if user is a Customer
+                            customerViewModel.getCustomerById(userId).observe(this, customer -> {
+                                if (customer != null) {
+                                    // Redirect to Customer's MainActivity
+                                    Intent intent = new Intent(this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    // Check if user is a Manager
+                                    managerViewModel.getManagerById(userId).observe(this, manager -> {
+                                        if (manager != null) {
+                                            // Redirect to ManagerActivity
+                                            Intent intent = new Intent(this, ManagerActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            // If user is neither a Customer nor a Manager
+                                            Toast.makeText(this, "Unknown user type", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
                         } else {
                             String errorMessage = task.getException() != null ? task.getException().getMessage() : "Login failed";
                             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
@@ -94,6 +138,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                     });
         });
     }
+
 
     private void setupSignupListener() {
         signupButton.setOnClickListener(v -> {
@@ -128,7 +173,14 @@ public class AuthenticationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // save customer data to Firestore
                             FirebaseUser user = authRepository.getCurrentUser();
-                            firestoreRepository.createCustomer(user.getUid(), name, email, phone);
+
+                            //determine if the user is an accommodation owner
+                            if (checkboxAccommodationOwner.isChecked()) {
+                                managerViewModel.addManager(new Manager(user.getUid(), name, email, phone));
+                            } else {
+                                customerViewModel.addCustomer(new Customer(user.getUid(), name, email, phone));
+                            }
+
                             Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
                             // Navigate to the main activity or dashboard
                             loginLayout.setVisibility(View.VISIBLE);

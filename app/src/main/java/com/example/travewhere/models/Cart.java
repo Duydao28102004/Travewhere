@@ -3,22 +3,22 @@ package com.example.travewhere.models;
 import java.util.List;
 
 public class Cart {
-    private List<Room> roomList;
+    private List<String> roomIdList;
     private Coupon coupon;
 
     public Cart() {}
 
-    public Cart(List<Room> roomList, Coupon coupon) {
-        this.roomList = roomList;
+    public Cart(List<String> roomList, Coupon coupon) {
+        this.roomIdList = roomList;
         this.coupon = coupon;
     }
 
-    public List<Room> getRoomList() {
-        return roomList;
+    public List<String> getRoomList() {
+        return roomIdList;
     }
 
-    public void setRoomList(List<Room> roomList) {
-        this.roomList = roomList;
+    public void setRoomList(List<String> roomList) {
+        this.roomIdList = roomList;
     }
 
     public Coupon getCoupon() {

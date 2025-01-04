@@ -1,13 +1,11 @@
 package com.example.travewhere;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.travewhere.models.Customer;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.example.travewhere.models.Hotel;
+import com.example.travewhere.models.Manager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -22,46 +20,48 @@ public class FirestoreRepository {
     }
 
     public void createCustomer(String id, String name, String email, String phone) {
-        // Create hashmap to store data and key first
-        Map<String, Object> customer = new HashMap<>();
-        customer.put("name", name);
-        customer.put("email", email);
-        customer.put("phone", phone);
+        // Check if customer ID already exists
+        db.collection("customers").document(id).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                Toast.makeText(context, "Customer ID already exists", Toast.LENGTH_SHORT).show();
+            } else {
+                // Create customer class to store data
+                Customer customer = new Customer(id, name, email, phone);
 
-        // Add data to Firestore
-        db.collection("customers")
-                .document(id)
-                .set(customer)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(context, "Customer added successfully", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(context, "Error adding customer", Toast.LENGTH_SHORT).show();
-                });
+                // Create customer in Firestore
+                db.collection("customers")
+                        .document(id)
+                        .set(customer)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(context, "Customer added successfully", Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(context, "Error adding customer", Toast.LENGTH_SHORT).show();
+                        });
+            }
+        });
     }
 
-    public interface HotelDetailsCallback {
-        void onSuccess(DocumentSnapshot documentSnapshot);
+    public void createManager(String id, String name, String email, String phone) {
+        // Check if manager ID already exists
+        db.collection("managers").document(id).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                Toast.makeText(context, "Manager ID already exists", Toast.LENGTH_SHORT).show();
+            } else {
+                // Create manager class to store data
+                Manager manager = new Manager(id, name, email, phone);
 
-        void onFailure(Exception e);
+                // Create manager in Firestore
+                db.collection("managers")
+                        .document(id)
+                        .set(manager)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(context, "Manager added successfully", Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(context, "Error adding manager", Toast.LENGTH_SHORT).show();
+                        });
+            }
+        });
     }
-
-    public void fetchHotelDetails(String hotelId, HotelDetailsCallback callback) {
-        db.collection("hotels").document(hotelId)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        callback.onSuccess(documentSnapshot);
-                    } else {
-                        Toast.makeText(context, "Hotel not found!", Toast.LENGTH_SHORT).show();
-                        callback.onFailure(new Exception("Hotel not found"));
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error fetching hotel details", e);
-                    Toast.makeText(context, "Error fetching details.", Toast.LENGTH_SHORT).show();
-                    callback.onFailure(e);
-                });
-    }
-
 }
