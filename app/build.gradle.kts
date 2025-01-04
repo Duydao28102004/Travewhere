@@ -33,7 +33,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.appcompat.v161)
     implementation("com.google.android.material:material:1.12.0")
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -45,7 +44,6 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
