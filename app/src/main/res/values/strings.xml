@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">Travewhere</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="user_profile_image">User Profile Image</string>
+    <string name="greeting_user_name">Hi, Duy Dao!</string>
+    <string name="settings_label">Settings</string>
+    <string name="language_settings_icon">Language Settings Icon</string>
+    <string name="languages_label">Languages</string>
+    <string name="preferences_label">Preferences</string>
+    <string name="security_label">Security</string>
+    <string name="currency_label">Currency</string>
+    <string name="support_label">Support</string>
+    <string name="contact_us_label">Contact Us</string>
+    <string name="faqs_label">FAQs</string>
+    <string name="about_us_label">About Us</string>
+    <string name="logout">Log Out</string>
+    <string name="languages_selection">Languages Selection</string>
+    <string name="language_en">English</string>
+    <string name="language_vn">Vietnamese</string>
+    <string name="language_es">Spanish</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

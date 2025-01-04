@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Travewhere</string>
+    <string name="greeting_user_name">Xin chào, Duy Dao!</string>
+    <string name="settings_label">Cài đặt</string>
+    <string name="language_settings_icon">Biểu tượng cài đặt ngôn ngữ</string>
+    <string name="languages_label">Ngôn ngữ</string>
+    <string name="preferences_label">Sở thích</string>
+    <string name="security_label">Bảo mật</string>
+    <string name="currency_label">Tiền tệ</string>
+    <string name="support_label">Hỗ trợ</string>
+    <string name="contact_us_label">Liên hệ chúng tôi</string>
+    <string name="faqs_label">Các câu hỏi thường gặp</string>
+    <string name="about_us_label">Về chúng tôi</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="user_profile_image">Ảnh người dùng</string>
+    <string name="languages_selection">Lựa chọn ngôn ngữ</string>
+    <string name="language_en">Tiếng Anh</string>
+    <string name="language_vn">Tiếng Việt</string>
+    <string name="language_es">Tiếng Tây Ban Nha</string>
+</resources>
