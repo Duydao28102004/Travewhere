@@ -1,0 +1,52 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_rectangle"
+    android:padding="8dp"
+    android:layout_margin="8dp"
+    android:gravity="center">
+
+    <!-- Coupon Image -->
+    <ImageView
+        android:id="@+id/coupon_image"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/testingimage" />
+
+    <!-- Discount Info -->
+    <TextView
+        android:id="@+id/coupon_discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discount upto 80k VND"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="8dp"
+        android:gravity="center" />
+
+    <!-- Min Spend Info -->
+    <TextView
+        android:id="@+id/coupon_min_spend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Min spend: 400k VND"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center" />
+
+    <!-- Coupon Code -->
+    <TextView
+        android:id="@+id/coupon_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KS1212LUXINY"
+        android:textSize="14sp"
+        android:background="@color/secondary"
+        android:padding="4dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="8dp"
+        android:gravity="center" />
+</LinearLayout>
