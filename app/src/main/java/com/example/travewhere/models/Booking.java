@@ -1,21 +1,22 @@
 package com.example.travewhere.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class Booking {
     private String id;
     private Customer customer;
-    private Room room;
+    private String roomId;
     private Date checkInDate;
     private Date checkOutDate;
     private double totalPrice;
 
     public Booking() {}
 
-    public Booking(String id, Customer customer, Room room, Date checkInDate, Date checkOutDate, double totalPrice) {
+    public Booking(String id, Customer customer, String roomId, Date checkInDate, Date checkOutDate, double totalPrice) {
         this.id = id;
         this.customer = customer;
-        this.room = room;
+        this.roomId = roomId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.totalPrice = totalPrice;
@@ -37,12 +38,12 @@ public class Booking {
         this.customer = customer;
     }
 
-    public Room getRoom() {
-        return room;
+    public String getRoomId() {
+        return roomId;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
 
     public Date getCheckInDate() {

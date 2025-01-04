@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 //                selectedFragment.setArguments(args);
             } else if (itemId == R.id.nav_explore) {
 //                selectedFragment = new ExploreFragment();
-
             } else if (itemId == R.id.nav_saved) {
 //                selectedFragment = new SavedFragment();
             } else if (itemId == R.id.nav_settings) {
