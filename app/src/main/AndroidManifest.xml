@@ -28,17 +28,18 @@
             android:exported="false"
             tools:ignore="Instantiatable">
         </activity>
-        <activity
-            android:name=".AuthenticationActivity"
-            android:exported="true">
+<!--        <activity-->
+<!--            android:name=".AuthenticationActivity"-->
+<!--            android:exported="true">-->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-        <activity
-            android:name=".HomepageActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".HomepageActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".AuthenticationActivity"
+            android:exported="true">
             
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
