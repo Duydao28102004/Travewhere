@@ -30,6 +30,10 @@ public class HotelViewModel extends ViewModel {
         return hotelListLiveData;
     }
 
+    public List<Hotel> getHotelsList() {
+        return hotels;
+    }
+
     public LiveData<Hotel> getHotelById(String hotelId) {
         hotelRepository.getHotelById(hotelId).addOnSuccessListener(hotel -> {
             hotelLiveData.postValue(hotel);
