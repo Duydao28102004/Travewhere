@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,13 +67,26 @@ public class HotelDetailActivity extends AppCompatActivity {
         }
 
         btnBack.setOnClickListener(v -> finish());
-
-
+        
         btnCheckInTime.setOnClickListener(v -> DateTimeHelper.showDateTimePicker(this, btnCheckInTime));
         btnCheckOutTime.setOnClickListener(v -> DateTimeHelper.showDateTimePicker(this, btnCheckOutTime));
 
         btnAddToBookingList.setOnClickListener(v -> {
             Toast.makeText(HotelDetailActivity.this, "Added to booking list!", Toast.LENGTH_SHORT).show();
+        });
+
+        LinearLayout linearLayoutCallAccommodation = findViewById(R.id.linearLayoutCallAccommodation);
+        tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
+        // Click listener for Call Accommodation Linear Layout
+        linearLayoutCallAccommodation.setOnClickListener(v -> {
+            String phoneNumber = tvPhoneNumber.getText().toString().trim();
+            if (!phoneNumber.isEmpty()) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:" + phoneNumber));
+                startActivity(callIntent);
+            } else {
+                Toast.makeText(HotelDetailActivity.this, "Phone number not available", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
