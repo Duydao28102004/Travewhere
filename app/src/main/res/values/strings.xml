@@ -12,7 +12,7 @@
     <string name="contact_us_label">Contact Us</string>
     <string name="faqs_label">FAQs</string>
     <string name="about_us_label">About Us</string>
-    <string name="logout">Log Out</string>
+    <string name="log_out">Log Out</string>
     <string name="languages_selection">Languages Selection</string>
     <string name="language_en">English</string>
     <string name="language_vn">Vietnamese</string>

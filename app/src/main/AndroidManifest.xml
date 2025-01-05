@@ -23,25 +23,26 @@
         android:theme="@style/Theme.Travewhere"
         tools:targetApi="31">
         <activity
+            android:name=".PreferencesSettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateHotelActivity"
             android:exported="false" />
         <activity
             android:name=".ManagerActivity"
             android:exported="false" />
         <activity
-            android:name="LanguageSettingsActivity"
+            android:name=".LanguageSettingsActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".HomepageActivity"-->
-<!--            android:exported="false" />-->
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".HomepageActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".AuthenticationActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
