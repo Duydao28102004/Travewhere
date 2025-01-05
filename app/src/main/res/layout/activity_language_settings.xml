@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="@drawable/corner_button_background"
+        android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/primary"
         android:gravity="center">
 

@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.travewhere.R;
-import com.example.travewhere.SampleData;
 import com.example.travewhere.adapters.HotelAdapter;
 
 /**
@@ -70,9 +69,9 @@ public class HomepageFragment extends Fragment {
 
         // Get sample data
 
-        hotelRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        HotelAdapter adapter = new HotelAdapter(getContext(), SampleData.getSampleHotels());
-        hotelRecyclerView.setAdapter(adapter);
+//        hotelRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+//        HotelAdapter adapter = new HotelAdapter(getContext(), SampleData.getSampleHotels());
+//        hotelRecyclerView.setAdapter(adapter);
         return view;
     }
 }
