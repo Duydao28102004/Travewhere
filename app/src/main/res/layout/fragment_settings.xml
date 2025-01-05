@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".SettingsActivity">
+    android:padding="16dp">
 
     <!-- User Profile Image & Name Container -->
     <LinearLayout
@@ -199,7 +198,7 @@
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
                 android:padding="8dp"
-                app:drawableEndCompat="@drawable/about_icon" />
+                app:drawableEndCompat="@drawable/about_us_icon" />
 
             <View
                 android:layout_width="match_parent"
@@ -226,7 +225,7 @@
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
                 android:padding="8dp"
-                app:drawableEndCompat="@drawable/faq_icon" />
+                app:drawableEndCompat="@drawable/faqs_icon" />
 
             <View
                 android:layout_width="match_parent"
@@ -253,7 +252,7 @@
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
                 android:padding="8dp"
-                app:drawableEndCompat="@drawable/contact_icon" />
+                app:drawableEndCompat="@drawable/contact_us_icon" />
 
             <View
                 android:layout_width="match_parent"
@@ -273,19 +272,20 @@
         android:layout_marginVertical="32dp"
         android:gravity="center"
         android:backgroundTint="@color/red"
-        android:background="@drawable/corner_button_background">
+        android:background="@drawable/rounded_rectangle">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/logout_icon"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/logout_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/logout"
+            android:text="@string/log_out"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
