@@ -32,6 +32,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
 }
 
 secrets {
@@ -67,7 +71,6 @@ dependencies {
     // Maps SDK for Android
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
-    implementation(libs.play.services.places)
 }
 java {
     toolchain {
