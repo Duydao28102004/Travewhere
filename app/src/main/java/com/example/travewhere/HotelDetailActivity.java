@@ -3,8 +3,6 @@ package com.example.travewhere;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,13 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.travewhere.helpers.DateTimeHelper;
-import com.example.travewhere.models.Hotel;
-import com.example.travewhere.repositories.HotelRepository;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.example.travewhere.viewmodels.HotelViewModel;
 
 public class HotelDetailActivity extends AppCompatActivity {
     private static final String TAG = "HotelDetailActivity";
@@ -30,14 +25,14 @@ public class HotelDetailActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private Button btnCheckInTime, btnCheckOutTime, btnAddToBookingList;
 
-    private HotelRepository hotelRepository;
+    private HotelViewModel hotelViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
 
-        hotelRepository = new HotelRepository();
+        hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
 
         // Initialize UI components
         btnBack = findViewById(R.id.btnBack);
@@ -91,27 +86,20 @@ public class HotelDetailActivity extends AppCompatActivity {
     }
 
     private void fetchHotelDetails(String hotelId) {
-        hotelRepository.getHotelById(hotelId)
-                .addOnSuccessListener(new OnSuccessListener<Hotel>() {
-                    @Override
-                    public void onSuccess(Hotel hotel) {
-                        if (hotel != null) {
-                            tvHotelName.setText(hotel.getName());
-                            tvHotelLocation.setText(hotel.getAddress());
-                            tvPhoneNumber.setText(hotel.getPhoneNumber());
-                            tvEmail.setText(hotel.getEmail());
+        hotelViewModel.getHotelById(hotelId).observe(this, hotel -> {
+            if (hotel != null) {
+                tvHotelName.setText(hotel.getName());
+                tvHotelLocation.setText(hotel.getAddress());
+                tvPhoneNumber.setText(hotel.getPhoneNumber());
+                tvEmail.setText(hotel.getEmail());
 
-                            // ratingBar.setRating((float) hotel.getRating());
-                            //  imgHotel.setImageResource(hotel.getImageResourceId());
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(Exception e) {
-                        Log.e(TAG, "Failed to fetch hotel details", e);
-                        Toast.makeText(HotelDetailActivity.this, "Failed to fetch hotel details", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                // Set rating and other fields
+                //ratingBar.setRating((float) hotel.getRating());
+                // You can set the hotel image here if available
+                // imgHotel.setImageResource(hotel.getImageResourceId());
+            } else {
+                Toast.makeText(HotelDetailActivity.this, "Hotel details not found!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
