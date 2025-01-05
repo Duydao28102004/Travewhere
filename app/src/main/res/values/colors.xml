@@ -14,4 +14,5 @@
     <color name="neutral_text">#2F2F2F</color>
     <color name="secondary_text">#6B6B6B</color>
     <color name="highlight_state">#00703D</color>
+    <color name="red">#FF0000</color>
 </resources>
