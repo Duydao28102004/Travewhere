@@ -2,9 +2,7 @@ package com.example.travewhere.fragments;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
@@ -17,12 +15,9 @@ import com.example.travewhere.R;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
-import java.util.Objects;
-
 public class ExploreFragment extends Fragment implements OnMapReadyCallback {
 
     private SupportMapFragment mapFragment;
-    private ImageButton customRelocationButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +37,7 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback {
         searchView.requestFocus(); // Request focus on the SearchView
 
         // Initialize the custom relocation button
-        customRelocationButton = view.findViewById(R.id.btnRelocate);
+        ImageButton customRelocationButton = view.findViewById(R.id.btnRelocate);
         customRelocationButton.setOnClickListener(v -> {
             // Handle the relocation button
         });

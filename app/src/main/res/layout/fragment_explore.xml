@@ -34,7 +34,7 @@
         android:layout_margin="16dp"
         android:src="@drawable/navigation"
         android:background="@drawable/round_button"
-        android:contentDescription="Relocate"
+        android:contentDescription="@string/relocate"
         android:scaleType="centerInside"
         android:elevation="8dp"/>
 
