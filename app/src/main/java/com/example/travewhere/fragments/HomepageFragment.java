@@ -3,12 +3,15 @@ package com.example.travewhere.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.travewhere.R;
+import com.example.travewhere.adapters.HotelAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +64,14 @@ public class HomepageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_homepage, container, false);
+        View view = inflater.inflate(R.layout.fragment_homepage, container, false);
+        RecyclerView hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
+
+        // Get sample data
+
+//        hotelRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+//        HotelAdapter adapter = new HotelAdapter(getContext(), SampleData.getSampleHotels());
+//        hotelRecyclerView.setAdapter(adapter);
+        return view;
     }
 }

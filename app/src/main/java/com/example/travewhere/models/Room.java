@@ -5,17 +5,17 @@ public class Room {
     private String roomType;
     private Double pricePerNight;
     private String hotelId;
-    private boolean isAvailable;
+    private int capacity;
 
     public Room() {
     }
 
-    public Room(String id, String roomType, Double pricePerNight, String hotelId) {
+    public Room(String id, String roomType, Double pricePerNight, String hotelId, int capacity) {
         this.id = id;
         this.roomType = roomType;
         this.pricePerNight = pricePerNight;
         this.hotelId = hotelId;
-        this.isAvailable = true;
+        this.capacity = capacity;
     }
 
     public String getId() {
@@ -50,11 +50,11 @@ public class Room {
         this.hotelId = hotelId;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public int getCapacity() {
+        return capacity;
     }
 
-    public void setAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 }

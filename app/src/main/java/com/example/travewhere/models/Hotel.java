@@ -6,22 +6,27 @@ public class Hotel {
     private String id;
     private String name;
     private String address;
+    private double latitude;
+    private double longitude;
+    private String imageUrl;
     private String phoneNumber;
     private String email;
     private Manager manager;
-    private List<Room> roomList;
+    private List<String> roomIdList;
 
     public Hotel() {
     }
 
-    public Hotel(String id, String name, String address, String phoneNumber, String email, Manager manager, List<Room> roomList) {
+    public Hotel(String id, String name, String address, double latitude, double longitude, String phoneNumber, String email, Manager manager, List<String> roomIdList) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.manager = manager;
-        this.roomList = roomList;
+        this.roomIdList = roomIdList;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getId() {
@@ -32,12 +37,12 @@ public class Hotel {
         this.id = id;
     }
 
-    public List<Room> getRoomList() {
-        return roomList;
+    public List<String> getRoomList() {
+        return roomIdList;
     }
 
-    public void setRoomList(List<Room> roomList) {
-        this.roomList = roomList;
+    public void setRoomList(List<String> roomList) {
+        this.roomIdList = roomIdList;
     }
 
     public Manager getManager() {
@@ -78,5 +83,29 @@ public class Hotel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
