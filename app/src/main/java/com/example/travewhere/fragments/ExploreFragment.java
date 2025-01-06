@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.travewhere.R;
+import com.example.travewhere.models.Hotel;
+import com.example.travewhere.viewmodels.HotelViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,12 +27,16 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 public class ExploreFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap googleMapInstance;
     private FusedLocationProviderClient fusedLocationClient;
     private ActivityResultLauncher<String> requestPermissionLauncher;
+    private HotelViewModel hotelViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,7 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback {
                     if (isGranted) {
                         enableMyLocation();
                         moveToCurrentLocation();
+                        fetchAndDisplayHotels();
                     }
                 });
     }
@@ -69,6 +77,9 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback {
         ImageButton customRelocationButton = view.findViewById(R.id.btnRelocate);
         customRelocationButton.setOnClickListener(v -> relocateToCurrentLocation());
 
+        // Initialize the HotelViewModel
+        hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
+
         return view;
     }
 
@@ -81,8 +92,34 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback {
                 == PackageManager.PERMISSION_GRANTED) {
             enableMyLocation();
             moveToCurrentLocation();
+            fetchAndDisplayHotels();
         } else {
             requestLocationPermission();
+        }
+    }
+
+    // Helper method to fetch and display hotels on the map
+    private void fetchAndDisplayHotels() {
+        // Observe the LiveData from the HotelViewModel
+        hotelViewModel.getAllHotels().observe(getViewLifecycleOwner(), hotels -> {
+            if (hotels != null && googleMapInstance != null) {
+                displayHotelsOnMap(hotels);
+            }
+        });
+    }
+
+    // Helper method to display hotels on the map
+    private void displayHotelsOnMap(List<Hotel> hotels) {
+        for (Hotel hotel : hotels) {
+            // Check if latitude and longitude are within valid ranges
+            if (hotel.getLatitude() >= -90 && hotel.getLatitude() <= 90 &&
+                    hotel.getLongitude() >= -180 && hotel.getLongitude() <= 180) {
+                LatLng hotelLocation = new LatLng(hotel.getLatitude(), hotel.getLongitude());
+                googleMapInstance.addMarker(new MarkerOptions()
+                        .position(hotelLocation)
+                        .title(hotel.getName())
+                        .snippet(hotel.getAddress()));
+            }
         }
     }
 
