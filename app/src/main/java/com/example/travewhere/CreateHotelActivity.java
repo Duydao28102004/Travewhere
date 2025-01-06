@@ -113,6 +113,31 @@ public class CreateHotelActivity extends AppCompatActivity {
         findViewById(R.id.saveButton).setOnClickListener(v -> saveHotel());
     }
 
+    private boolean validateFields() {
+        if (nameTextView.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Hotel name cannot be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (phoneTextView.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Phone number cannot be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (selectedPlace == null || selectedPlace.getAddress() == null || selectedPlace.getAddress().trim().isEmpty()) {
+            Toast.makeText(this, "Please select an address", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (roomViewModel.getRoomList().isEmpty()) {
+            Toast.makeText(this, "Please add at least one room", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (imageUri == null) {
+            Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -141,24 +166,23 @@ public class CreateHotelActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     private void saveHotel() {
+        if (!validateFields()) {
+            return;
+        }
         Toast.makeText(this, "Saving hotel...", Toast.LENGTH_SHORT).show();
         List<String> roomIdList = new ArrayList<>();
-        for (Room room : roomViewModel.getRoomList()) {
-            roomIdList.add(room.getId());
-        }
+
         String hotelId = hotelViewModel.getUID();
         double latitude = selectedPlace.getLatLng().latitude;
         double longitude = selectedPlace.getLatLng().longitude;
         managerViewModel.getManagerById(authenticationRepository.getCurrentUser().getUid()).observe(this, manager -> {
-            hotelViewModel.addHotel(new Hotel(hotelId, nameTextView.getText().toString(), selectedPlace.getAddress(), latitude, longitude, phoneTextView.getText().toString(), "", manager, roomIdList));
             for (Room room : roomViewModel.getRoomList()) {
+                roomIdList.add(room.getId());
                 room.setHotelId(hotelId);
                 roomViewModel.addRoom(room);
             }
+            hotelViewModel.addHotel(new Hotel(hotelId, nameTextView.getText().toString(), selectedPlace.getAddress(), latitude, longitude, phoneTextView.getText().toString(), "", manager, roomIdList));
             manager.getHotelList().add(hotelId);
             managerViewModel.updateManager(manager);
             uploadImage(hotelId);

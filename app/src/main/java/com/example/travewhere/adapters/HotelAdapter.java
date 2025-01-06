@@ -1,6 +1,8 @@
 package com.example.travewhere.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +15,23 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.travewhere.EditHotelActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Room;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHolder> {
     private Context context;
     private List<Hotel> hotelList;
     private boolean isVertical = true;
     private RoomViewModel roomViewModel = new RoomViewModel();
+    private Map<String, Double> priceCache = new HashMap<>();
 
     public HotelAdapter(Context context, List<Hotel> hotelList) {
         this.context = context;
@@ -41,6 +48,30 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     public int getItemViewType(int position) {
         return isVertical ? 1 : 0;
     }
+
+    private Map<String, List<Room>> roomCache = new HashMap<>();
+
+    // Prefetch all rooms and organize them by hotelId
+    public void prefetchRooms(Runnable onComplete) {
+        roomViewModel.getAllRooms().observe((LifecycleOwner) context, rooms -> {
+            if (rooms != null) {
+                roomCache.clear();
+                for (Room room : rooms) {
+                    String hotelId = room.getHotelId();
+                    if (!roomCache.containsKey(hotelId)) {
+                        roomCache.put(hotelId, new ArrayList<>());
+                    }
+                    roomCache.get(hotelId).add(room);
+                }
+                Log.d("HotelAdapter", "Prefetched rooms for " + roomCache.size() + " hotels");
+                onComplete.run(); // Notify that prefetching is complete
+            } else {
+                Log.d("HotelAdapter", "No rooms found");
+                onComplete.run();
+            }
+        });
+    }
+
 
     @NonNull
     @Override
@@ -71,19 +102,33 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         holder.accommodationName.setText(hotel.getName());
         holder.ratingTextView.setText("10/10"); // Example static rating, replace with real data if available
         holder.reviewsCountTextView.setText("(85)"); // Example static reviews count, replace with real data if available
-        roomViewModel.getRoomsByHotel(hotel.getId()).observe((LifecycleOwner) context, rooms -> {
-            if (rooms != null && !rooms.isEmpty()) {
-                double lowestPrice = rooms.get(0).getPricePerNight();
-                for (Room room : rooms) {
-                    if (room.getPricePerNight() < lowestPrice) {
-                        lowestPrice = room.getPricePerNight();
-                    }
+        // Get rooms for this hotel from the cache
+        List<Room> rooms = roomCache.get(hotel.getId());
+        if (rooms != null && !rooms.isEmpty()) {
+            double lowestPrice = rooms.get(0).getPricePerNight();
+            for (Room room : rooms) {
+                if (room.getPricePerNight() < lowestPrice) {
+                    lowestPrice = room.getPricePerNight();
                 }
-                holder.priceTextView.setText("$" + lowestPrice);
-            } else {
-                holder.priceTextView.setText("Price not available");
             }
-        });
+            holder.priceTextView.setText("$" + lowestPrice);
+        } else {
+            holder.priceTextView.setText("Price not available");
+        }
+
+        holder.parentLayout.setOnClickListener(v -> triggerEditIntent(hotel.getId()));
+    }
+
+    private void triggerEditIntent(String hotelId) {
+        Intent intent = new Intent(context, EditHotelActivity.class);
+        intent.putExtra("HOTEL_ID", hotelId);
+        context.startActivity(intent);
+    }
+
+    public void updateHotelList(List<Hotel> newHotelList) {
+        hotelList.clear();
+        hotelList.addAll(newHotelList);
+        notifyDataSetChanged(); // Notify the adapter to refresh the UI
     }
 
     @Override
@@ -112,3 +157,4 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         }
     }
 }
+

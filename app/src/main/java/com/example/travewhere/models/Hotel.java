@@ -37,11 +37,11 @@ public class Hotel {
         this.id = id;
     }
 
-    public List<String> getRoomList() {
+    public List<String> getRoomIdList() {
         return roomIdList;
     }
 
-    public void setRoomList(List<String> roomList) {
+    public void setRoomIdList(List<String> roomIdList) {
         this.roomIdList = roomIdList;
     }
 
