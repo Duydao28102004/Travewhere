@@ -83,6 +83,13 @@ public class HotelDetailActivity extends AppCompatActivity {
                 Toast.makeText(HotelDetailActivity.this, "Phone number not available", Toast.LENGTH_SHORT).show();
             }
         });
+
+        LinearLayout linearLayoutShowReviews = findViewById(R.id.linearLayoutShowReviews);
+        linearLayoutShowReviews.setOnClickListener(v -> {
+            Intent intent = new Intent(HotelDetailActivity.this, ReviewActivity.class);
+            intent.putExtra("HOTEL_ID", hotelId);
+            startActivity(intent);
+        });
     }
 
     private void fetchHotelDetails(String hotelId) {

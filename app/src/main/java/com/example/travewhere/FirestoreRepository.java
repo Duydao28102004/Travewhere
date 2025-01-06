@@ -6,6 +6,8 @@ import android.widget.Toast;
 import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Manager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -63,5 +65,36 @@ public class FirestoreRepository {
                         });
             }
         });
+    }
+
+    public static String getCurrentUserId() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return user != null ? user.getUid() : null;
+    }
+
+    public interface UserNameCallback {
+        void onUserNameFetched(String userName);
+    }
+
+    public void getUserNameById(String userId, UserNameCallback callback) {
+        if (userId == null || userId.isEmpty()) {
+            callback.onUserNameFetched("Unknown User");
+            return;
+        }
+
+        db.collection("users")
+                .document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String userName = documentSnapshot.getString("name");
+                        callback.onUserNameFetched(userName);
+                    } else {
+                        callback.onUserNameFetched("Unknown User");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    callback.onUserNameFetched("Error fetching user");
+                });
     }
 }

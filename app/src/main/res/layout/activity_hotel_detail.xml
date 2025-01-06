@@ -110,7 +110,7 @@
                     android:stepSize="0.5"
                     android:progressTint="@color/accent"
                     android:secondaryProgressTint="@color/accent"
-                    android:progressBackgroundTint="@android:color/darker_gray"/>
+                    android:progressBackgroundTint="@color/neutral_background"/>
             </LinearLayout>
 
             <LinearLayout
@@ -255,6 +255,7 @@
 
                 <!-- Show Reviews -->
                 <LinearLayout
+                    android:id="@+id/linearLayoutShowReviews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?selectableItemBackground"
