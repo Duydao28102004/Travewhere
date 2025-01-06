@@ -1,6 +1,7 @@
 package com.example.travewhere;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.travewhere.models.Customer;
@@ -8,6 +9,7 @@ import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Manager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -90,4 +92,43 @@ public class FirestoreRepository {
     public interface OnUserNameFetchedListener {
         void onUserNameFetched(String userName);
     }
+
+    public void calculateAverageRating(String hotelId, OnAverageRatingCalculatedListener listener) {
+        if (hotelId == null || hotelId.isEmpty()) {
+            listener.onAverageRatingCalculated(0.0f);
+            return;
+        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("reviews")
+                .whereEqualTo("hotelId", hotelId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        listener.onAverageRatingCalculated(0.0f);
+                        return;
+                    }
+
+                    float totalRating = 0.0f;
+                    int reviewCount = queryDocumentSnapshots.size();
+
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        if (document.contains("rating")) {
+                            totalRating += document.getDouble("rating").floatValue();
+                        }
+                    }
+
+                    float averageRating = totalRating / reviewCount;
+                    listener.onAverageRatingCalculated(averageRating);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FirestoreRepository", "Error calculating average rating", e);
+                    listener.onAverageRatingCalculated(0.0f);
+                });
+    }
+
+    public interface OnAverageRatingCalculatedListener {
+        void onAverageRatingCalculated(float averageRating);
+    }
+
 }

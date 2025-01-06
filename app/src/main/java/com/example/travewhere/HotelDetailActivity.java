@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.travewhere.helpers.DateTimeHelper;
 import com.example.travewhere.viewmodels.HotelViewModel;
 
+import java.util.Locale;
+
 public class HotelDetailActivity extends AppCompatActivity {
     private static final String TAG = "HotelDetailActivity";
     private ImageButton btnBack;
@@ -92,6 +94,16 @@ public class HotelDetailActivity extends AppCompatActivity {
         });
     }
 
+    private void displayAverageRating(String hotelId) {
+        FirestoreRepository firestoreRepository = new FirestoreRepository(this);
+
+        firestoreRepository.calculateAverageRating(hotelId, averageRating -> {
+            ratingBar.setRating(averageRating);
+            TextView tvAverageRating = findViewById(R.id.tvAverageRating);
+            tvAverageRating.setText(String.format(Locale.getDefault(), "%.1f", averageRating));
+        });
+    }
+
     private void fetchHotelDetails(String hotelId) {
         hotelViewModel.getHotelById(hotelId).observe(this, hotel -> {
             if (hotel != null) {
@@ -99,14 +111,11 @@ public class HotelDetailActivity extends AppCompatActivity {
                 tvHotelLocation.setText(hotel.getAddress());
                 tvPhoneNumber.setText(hotel.getPhoneNumber());
                 tvEmail.setText(hotel.getEmail());
-
-                // Set rating and other fields
-                //ratingBar.setRating((float) hotel.getRating());
-                // You can set the hotel image here if available
-                // imgHotel.setImageResource(hotel.getImageResourceId());
+                displayAverageRating(hotelId);
             } else {
                 Toast.makeText(HotelDetailActivity.this, "Hotel details not found!", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

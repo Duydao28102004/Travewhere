@@ -9,40 +9,39 @@
 
     <LinearLayout
         android:id="@+id/toolbarLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:padding="8dp"
-    android:background="@color/primary">
-
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_arrow_back" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Reviews"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:background="@color/primary">
 
-    <Button
-        android:id="@+id/btnAddReview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Review"
-        android:layout_marginStart="72dp"
-        android:layout_below="@+id/toolbarLayout"
-        android:layout_alignParentEnd="true"
-        android:backgroundTint="@color/secondary"
-        android:textColor="#FFFFFF" />
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Reviews"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnAddReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Review"
+            android:backgroundTint="@color/secondary"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/reviewRecyclerView"
