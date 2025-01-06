@@ -7,10 +7,12 @@ import android.widget.Toast;
 import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Manager;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -130,5 +132,16 @@ public class FirestoreRepository {
     public interface OnAverageRatingCalculatedListener {
         void onAverageRatingCalculated(float averageRating);
     }
+
+    public void checkIfUserReviewedHotel(String hotelId, String userId, OnCompleteListener<QuerySnapshot> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("reviews")
+                .whereEqualTo("hotelId", hotelId)
+                .whereEqualTo("userId", userId)
+                .get()
+                .addOnCompleteListener(callback);
+    }
+
 
 }

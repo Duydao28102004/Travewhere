@@ -68,14 +68,22 @@ public class ReviewActivity extends AppCompatActivity {
             String userId = FirestoreRepository.getCurrentUserId();
 
             if (userId != null) {
-                AddReviewDialogFragment dialogFragment = AddReviewDialogFragment.newInstance(hotelId, userId);
+                firestoreRepository.checkIfUserReviewedHotel(hotelId, userId, task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        // User has already reviewed the hotel
+                        Toast.makeText(this, "You have already reviewed this hotel.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // User hasn't reviewed the hotel, show review dialog
+                        AddReviewDialogFragment dialogFragment = AddReviewDialogFragment.newInstance(hotelId, userId);
 
-                dialogFragment.setAddReviewListener(review -> {
-                    reviewViewModel.addReview(review);
-                    Toast.makeText(this, "Review submitted!", Toast.LENGTH_SHORT).show();
+                        dialogFragment.setAddReviewListener(review -> {
+                            reviewViewModel.addReview(review);
+                            Toast.makeText(this, "Review submitted!", Toast.LENGTH_SHORT).show();
+                        });
+
+                        dialogFragment.show(getSupportFragmentManager(), "AddReviewDialogFragment");
+                    }
                 });
-
-                dialogFragment.show(getSupportFragmentManager(), "AddReviewDialogFragment");
             } else {
                 Toast.makeText(this, "You must be logged in to add a review!", Toast.LENGTH_SHORT).show();
             }
