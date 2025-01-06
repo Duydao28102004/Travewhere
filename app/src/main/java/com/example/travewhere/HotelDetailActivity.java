@@ -13,9 +13,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travewhere.adapters.RoomAdapter;
 import com.example.travewhere.helpers.DateTimeHelper;
+import com.example.travewhere.models.Room;
 import com.example.travewhere.viewmodels.HotelViewModel;
+import com.example.travewhere.viewmodels.RoomViewModel;
 
 import java.util.Locale;
 
@@ -28,6 +33,9 @@ public class HotelDetailActivity extends AppCompatActivity {
     private Button btnCheckInTime, btnCheckOutTime, btnAddToBookingList;
 
     private HotelViewModel hotelViewModel;
+    private RoomViewModel roomViewModel;
+    private RecyclerView roomListRecyclerView;
+    private RoomAdapter roomAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hotel_detail);
 
         hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
+        roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
 
         // Initialize UI components
         btnBack = findViewById(R.id.btnBack);
@@ -53,11 +62,13 @@ public class HotelDetailActivity extends AppCompatActivity {
         tvCallAccommodation = findViewById(R.id.tvCallAccommodation);
         getDirection = findViewById(R.id.getDirection);
         showReviews = findViewById(R.id.showReviews);
+        roomListRecyclerView = findViewById(R.id.roomListRecyclerView);
 
         // Get the hotel ID from the intent
         String hotelId = getIntent().getStringExtra("HOTEL_ID");
         if (hotelId != null) {
             fetchHotelDetails(hotelId);
+            fetchHotelRooms(hotelId);
         } else {
             Toast.makeText(this, "No hotel ID provided!", Toast.LENGTH_SHORT).show();
             finish();
@@ -118,4 +129,15 @@ public class HotelDetailActivity extends AppCompatActivity {
         });
     }
 
+    private void fetchHotelRooms(String hotelId) {
+        roomViewModel.getRoomsByHotel(hotelId).observe(this, rooms -> {
+            if (rooms != null && !rooms.isEmpty()) {
+                roomAdapter = new RoomAdapter(HotelDetailActivity.this, rooms);
+                roomListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                roomListRecyclerView.setAdapter(roomAdapter);
+            } else {
+                Toast.makeText(HotelDetailActivity.this, "No rooms available for this hotel!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

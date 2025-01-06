@@ -295,8 +295,14 @@
                         android:layout_height="24dp"
                         android:src="@drawable/ic_arrow_next" />
                 </LinearLayout>
-
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/roomListRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
 
             <Button
                 android:id="@+id/btnAddToBookingList"
