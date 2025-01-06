@@ -72,29 +72,22 @@ public class FirestoreRepository {
         return user != null ? user.getUid() : null;
     }
 
-    public interface UserNameCallback {
-        void onUserNameFetched(String userName);
-    }
-
-    public void getUserNameById(String userId, UserNameCallback callback) {
-        if (userId == null || userId.isEmpty()) {
-            callback.onUserNameFetched("Unknown User");
-            return;
-        }
-
-        db.collection("users")
+    public void getUserNameById(String userId, OnUserNameFetchedListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("customers")
                 .document(userId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        String userName = documentSnapshot.getString("name");
-                        callback.onUserNameFetched(userName);
+                    if (documentSnapshot.exists() && documentSnapshot.contains("name")) {
+                        listener.onUserNameFetched(documentSnapshot.getString("name"));
                     } else {
-                        callback.onUserNameFetched("Unknown User");
+                        listener.onUserNameFetched("Unknown User");
                     }
                 })
-                .addOnFailureListener(e -> {
-                    callback.onUserNameFetched("Error fetching user");
-                });
+                .addOnFailureListener(e -> listener.onUserNameFetched("Unknown User"));
+    }
+
+    public interface OnUserNameFetchedListener {
+        void onUserNameFetched(String userName);
     }
 }
