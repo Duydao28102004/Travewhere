@@ -12,24 +12,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.travewhere.HotelDetailActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.adapters.HotelAdapter;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.repositories.HotelRepository;
+import com.example.travewhere.viewmodels.HotelViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomepageFragment extends Fragment implements HotelAdapter.OnHotelClickListener {
+public class HomepageFragment extends Fragment {
 
     private RecyclerView hotelRecyclerView;
     private HotelAdapter hotelAdapter;
     private List<Hotel> hotelList;
     private HotelRepository hotelRepository;
+    private HotelViewModel hotelViewModel = new HotelViewModel();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,8 +50,9 @@ public class HomepageFragment extends Fragment implements HotelAdapter.OnHotelCl
 
         // Initialize the list and adapter
         hotelList = new ArrayList<>();
-        hotelAdapter = new HotelAdapter(getContext(), hotelList, this);
+        hotelAdapter = new HotelAdapter(this.getContext(), hotelList);
         hotelRecyclerView.setAdapter(hotelAdapter);
+        hotelAdapter.setOrientation(true);
 
         // Fetch all hotels and update the RecyclerView
         fetchHotels();
@@ -57,28 +61,15 @@ public class HomepageFragment extends Fragment implements HotelAdapter.OnHotelCl
     }
 
     private void fetchHotels() {
-        hotelRepository.getAllHotels()
-                .addOnCompleteListener(new OnCompleteListener<List<Hotel>>() {
-                    @Override
-                    public void onComplete(@NonNull Task<List<Hotel>> task) {
-                        if (task.isSuccessful()) {
-                            List<Hotel> hotels = task.getResult();
-                            if (hotels != null) {
-                                hotelList.clear();
-                                hotelList.addAll(hotels);
-                                hotelAdapter.notifyDataSetChanged();
-                            }
-                        } else {
-                            Log.e("HomepageFragment", "Error getting hotels: ", task.getException());
-                        }
-                    }
+        hotelViewModel.getAllHotels().observe(getViewLifecycleOwner(), allHotels -> {
+            if (allHotels != null && !allHotels.isEmpty()) {
+                hotelAdapter.prefetchRooms(() -> {
+                    hotelAdapter.updateHotelList(allHotels);
                 });
-    }
-
-    @Override
-    public void onHotelClick(String hotelId) {
-        Intent intent = new Intent(requireContext(), HotelDetailActivity.class);
-        intent.putExtra("HOTEL_ID", hotelId);
-        startActivity(intent);
+            } else {
+                Toast.makeText(getContext(), "No hotels found", Toast.LENGTH_SHORT).show();
+                Log.d("HomepageFragment", "No hotels available to display.");
+            }
+        });
     }
 }

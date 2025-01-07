@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.travewhere.EditHotelActivity;
+import com.example.travewhere.HotelDetailActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Room;
+import com.example.travewhere.repositories.AuthenticationRepository;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
 import java.util.ArrayList;
@@ -29,20 +31,13 @@ import java.util.Map;
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHolder> {
     private Context context;
     private List<Hotel> hotelList;
-    private OnHotelClickListener onHotelClickListener;
     private boolean isVertical = true;
     private RoomViewModel roomViewModel = new RoomViewModel();
     private Map<String, Double> priceCache = new HashMap<>();
-
-
-    public interface OnHotelClickListener {
-        void onHotelClick(String hotelId);
-    }
-
-    public HotelAdapter(Context context, List<Hotel> hotelList, OnHotelClickListener onHotelClickListener) {
+    private AuthenticationRepository authenticationRepository;
+    public HotelAdapter(Context context, List<Hotel> hotelList) {
         this.context = context;
         this.hotelList = hotelList;
-        this.onHotelClickListener = onHotelClickListener;
     }
 
     // Function to switch layout orientation
@@ -123,16 +118,13 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
             holder.priceTextView.setText("Price not available");
         }
 
-        holder.parentLayout.setOnClickListener(v -> triggerEditIntent(hotel.getId()));
+        holder.parentLayout.setOnClickListener(v -> triggerDetailIntent(hotel.getId()));
     }
 
     private void triggerDetailIntent(String hotelId) {
-        // Set click listener
-        holder.itemView.setOnClickListener(v -> {
-            if (onHotelClickListener != null) {
-                onHotelClickListener.onHotelClick(hotelId);
-            }
-        });
+        Intent intent = new Intent(context, HotelDetailActivity.class);
+        intent.putExtra("HOTEL_ID", hotelId);
+        context.startActivity(intent);
     }
 
     private void triggerEditIntent(String hotelId) {
