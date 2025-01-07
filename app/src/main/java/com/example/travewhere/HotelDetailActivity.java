@@ -149,4 +149,14 @@ public class HotelDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String hotelId = getIntent().getStringExtra("HOTEL_ID");
+        if (hotelId != null) {
+            displayAverageRating(hotelId);
+        }
+    }
+
 }
