@@ -37,6 +37,13 @@ public class ReviewViewModel extends ViewModel {
         return reviewsLiveData;
     }
 
+    public LiveData<List<Review>> getAllReviews() {
+        reviewRepository.getAllReviews()
+                .addOnSuccessListener(reviews -> reviewsLiveData.postValue(reviews))
+                .addOnFailureListener(e -> operationStatus.postValue("Failed to fetch reviews: " + e.getMessage()));
+        return reviewsLiveData;
+    }
+
     public void addReview(Review review) {
         reviewRepository.addReview(review)
                 .addOnSuccessListener(aVoid -> operationStatus.postValue("Review added successfully!"))

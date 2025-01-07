@@ -19,8 +19,10 @@ import com.example.travewhere.EditHotelActivity;
 import com.example.travewhere.HotelDetailActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.models.Hotel;
+import com.example.travewhere.models.Review;
 import com.example.travewhere.models.Room;
 import com.example.travewhere.repositories.AuthenticationRepository;
+import com.example.travewhere.viewmodels.ReviewViewModel;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     private List<Hotel> hotelList;
     private boolean isVertical = true;
     private RoomViewModel roomViewModel = new RoomViewModel();
+    private ReviewViewModel reviewViewModel = new ReviewViewModel();
     private Map<String, Double> priceCache = new HashMap<>();
     private AuthenticationRepository authenticationRepository;
     public HotelAdapter(Context context, List<Hotel> hotelList) {
@@ -52,27 +55,52 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     }
 
     private Map<String, List<Room>> roomCache = new HashMap<>();
+    private Map<String, List<Review>> reviewCache = new HashMap<>();
 
     // Prefetch all rooms and organize them by hotelId
-    public void prefetchRooms(Runnable onComplete) {
+    public void prefetchRoomsAndReview(Runnable onComplete) {
+        final int[] completedTasks = {0}; // Counter to track completion
+        final int totalTasks = 2; // Total number of tasks to complete (rooms + reviews)
+
         roomViewModel.getAllRooms().observe((LifecycleOwner) context, rooms -> {
             if (rooms != null) {
                 roomCache.clear();
                 for (Room room : rooms) {
                     String hotelId = room.getHotelId();
-                    if (!roomCache.containsKey(hotelId)) {
-                        roomCache.put(hotelId, new ArrayList<>());
-                    }
-                    roomCache.get(hotelId).add(room);
+                    roomCache.computeIfAbsent(hotelId, k -> new ArrayList<>()).add(room);
                 }
                 Log.d("HotelAdapter", "Prefetched rooms for " + roomCache.size() + " hotels");
-                onComplete.run(); // Notify that prefetching is complete
             } else {
                 Log.d("HotelAdapter", "No rooms found");
+            }
+
+            // Increment the task counter
+            completedTasks[0]++;
+            if (completedTasks[0] == totalTasks) {
+                onComplete.run();
+            }
+        });
+
+        reviewViewModel.getAllReviews().observe((LifecycleOwner) context, reviews -> {
+            if (reviews != null) {
+                reviewCache.clear();
+                for (Review review : reviews) {
+                    String hotelId = review.getHotelId();
+                    reviewCache.computeIfAbsent(hotelId, k -> new ArrayList<>()).add(review);
+                }
+                Log.d("HotelAdapter", "Prefetched reviews for " + reviewCache.size() + " hotels");
+            } else {
+                Log.d("HotelAdapter", "No reviews found");
+            }
+
+            // Increment the task counter
+            completedTasks[0]++;
+            if (completedTasks[0] == totalTasks) {
                 onComplete.run();
             }
         });
     }
+
 
 
     @NonNull
@@ -102,8 +130,20 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         // Assuming you have drawable or URI for hotel images
         holder.accommodationPosition.setText(hotel.getAddress());
         holder.accommodationName.setText(hotel.getName());
-        holder.ratingTextView.setText("10/10"); // Example static rating, replace with real data if available
-        holder.reviewsCountTextView.setText("(85)"); // Example static reviews count, replace with real data if available
+        // Display average rating
+        List<Review> reviews = reviewCache.get(hotel.getId());
+        if (reviews != null && !reviews.isEmpty()) {
+            float totalRating = 0;
+            for (Review review : reviews) {
+                totalRating += review.getRating();
+            }
+            double averageRating = totalRating / reviews.size();
+            holder.ratingTextView.setText(String.format("%.1f/5", averageRating));
+            holder.reviewsCountTextView.setText("(" + reviews.size() + ")"); // Example static reviews count, replace with real data if available
+        } else {
+            holder.ratingTextView.setText("No ratings");
+            holder.reviewsCountTextView.setText("(0)");
+        }
         // Get rooms for this hotel from the cache
         List<Room> rooms = roomCache.get(hotel.getId());
         if (rooms != null && !rooms.isEmpty()) {

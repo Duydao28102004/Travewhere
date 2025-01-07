@@ -8,6 +8,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.List;
 import java.util.Map;
 
 public class ReviewRepository {
@@ -29,6 +30,21 @@ public class ReviewRepository {
     // Fetch all reviews for a hotel
     public Query getReviewsByHotelId(String hotelId) {
         return reviewsCollection.whereEqualTo("hotelId", hotelId).orderBy("timestamp", Query.Direction.DESCENDING);
+    }
+
+    // Fetch all reviews
+    public Task<List<Review>> getAllReviews() {
+        return reviewsCollection.get().continueWith(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                List<Review> reviewList = task.getResult().toObjects(Review.class);
+                Log.d(TAG, "Fetched " + reviewList.size() + " reviews from Firestore");
+                return reviewList;
+            } else {
+                Log.e(TAG, "Failed to fetch reviews: " +
+                        (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
+                return null;
+            }
+        });
     }
 
     // Update a review

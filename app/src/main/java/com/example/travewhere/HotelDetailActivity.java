@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.travewhere.adapters.RoomAdapter;
 import com.example.travewhere.helpers.DateTimeHelper;
 import com.example.travewhere.models.Room;
@@ -123,6 +124,14 @@ public class HotelDetailActivity extends AppCompatActivity {
                 tvPhoneNumber.setText(hotel.getPhoneNumber());
                 tvEmail.setText(hotel.getEmail());
                 displayAverageRating(hotelId);
+
+                // Using Glide to display hotel image
+                String imageUrl = hotel.getImageUrl(); // Assuming you have an `imageUrl` field in your Hotel class
+                Glide.with(this)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.testingimage) // Placeholder while loading
+                        .error(R.drawable.testingimage) // Fallback in case of error
+                        .into(imgHotel);
             } else {
                 Toast.makeText(HotelDetailActivity.this, "Hotel details not found!", Toast.LENGTH_SHORT).show();
             }

@@ -63,7 +63,7 @@ public class HomepageFragment extends Fragment {
     private void fetchHotels() {
         hotelViewModel.getAllHotels().observe(getViewLifecycleOwner(), allHotels -> {
             if (allHotels != null && !allHotels.isEmpty()) {
-                hotelAdapter.prefetchRooms(() -> {
+                hotelAdapter.prefetchRoomsAndReview(() -> {
                     hotelAdapter.updateHotelList(allHotels);
                 });
             } else {
