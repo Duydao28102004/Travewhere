@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.travewhere.R;
+import com.example.travewhere.ReviewActivity;
 import com.example.travewhere.models.Review;
 import com.google.firebase.Timestamp;
 
@@ -103,11 +104,19 @@ public class AddReviewDialogFragment extends DialogFragment {
     @Override
     public void onCancel(@NonNull DialogInterface dialog) {
         super.onCancel(dialog);
-        // Handle onCancel behavior if needed
     }
 
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         return super.onCreateDialog(savedInstanceState);
     }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        if (getActivity() instanceof ReviewActivity) {
+            ((ReviewActivity) getActivity()).refreshReviews();
+        }
+    }
+
 }

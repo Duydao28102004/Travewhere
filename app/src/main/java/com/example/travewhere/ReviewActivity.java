@@ -49,6 +49,7 @@ public class ReviewActivity extends AppCompatActivity {
             dialogFragment.setConfirmDeleteListener(reviewIdToDelete -> {
                 reviewViewModel.deleteReview(reviewIdToDelete);
                 Toast.makeText(this, "Review deleted!", Toast.LENGTH_SHORT).show();
+                fetchReviews(hotelId);
             });
 
             dialogFragment.show(getSupportFragmentManager(), "ConfirmDeleteDialogFragment");
@@ -59,7 +60,6 @@ public class ReviewActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> finish());
 
-        // Fetch and observe reviews
         fetchReviews(hotelId);
 
         // Add review button setup
@@ -105,4 +105,9 @@ public class ReviewActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void refreshReviews() {
+        fetchReviews(hotelId);
+    }
+
 }
