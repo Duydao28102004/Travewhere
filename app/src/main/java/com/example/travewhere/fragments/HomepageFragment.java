@@ -63,7 +63,7 @@ public class HomepageFragment extends Fragment {
     private void fetchHotels() {
         hotelViewModel.getAllHotels().observe(getViewLifecycleOwner(), allHotels -> {
             if (allHotels != null && !allHotels.isEmpty()) {
-                hotelAdapter.prefetchRoomsAndReview(() -> {
+                hotelAdapter.prefetch(() -> {
                     hotelAdapter.updateHotelList(allHotels);
                 });
             } else {
@@ -71,5 +71,11 @@ public class HomepageFragment extends Fragment {
                 Log.d("HomepageFragment", "No hotels available to display.");
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchHotels();
     }
 }

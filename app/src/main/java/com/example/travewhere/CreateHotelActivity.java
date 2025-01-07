@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class CreateHotelActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private Place selectedPlace;
 
+    private RelativeLayout btnBackLayout;
     private TextView nameTextView, phoneTextView, selectedAddressTextView;
     private Button selectAddressButton;
     private EditText roomTypeEditText, priceEditText, capacityEditText;
@@ -72,6 +74,7 @@ public class CreateHotelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_hotel);
+        getSupportActionBar().hide();
 
         // Initialize Places SDK
         if (!Places.isInitialized()) {
@@ -86,6 +89,7 @@ public class CreateHotelActivity extends AppCompatActivity {
         authenticationRepository = new AuthenticationRepository();
 
         // Set up the UI
+        btnBackLayout = findViewById(R.id.btnBackLayout);
         nameTextView = findViewById(R.id.nameEditText);
         phoneTextView = findViewById(R.id.phoneEditText);
         selectedAddressTextView = findViewById(R.id.addressTextView);
@@ -98,7 +102,7 @@ public class CreateHotelActivity extends AppCompatActivity {
         hotelImageView = findViewById(R.id.hotelImageView);
         selectImageButton = findViewById(R.id.uploadImageButton);
 
-// Set up the image picker
+        // Set up the image picker
         selectImageButton.setOnClickListener(v -> openImagePicker());
 
 
@@ -109,6 +113,7 @@ public class CreateHotelActivity extends AppCompatActivity {
         roomRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         roomRecyclerView.setAdapter(roomAdapter);
 
+        btnBackLayout.setOnClickListener(v -> finish());
         findViewById(R.id.addRoomButton).setOnClickListener(v -> addRoom());
         findViewById(R.id.saveButton).setOnClickListener(v -> saveHotel());
     }

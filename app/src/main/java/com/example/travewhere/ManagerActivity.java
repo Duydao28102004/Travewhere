@@ -72,7 +72,7 @@ public class ManagerActivity extends AppCompatActivity {
                 }
 
                 // Update the adapter with the filtered list
-                hotelAdapter.prefetchRoomsAndReview(() -> {
+                hotelAdapter.prefetch(() -> {
                     hotelAdapter.updateHotelList(filteredHotels); // Update the adapter data
                 });
             } else {

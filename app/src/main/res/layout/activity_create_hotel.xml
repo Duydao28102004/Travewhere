@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary"
     android:padding="16dp"
     android:fillViewport="true">
@@ -19,14 +20,37 @@
             android:background="@drawable/rounded_rectangle"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/btnBackLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create Hotel"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/neutral_text"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:contentDescription="Back Button"
+                    android:src="@drawable/ic_arrow_back"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    app:tint="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tvPageTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/btnBack"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:text="Create Hotel"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <!-- Name Input Field -->
             <EditText

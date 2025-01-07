@@ -22,6 +22,7 @@ import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Review;
 import com.example.travewhere.models.Room;
 import com.example.travewhere.repositories.AuthenticationRepository;
+import com.example.travewhere.viewmodels.ManagerViewModel;
 import com.example.travewhere.viewmodels.ReviewViewModel;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
@@ -36,8 +37,9 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     private boolean isVertical = true;
     private RoomViewModel roomViewModel = new RoomViewModel();
     private ReviewViewModel reviewViewModel = new ReviewViewModel();
-    private Map<String, Double> priceCache = new HashMap<>();
-    private AuthenticationRepository authenticationRepository;
+    private ManagerViewModel managerViewModel = new ManagerViewModel();
+    private AuthenticationRepository authenticationRepository = new AuthenticationRepository();
+    private boolean isManager = false;
     public HotelAdapter(Context context, List<Hotel> hotelList) {
         this.context = context;
         this.hotelList = hotelList;
@@ -58,9 +60,9 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     private Map<String, List<Review>> reviewCache = new HashMap<>();
 
     // Prefetch all rooms and organize them by hotelId
-    public void prefetchRoomsAndReview(Runnable onComplete) {
-        final int[] completedTasks = {0}; // Counter to track completion
-        final int totalTasks = 2; // Total number of tasks to complete (rooms + reviews)
+    public void prefetch(Runnable onComplete) {
+        final int[] completedTasks = {0};
+        final int totalTasks = 3;
 
         roomViewModel.getAllRooms().observe((LifecycleOwner) context, rooms -> {
             if (rooms != null) {
@@ -94,6 +96,18 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
             }
 
             // Increment the task counter
+            completedTasks[0]++;
+            if (completedTasks[0] == totalTasks) {
+                onComplete.run();
+            }
+        });
+
+        managerViewModel.getManagerById(authenticationRepository.getCurrentUser().getUid()).observe((LifecycleOwner) context, manager -> {
+            if (manager != null) {
+                isManager = true;
+            } else {
+                isManager = false;
+            }
             completedTasks[0]++;
             if (completedTasks[0] == totalTasks) {
                 onComplete.run();
@@ -158,7 +172,11 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
             holder.priceTextView.setText("Price not available");
         }
 
-        holder.parentLayout.setOnClickListener(v -> triggerDetailIntent(hotel.getId()));
+        if (isManager) {
+            holder.parentLayout.setOnClickListener(v -> triggerEditIntent(hotel.getId()));
+        } else {
+            holder.parentLayout.setOnClickListener(v -> triggerDetailIntent(hotel.getId()));
+        }
     }
 
     private void triggerDetailIntent(String hotelId) {

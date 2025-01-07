@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class EditHotelActivity extends AppCompatActivity {
     private EditText nameEditText, phoneEditText, roomTypeEditText, priceEditText, capacityEditText;
     private RecyclerView roomRecyclerView;
     private RoomAdapter roomAdapter;
+    private RelativeLayout btnBackLayout;
 
     private HotelViewModel hotelViewModel;
     private RoomViewModel roomViewModel;
@@ -52,10 +54,13 @@ public class EditHotelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_hotel);
+        getSupportActionBar().hide();
+
 
         hotelViewModel = new HotelViewModel();
         roomViewModel = new RoomViewModel();
 
+        btnBackLayout = findViewById(R.id.btnBackLayout);
         nameEditText = findViewById(R.id.editNameEditText);
         phoneEditText = findViewById(R.id.editPhoneEditText);
         addressTextView = findViewById(R.id.editAddressTextView);
@@ -79,6 +84,7 @@ public class EditHotelActivity extends AppCompatActivity {
 
         loadHotelDetails();
 
+        btnBackLayout.setOnClickListener(v -> finish());
         selectImageButton.setOnClickListener(v -> openImagePicker());
         selectAddressButton.setOnClickListener(v -> openAutocomplete());
         addRoomButton.setOnClickListener(v -> addRoom());

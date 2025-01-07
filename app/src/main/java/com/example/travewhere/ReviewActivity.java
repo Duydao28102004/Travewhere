@@ -29,6 +29,7 @@ public class ReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
+        getSupportActionBar().hide();
         FirestoreRepository firestoreRepository = new FirestoreRepository(this);
 
         hotelId = getIntent().getStringExtra("HOTEL_ID");
@@ -49,7 +50,8 @@ public class ReviewActivity extends AppCompatActivity {
             dialogFragment.setConfirmDeleteListener(reviewIdToDelete -> {
                 reviewViewModel.deleteReview(reviewIdToDelete);
                 Toast.makeText(this, "Review deleted!", Toast.LENGTH_SHORT).show();
-                fetchReviews(hotelId);
+                refreshReviews();
+                reviewAdapter.notifyDataSetChanged();
             });
 
             dialogFragment.show(getSupportFragmentManager(), "ConfirmDeleteDialogFragment");

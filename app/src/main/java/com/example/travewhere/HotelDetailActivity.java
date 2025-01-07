@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import java.util.Locale;
 
 public class HotelDetailActivity extends AppCompatActivity {
     private static final String TAG = "HotelDetailActivity";
-    private ImageButton btnBack;
+    private RelativeLayout btnBackLayout;
     private ImageView imgHotel, imgCall, imgDirections, imgReviews;
     private TextView tvHotelName, tvHotelLocation, tvPhoneNumber, tvEmail, tvCallAccommodation, getDirection, showReviews;
     private RatingBar ratingBar;
@@ -42,12 +43,13 @@ public class HotelDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
+        getSupportActionBar().hide();
 
         hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
         roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
 
         // Initialize UI components
-        btnBack = findViewById(R.id.btnBack);
+        btnBackLayout = findViewById(R.id.btnBackLayout);
         imgHotel = findViewById(R.id.imgHotel);
         tvHotelName = findViewById(R.id.tvHotelName);
         tvHotelLocation = findViewById(R.id.tvHotelLocation);
@@ -75,7 +77,7 @@ public class HotelDetailActivity extends AppCompatActivity {
             finish();
         }
 
-        btnBack.setOnClickListener(v -> finish());
+        btnBackLayout.setOnClickListener(v -> finish());
         
         btnCheckInTime.setOnClickListener(v -> DateTimeHelper.showDateTimePicker(this, btnCheckInTime));
         btnCheckOutTime.setOnClickListener(v -> DateTimeHelper.showDateTimePicker(this, btnCheckOutTime));
