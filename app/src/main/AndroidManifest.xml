@@ -39,9 +39,13 @@
             tools:ignore="Instantiatable" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".HomepageActivity" -->
-        <!-- android:exported="false" /> -->
+            android:exported="false" />
+        <activity
+            android:name=".HotelDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReviewActivity"
+            android:exported="false" />
         <activity
             android:name=".AuthenticationActivity"
             android:exported="true">

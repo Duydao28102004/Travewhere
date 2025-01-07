@@ -1,12 +1,18 @@
 package com.example.travewhere;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Manager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,4 +70,78 @@ public class FirestoreRepository {
             }
         });
     }
+
+    public static String getCurrentUserId() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return user != null ? user.getUid() : null;
+    }
+
+    public void getUserNameById(String userId, OnUserNameFetchedListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("customers")
+                .document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists() && documentSnapshot.contains("name")) {
+                        listener.onUserNameFetched(documentSnapshot.getString("name"));
+                    } else {
+                        listener.onUserNameFetched("Unknown User");
+                    }
+                })
+                .addOnFailureListener(e -> listener.onUserNameFetched("Unknown User"));
+    }
+
+    public interface OnUserNameFetchedListener {
+        void onUserNameFetched(String userName);
+    }
+
+    public void calculateAverageRating(String hotelId, OnAverageRatingCalculatedListener listener) {
+        if (hotelId == null || hotelId.isEmpty()) {
+            listener.onAverageRatingCalculated(0.0f);
+            return;
+        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("reviews")
+                .whereEqualTo("hotelId", hotelId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        listener.onAverageRatingCalculated(0.0f);
+                        return;
+                    }
+
+                    float totalRating = 0.0f;
+                    int reviewCount = queryDocumentSnapshots.size();
+
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        if (document.contains("rating")) {
+                            totalRating += document.getDouble("rating").floatValue();
+                        }
+                    }
+
+                    float averageRating = totalRating / reviewCount;
+                    listener.onAverageRatingCalculated(averageRating);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FirestoreRepository", "Error calculating average rating", e);
+                    listener.onAverageRatingCalculated(0.0f);
+                });
+    }
+
+    public interface OnAverageRatingCalculatedListener {
+        void onAverageRatingCalculated(float averageRating);
+    }
+
+    public void checkIfUserReviewedHotel(String hotelId, String userId, OnCompleteListener<QuerySnapshot> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("reviews")
+                .whereEqualTo("hotelId", hotelId)
+                .whereEqualTo("userId", userId)
+                .get()
+                .addOnCompleteListener(callback);
+    }
+
+
 }
