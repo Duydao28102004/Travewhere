@@ -12,7 +12,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RoomViewModel extends ViewModel {
     private final RoomRepository roomRepository;
@@ -45,6 +47,20 @@ public class RoomViewModel extends ViewModel {
                 });
         return roomListLiveData;
     }
+
+    public LiveData<List<Room>> getAllRooms() {
+        MutableLiveData<List<Room>> roomListLiveData = new MutableLiveData<>();
+        roomRepository.getAllRooms().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                roomListLiveData.postValue(task.getResult());
+            } else {
+                Log.e("RoomViewModel", "Failed to fetch rooms: " +
+                        (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
+            }
+        });
+        return roomListLiveData;
+    }
+
 
     public String getUID() {
         return roomRepository.getUID();

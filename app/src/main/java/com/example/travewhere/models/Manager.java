@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Manager extends User {
-    private List<Hotel> hotelList;
+    private List<String> hotelList;
 
     public Manager() {
     }
@@ -14,11 +14,11 @@ public class Manager extends User {
         this.hotelList = new ArrayList<>();
     }
 
-    public List<Hotel> getHotelList() {
+    public List<String> getHotelList() {
         return hotelList;
     }
 
-    public void setHotelList(List<Hotel> hotelList) {
+    public void setHotelList(List<String> hotelList) {
         this.hotelList = hotelList;
     }
 }

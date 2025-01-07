@@ -53,6 +53,24 @@ public class RoomRepository {
                 .addOnFailureListener(e -> Log.e(TAG, "Failed to update room: " + e.getMessage()));
     }
 
+    // READ: Get all rooms
+    public Task<List<Room>> getAllRooms() {
+        Log.d(TAG, "getAllRooms() called");
+        return roomsCollection.get()
+                .continueWith(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        List<Room> roomList = task.getResult().toObjects(Room.class);
+                        Log.d(TAG, "Fetched " + roomList.size() + " rooms from Firestore");
+                        return roomList;
+                    } else {
+                        Log.e(TAG, "Failed to fetch rooms: " +
+                                (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
+                        return null;
+                    }
+                });
+    }
+
+
     // DELETE: Delete a room by ID
     public Task<Void> deleteRoom(String roomId) {
         Log.d(TAG, "deleteRoom() called for ID: " + roomId);

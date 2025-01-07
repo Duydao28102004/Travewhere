@@ -52,7 +52,7 @@ public class HomepageFragment extends Fragment implements HotelAdapter.OnHotelCl
 
         // Fetch all hotels and update the RecyclerView
         fetchHotels();
-
+        
         return view;
     }
 

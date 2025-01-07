@@ -8,6 +8,7 @@ public class Hotel {
     private String address;
     private double latitude;
     private double longitude;
+    private String imageUrl;
     private String phoneNumber;
     private String email;
     private Manager manager;
@@ -16,7 +17,7 @@ public class Hotel {
     public Hotel() {
     }
 
-    public Hotel(String id, String name, String address, String phoneNumber, String email, Manager manager, List<String> roomIdList) {
+    public Hotel(String id, String name, String address, double latitude, double longitude, String phoneNumber, String email, Manager manager, List<String> roomIdList) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -24,6 +25,8 @@ public class Hotel {
         this.email = email;
         this.manager = manager;
         this.roomIdList = roomIdList;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getId() {
@@ -34,11 +37,11 @@ public class Hotel {
         this.id = id;
     }
 
-    public List<String> getRoomList() {
+    public List<String> getRoomIdList() {
         return roomIdList;
     }
 
-    public void setRoomList(List<String> roomList) {
+    public void setRoomIdList(List<String> roomIdList) {
         this.roomIdList = roomIdList;
     }
 
@@ -80,5 +83,29 @@ public class Hotel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
