@@ -56,8 +56,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         tvEmail = findViewById(R.id.tvEmail);
         ratingBar = findViewById(R.id.ratingBar);
-        btnCheckInTime = findViewById(R.id.btnCheckInTime);
-        btnCheckOutTime = findViewById(R.id.btnCheckOutTime);
         btnAddToBookingList = findViewById(R.id.btnAddToBookingList);
         imgCall = findViewById(R.id.imgCallAccommodation);
         imgDirections = findViewById(R.id.imgDirections);
@@ -78,9 +76,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         }
 
         btnBackLayout.setOnClickListener(v -> finish());
-        
-        btnCheckInTime.setOnClickListener(v -> DateTimeHelper.showDateTimePicker(this, btnCheckInTime));
-        btnCheckOutTime.setOnClickListener(v -> DateTimeHelper.showDateTimePicker(this, btnCheckOutTime));
 
         btnAddToBookingList.setOnClickListener(v -> {
             Toast.makeText(HotelDetailActivity.this, "Added to booking list!", Toast.LENGTH_SHORT).show();

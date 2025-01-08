@@ -1,6 +1,7 @@
 package com.example.travewhere.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travewhere.BookingActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.models.Room;
 import com.example.travewhere.repositories.AuthenticationRepository;
@@ -63,6 +65,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             holder.bookButton.setVisibility(View.GONE);
         } else {
             holder.deleteButton.setVisibility(View.GONE);
+            holder.bookButton.setOnClickListener(v -> {
+                Intent intent= new Intent(context, BookingActivity.class);
+                intent.putExtra("ROOM_ID", room.getId());
+                context.startActivity(intent);
+            });
         }
     }
 
