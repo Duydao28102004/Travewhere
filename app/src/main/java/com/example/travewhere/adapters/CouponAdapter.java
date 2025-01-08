@@ -1,14 +1,18 @@
 package com.example.travewhere.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travewhere.CouponDetailActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.models.Coupon;
 
@@ -18,16 +22,10 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
 
     private final Context context;
     private final List<Coupon> couponList;
-    private final OnCouponClickListener listener;
 
-    public interface OnCouponClickListener {
-        void onCouponClick(Coupon coupon);
-    }
-
-    public CouponAdapter(Context context, List<Coupon> couponList, OnCouponClickListener listener) {
+    public CouponAdapter(Context context, List<Coupon> couponList) {
         this.context = context;
         this.couponList = couponList;
-        this.listener = listener;
     }
 
     @NonNull
@@ -42,15 +40,34 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
         Coupon coupon = couponList.get(position);
 
         // Set coupon details
-        holder.tvTitle.setText(coupon.getTitle());
-        holder.tvMinSpend.setText("Min spend: " + coupon.getMinSpend());
-        holder.tvCouponCode.setText(coupon.getCode());
+        holder.tvTitle.setText("Discount: " + coupon.getDiscount() + " VND");
+        holder.tvMinSpend.setText("Min spend: " + coupon.getMinSpend() + " VND");
+        holder.tvCode.setText(coupon.getCode());
+        holder.ivCouponImage.setImageResource(R.drawable.ic_coupon);
 
-        // Handle coupon click
+        // Handle coupon code click (copy to clipboard)
+        holder.tvCode.setOnClickListener(v -> {
+            android.content.ClipboardManager clipboard =
+                    (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip =
+                    android.content.ClipData.newPlainText("Coupon Code", coupon.getCode());
+            clipboard.setPrimaryClip(clip);
+
+            Toast.makeText(context, "Coupon code copied to clipboard!", Toast.LENGTH_SHORT).show();
+        });
+
+        // Handle coupon image click (navigate to detail activity)
+        holder.ivCouponImage.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CouponDetailActivity.class);
+            intent.putExtra("COUPON_ID", coupon.getId());
+            context.startActivity(intent);
+        });
+
+        // Handle coupon details click (navigate to detail activity)
         holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onCouponClick(coupon);
-            }
+            Intent intent = new Intent(context, CouponDetailActivity.class);
+            intent.putExtra("COUPON_ID", coupon.getId());
+            context.startActivity(intent);
         });
     }
 
@@ -65,15 +82,17 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
         notifyDataSetChanged();
     }
 
-    static class CouponViewHolder extends RecyclerView.ViewHolder {
+    public static class CouponViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTitle, tvMinSpend, tvCouponCode;
+        TextView tvTitle, tvMinSpend, tvCode;
+        ImageView ivCouponImage;
 
         public CouponViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvCouponTitle);
             tvMinSpend = itemView.findViewById(R.id.tvMinSpend);
-            tvCouponCode = itemView.findViewById(R.id.tvCouponCode);
+            tvCode = itemView.findViewById(R.id.tvCouponCode);
+            ivCouponImage = itemView.findViewById(R.id.ivCouponImage);
         }
     }
 }

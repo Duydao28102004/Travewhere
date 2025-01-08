@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.travewhere.CouponActivity;
 import com.example.travewhere.HotelDetailActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.adapters.HotelAdapter;
@@ -43,18 +45,23 @@ public class HomepageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
+
+        LinearLayout couponsLayout = view.findViewById(R.id.linearLayoutCoupons);
+
+        couponsLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), CouponActivity.class);
+            startActivity(intent);
+        });
+
         hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
 
-        // Set layout manager for the RecyclerView
         hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        // Initialize the list and adapter
         hotelList = new ArrayList<>();
         hotelAdapter = new HotelAdapter(this.getContext(), hotelList);
         hotelRecyclerView.setAdapter(hotelAdapter);
         hotelAdapter.setOrientation(true);
 
-        // Fetch all hotels and update the RecyclerView
         fetchHotels();
         
         return view;

@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp"
-    android:background="@drawable/coupon_item_background">
+    android:padding="8dp">
 
     <!-- Coupon Image -->
     <ImageView
@@ -51,5 +50,7 @@
         android:padding="8dp"
         android:textColor="#29AB4A"
         android:textStyle="bold"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true" />
 </LinearLayout>

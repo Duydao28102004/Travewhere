@@ -18,8 +18,7 @@
             android:id="@+id/btnBackLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:padding="10dp">
 
@@ -86,7 +85,6 @@
             android:id="@+id/tvCouponCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="KS1212LUXINY"
             android:background="#C8E6C9"
             android:padding="8dp"
             android:textColor="#29AB4A"
@@ -94,6 +92,26 @@
             android:layout_gravity="center_horizontal"
             android:textSize="16sp"
             android:layout_marginBottom="16dp" />
+
+        <!-- New Min Spend TextView -->
+        <TextView
+            android:id="@+id/tvMinSpend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Min Spend: 400k VND"
+            android:textSize="16sp"
+            android:textColor="#555555"
+            android:paddingBottom="8dp" />
+
+        <!-- New Discount TextView -->
+        <TextView
+            android:id="@+id/tvDiscount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Discount: 80k VND"
+            android:textSize="16sp"
+            android:textColor="#555555"
+            android:paddingBottom="16dp" />
 
         <!-- Terms and Conditions -->
         <TextView
