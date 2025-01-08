@@ -142,7 +142,12 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
                 .into(holder.imageView);
 
         // Assuming you have drawable or URI for hotel images
-        holder.accommodationPosition.setText(hotel.getAddress());
+        String address = hotel.getAddress();
+        int maxLength = 30; // Set the maximum length of the address
+        if (address.length() > maxLength) {
+            address = address.substring(0, maxLength) + "...";
+        }
+        holder.accommodationPosition.setText(address);
         holder.accommodationName.setText(hotel.getName());
         // Display average rating
         List<Review> reviews = reviewCache.get(hotel.getId());

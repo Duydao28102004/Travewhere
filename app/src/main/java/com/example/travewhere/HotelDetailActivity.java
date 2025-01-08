@@ -144,6 +144,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         roomViewModel.getRoomsByHotel(hotelId).observe(this, rooms -> {
             if (rooms != null && !rooms.isEmpty()) {
                 roomAdapter = new RoomAdapter(HotelDetailActivity.this, rooms);
+                roomAdapter.prefetch(() -> {});
                 roomListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
                 roomListRecyclerView.setAdapter(roomAdapter);
             } else {

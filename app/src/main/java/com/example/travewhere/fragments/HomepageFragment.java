@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.travewhere.HotelDetailActivity;
 import com.example.travewhere.R;
+import com.example.travewhere.SearchActivity;
 import com.example.travewhere.adapters.HotelAdapter;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.repositories.HotelRepository;
@@ -31,19 +33,19 @@ public class HomepageFragment extends Fragment {
     private RecyclerView hotelRecyclerView;
     private HotelAdapter hotelAdapter;
     private List<Hotel> hotelList;
-    private HotelRepository hotelRepository;
     private HotelViewModel hotelViewModel = new HotelViewModel();
+    private LinearLayout searchBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hotelRepository = new HotelRepository();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
         hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
+        searchBar = view.findViewById(R.id.searchBar);
 
         // Set layout manager for the RecyclerView
         hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -53,6 +55,12 @@ public class HomepageFragment extends Fragment {
         hotelAdapter = new HotelAdapter(this.getContext(), hotelList);
         hotelRecyclerView.setAdapter(hotelAdapter);
         hotelAdapter.setOrientation(true);
+
+        // Trigger search activity
+        searchBar.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), SearchActivity.class);
+            startActivity(intent);
+        });
 
         // Fetch all hotels and update the RecyclerView
         fetchHotels();
