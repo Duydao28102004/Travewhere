@@ -35,6 +35,34 @@ public class CouponRepository {
                 .addOnFailureListener(e -> Log.e(TAG, "Failed to add coupon: " + e.getMessage()));
     }
 
+    public Task<List<Coupon>> getCouponsByCode(String code) {
+        Log.d(TAG, "getCouponsByCode() called with code: " + code);
+        if (code == null || code.trim().isEmpty()) {
+            throw new IllegalArgumentException("Code cannot be null or empty");
+        }
+
+        String normalizedCode = code.trim().replaceAll("\\s+", "").toLowerCase();
+
+        return couponsCollection.get()
+                .continueWith(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        List<Coupon> matchingCoupons = new ArrayList<>();
+                        task.getResult().forEach(document -> {
+                            Coupon coupon = document.toObject(Coupon.class);
+                            if (coupon.getCode() != null &&
+                                    coupon.getCode().replaceAll("\\s+", "").equalsIgnoreCase(normalizedCode)) {
+                                matchingCoupons.add(coupon);
+                            }
+                        });
+                        return matchingCoupons;
+                    } else {
+                        throw new Exception("Failed to fetch coupons by code: " +
+                                (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
+                    }
+                });
+    }
+
+
     public Task<Coupon> getCouponById(String couponId) {
         Log.d(TAG, "getCouponById() called with ID: " + couponId);
         if (couponId == null || couponId.isEmpty()) {

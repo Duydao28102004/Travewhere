@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
-            android:padding="10dp">
+            android:padding="20dp">
 
             <ImageButton
                 android:id="@+id/btnBack"
@@ -44,18 +44,6 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
         </RelativeLayout>
-
-        <!-- Search Bar -->
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search for places"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="32dp"
-            android:background="@drawable/rounded_rectangle"
-            android:elevation="8dp" />
 
     </LinearLayout>
 
