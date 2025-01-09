@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/primary"
+    tools:context=".LoyaltyActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/btnBackLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/back_button"
+            android:src="@drawable/ic_arrow_back"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/tvPageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/btnBack"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:text="@string/member_status"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/rounded_white_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="32dp">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_gold_user"
+                android:contentDescription="Gold User Icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You are a"
+                    android:textColor="@color/neutral_text"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gold User"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Rewards System Level Progress Text Description-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rewards System"
+            android:textColor="@color/neutral_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="16dp" />
+
+        <!-- Rewards System Level Description-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp"
+            android:layout_marginBottom="16dp">
+
+            <!-- Bronze User-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_bronze_user"
+                    android:contentDescription="Bronze User Icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bronze"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 PTS"
+                    android:textColor="@color/neutral_text"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Gold User-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_gold_user"
+                    android:contentDescription="Gold User Icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gold"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="500 PTS"
+                    android:textColor="@color/neutral_text"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Diamond User-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_diamond_user"
+                    android:contentDescription="Diamond User Icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Diamond"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1000 PTS"
+                    android:textColor="@color/neutral_text"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Custom Rewards System Level Progress Bar-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp">
+
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="50"
+                android:max="1000"
+                android:progressTint="@color/secondary"
+                android:backgroundTint="@color/secondary_text" />
+
+            <!-- Point at 0 -->
+            <ImageView
+                android:id="@+id/point_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/progressBar"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_point_reached"
+                android:scaleType="fitStart"/>
+
+            <!-- Point at 500 -->
+            <ImageView
+                android:id="@+id/point_500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_point_unreached"
+                android:layout_alignBottom="@id/progressBar"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"/>
+
+            <!-- Point at 1000 -->
+            <ImageView
+                android:id="@+id/point_1000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_point_unreached"
+                android:layout_alignBottom="@id/progressBar"
+                android:layout_alignParentEnd="true"
+                android:scaleType="fitEnd"/>
+        </RelativeLayout>
+
+
+        <!-- Rewards System Level Progress Text Description-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/rounded_grey_background">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="How it works?"
+                android:textColor="@color/neutral_text"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_bronze_user"
+                android:drawablePadding="8dp"
+                android:text="When reaching gold member, you will have 10% off discount for each booking."
+                android:textColor="@color/neutral_text"
+                android:textSize="16sp"
+                android:paddingVertical="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_bronze_user"
+                android:drawablePadding="8dp"
+                android:text="Special gifts in birthday month"
+                android:textColor="@color/neutral_text"
+                android:textSize="16sp"
+                android:paddingVertical="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_bronze_user"
+                android:drawablePadding="8dp"
+                android:text="Limited special offer(s) for gold members only."
+                android:textColor="@color/neutral_text"
+                android:textSize="16sp"
+                android:paddingVertical="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
