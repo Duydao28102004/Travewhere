@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".HomepageActivity">
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,34 +13,56 @@
         android:background="@color/primary"
         android:padding="30dp">
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/rounded_rectangle"
-            android:padding="12dp"
-            android:elevation="4dp"
-            android:layout_marginBottom="30dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="32dp">
 
-            <!-- Search Icon -->
-            <ImageView
-                android:id="@+id/search_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_search"
-                app:tint="@color/neutral_text" />
-
-            <!-- Search Text -->
-            <TextView
-                android:id="@+id/search_text"
-                android:layout_width="match_parent"
+            <!-- Inner LinearLayout for Search Bar -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_rectangle"
+                android:padding="12dp"
+                android:elevation="4dp"
+                android:gravity="center_vertical">
+
+                <!-- Search Icon -->
+                <ImageView
+                    android:id="@+id/search_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/neutral_text" />
+
+                <!-- Search Text -->
+                <TextView
+                    android:id="@+id/search_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Search accommodations..."
+                    android:textColor="@color/neutral_text"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- Image Button -->
+            <ImageButton
+                android:id="@+id/btnLoyalty"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/rounded_rectangle"
+                android:padding="8dp"
+                android:src="@drawable/ic_username"
+                android:contentDescription="Loyaltu Activity Trigger"
+                app:tint="@color/neutral_text"
                 android:layout_marginStart="8dp"
-                android:text="Search accommodations..."
-                android:textColor="@color/neutral_text"
-                android:textSize="16sp" />
+                android:elevation="4dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
