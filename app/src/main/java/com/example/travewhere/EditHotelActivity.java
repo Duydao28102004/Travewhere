@@ -78,6 +78,7 @@ public class EditHotelActivity extends AppCompatActivity {
         roomRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         roomAdapter = new RoomAdapter(this, roomViewModel.getRoomList());
+        roomAdapter.prefetch(() -> {});
         roomRecyclerView.setAdapter(roomAdapter);
 
         hotelId = getIntent().getStringExtra("HOTEL_ID");

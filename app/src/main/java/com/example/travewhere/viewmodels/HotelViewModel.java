@@ -26,6 +26,7 @@ public class HotelViewModel extends ViewModel {
             hotelListLiveData.postValue(hotels);
         }).addOnFailureListener(e -> {
             // Handle error
+            Log.d("HotelViewModel", "Error getting all hotels: " + e.getMessage());
         });
         return hotelListLiveData;
     }
