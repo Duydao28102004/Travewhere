@@ -32,7 +32,6 @@ public class HotelDetailActivity extends AppCompatActivity {
     private ImageView imgHotel, imgCall, imgDirections, imgReviews;
     private TextView tvHotelName, tvHotelLocation, tvPhoneNumber, tvEmail, tvCallAccommodation, getDirection, showReviews;
     private RatingBar ratingBar;
-    private Button btnCheckInTime, btnCheckOutTime, btnAddToBookingList;
 
     private HotelViewModel hotelViewModel;
     private RoomViewModel roomViewModel;
@@ -75,10 +74,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         }
 
         btnBackLayout.setOnClickListener(v -> finish());
-
-        btnAddToBookingList.setOnClickListener(v -> {
-            Toast.makeText(HotelDetailActivity.this, "Added to booking list!", Toast.LENGTH_SHORT).show();
-        });
+        
 
         LinearLayout linearLayoutCallAccommodation = findViewById(R.id.linearLayoutCallAccommodation);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
