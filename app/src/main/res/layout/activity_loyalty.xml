@@ -261,42 +261,89 @@
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_bronze_user"
-                android:drawablePadding="8dp"
-                android:text="When reaching gold member, you will have 10% off discount for each booking."
-                android:textColor="@color/neutral_text"
-                android:textSize="16sp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:paddingVertical="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_vertical" />
+                android:layout_marginBottom="8dp">
 
-            <TextView
+                <!-- Icon with Circular Background -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_percent"
+                    android:background="@drawable/round_button"
+                    android:contentDescription="Percent Icon"
+                    android:padding="8dp" />
+
+                <!-- Text -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="When reaching gold member, you will have 10% off discount for each booking"
+                    android:textColor="@color/neutral_text"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_bronze_user"
-                android:drawablePadding="8dp"
-                android:text="Special gifts in birthday month"
-                android:textColor="@color/neutral_text"
-                android:textSize="16sp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:paddingVertical="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_vertical" />
+                android:layout_marginBottom="8dp">
 
-            <TextView
+                <!-- Icon with Circular Background -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_giftbox"
+                    android:background="@drawable/round_button"
+                    android:contentDescription="Gift Box Icon"
+                    android:padding="8dp" />
+
+                <!-- Text -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Special gifts in birthday month"
+                    android:textColor="@color/neutral_text"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_bronze_user"
-                android:drawablePadding="8dp"
-                android:text="Limited special offer(s) for gold members only."
-                android:textColor="@color/neutral_text"
-                android:textSize="16sp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:paddingVertical="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_vertical" />
+                android:layout_marginBottom="8dp">
 
+                <!-- Icon with Circular Background -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_offer"
+                    android:background="@drawable/round_button"
+                    android:contentDescription="Special Offer Icon"
+                    android:padding="8dp" />
+
+                <!-- Text -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Limited special offer(s) for gold members only"
+                    android:textColor="@color/neutral_text"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
