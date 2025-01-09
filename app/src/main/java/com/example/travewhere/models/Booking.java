@@ -7,16 +7,18 @@ public class Booking {
     private String id;
     private String customerId;
     private String roomId;
+    private String hotelId;
     private Date checkInDate;
     private Date checkOutDate;
     private double totalPrice;
 
     public Booking() {}
 
-    public Booking(String id, String customerId, String roomId, Date checkInDate, Date checkOutDate, double totalPrice) {
+    public Booking(String id, String customerId, String roomId, String hotelId, Date checkInDate, Date checkOutDate, double totalPrice) {
         this.id = id;
         this.customerId = customerId;
         this.roomId = roomId;
+        this.hotelId = hotelId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.totalPrice = totalPrice;
@@ -44,6 +46,14 @@ public class Booking {
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    public String getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Date getCheckInDate() {

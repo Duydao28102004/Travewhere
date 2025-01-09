@@ -56,7 +56,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         tvEmail = findViewById(R.id.tvEmail);
         ratingBar = findViewById(R.id.ratingBar);
-        btnAddToBookingList = findViewById(R.id.btnAddToBookingList);
         imgCall = findViewById(R.id.imgCallAccommodation);
         imgDirections = findViewById(R.id.imgDirections);
         imgReviews = findViewById(R.id.imgReviews);

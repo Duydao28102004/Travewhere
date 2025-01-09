@@ -30,6 +30,7 @@ public class BookingActivity extends AppCompatActivity {
     private Date checkInDate, checkOutDate;
     private double roomPricePerNight;
     private double totalPriceValue;
+    private String selectedHotelId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class BookingActivity extends AppCompatActivity {
             return;
         }
 
-        bookingViewModel.addBooking(new Booking(bookingViewModel.getUID(), authenticationRepository.getCurrentUser().getUid(), roomId, checkInDate, checkOutDate, totalPriceValue));
+        bookingViewModel.addBooking(new Booking(bookingViewModel.getUID(), authenticationRepository.getCurrentUser().getUid(), roomId, selectedHotelId, checkInDate, checkOutDate, totalPriceValue));
         Toast.makeText(this, "Booking added successfully!", Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -115,6 +116,7 @@ public class BookingActivity extends AppCompatActivity {
                     if (roomId.equals(this.roomId)) {
                         hotelName.setText(hotel.getName());
                         hotelAddress.setText(hotel.getAddress());
+                        selectedHotelId = hotel.getId();
                         break;
                     }
                 }

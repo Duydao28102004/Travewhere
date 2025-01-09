@@ -240,15 +240,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"/>
-
-            <Button
-                android:id="@+id/btnAddToBookingList"
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="@color/secondary"
-                android:text="Add To Booking List"
-                android:textColor="@android:color/white" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

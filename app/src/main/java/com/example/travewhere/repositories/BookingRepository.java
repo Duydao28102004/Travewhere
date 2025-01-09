@@ -52,6 +52,26 @@ public class BookingRepository {
                 });
     }
 
+    // READ: Fetch all bookings
+    public Task<List<Booking>> getAllBookings() {
+        Log.d(TAG, "getAllBookings() called");
+        return bookingsCollection.get()
+                .continueWith(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        List<Booking> bookings = new ArrayList<>();
+                        task.getResult().forEach(document -> {
+                            Booking booking = document.toObject(Booking.class);
+                            bookings.add(booking);
+                        });
+                        return bookings;
+                    } else {
+                        throw new Exception("Failed to fetch bookings: " +
+                                (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
+                    }
+                });
+    }
+
+
     // READ: Fetch all bookings for a specific customer
     public Task<List<Booking>> getBookingsByCustomerId(String customerId) {
         Log.d(TAG, "getBookingsByCustomerId() called for customer ID: " + customerId);

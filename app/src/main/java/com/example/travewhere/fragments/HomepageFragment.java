@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.travewhere.BookingHistoryActivity;
 import com.example.travewhere.HotelDetailActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.SearchActivity;
@@ -34,7 +35,7 @@ public class HomepageFragment extends Fragment {
     private HotelAdapter hotelAdapter;
     private List<Hotel> hotelList;
     private HotelViewModel hotelViewModel = new HotelViewModel();
-    private LinearLayout searchBar;
+    private LinearLayout searchBar, bookingHistoryButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class HomepageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
         hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
         searchBar = view.findViewById(R.id.searchBar);
+        bookingHistoryButton = view.findViewById(R.id.bookingLinearLayout);
 
         // Set layout manager for the RecyclerView
         hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -59,6 +61,13 @@ public class HomepageFragment extends Fragment {
         // Trigger search activity
         searchBar.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), SearchActivity.class);
+            startActivity(intent);
+        });
+
+        // Trigger booking history activity
+        bookingHistoryButton.setOnClickListener(v -> {
+            // Handle the booking history button
+            Intent intent = new Intent(getContext(), BookingHistoryActivity.class);
             startActivity(intent);
         });
 

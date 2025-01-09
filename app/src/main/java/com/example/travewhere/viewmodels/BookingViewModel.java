@@ -1,11 +1,14 @@
 package com.example.travewhere.viewmodels;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.travewhere.models.Booking;
+import com.example.travewhere.models.Hotel;
 import com.example.travewhere.repositories.BookingRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,6 +42,16 @@ public class BookingViewModel extends ViewModel {
         return statusLiveData;
     }
 
+    // Get all bookings
+    public LiveData<List<Booking>> getAllBooking() {
+        bookingRepository.getAllBookings().addOnSuccessListener(hotels -> {
+            bookingsLiveData.postValue(hotels);
+        }).addOnFailureListener(e -> {
+            // Handle error
+            Log.d("HotelViewModel", "Error getting all hotels: " + e.getMessage());
+        });
+        return bookingsLiveData;
+    }
     // Add a new booking
     public void addBooking(Booking booking) {
         bookingRepository.addBooking(booking).addOnCompleteListener(task -> {
