@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
             android:queryHint="Search for places"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_marginVertical="32dp"
             android:background="@drawable/rounded_rectangle"
             android:elevation="8dp" />
