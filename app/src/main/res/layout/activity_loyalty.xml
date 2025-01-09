@@ -54,10 +54,10 @@
             android:layout_marginBottom="32dp">
 
             <ImageView
+                android:id="@+id/memberStatusIcon"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/ic_gold_user"
-                android:contentDescription="Gold User Icon" />
+                android:contentDescription="@string/member_status_icon" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -68,14 +68,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="You are a"
+                    android:text="@string/you_are_a"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/memberStatusTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gold User"
                     android:textColor="@color/secondary_text"
                     android:textSize="28sp"
                     android:textStyle="bold" />
@@ -86,7 +86,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rewards System"
+            android:text="@string/rewards_system"
             android:textColor="@color/neutral_text"
             android:textSize="18sp"
             android:textStyle="bold"

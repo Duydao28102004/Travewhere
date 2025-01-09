@@ -26,4 +26,7 @@
     <string name="close">Close</string>
     <string name="back_button">Back Button</string>
     <string name="member_status">Member Status</string>
+    <string name="member_status_icon">Member Status Icon</string>
+    <string name="you_are_a">You are a</string>
+    <string name="rewards_system">Rewards System</string>
 </resources>
