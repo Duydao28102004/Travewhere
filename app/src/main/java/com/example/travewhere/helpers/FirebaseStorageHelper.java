@@ -1,8 +1,7 @@
-package com.example.travewhere;
+package com.example.travewhere.helpers;
 
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
