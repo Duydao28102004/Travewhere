@@ -55,13 +55,13 @@
                 android:id="@+id/btnLoyalty"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/rounded_rectangle"
+                android:contentDescription="Loyalty Activity Trigger"
+                android:elevation="4dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_username"
-                android:contentDescription="Loyaltu Activity Trigger"
-                app:tint="@color/neutral_text"
-                android:layout_marginStart="8dp"
-                android:elevation="4dp" />
+                app:tint="@color/neutral_text" />
         </LinearLayout>
 
         <LinearLayout

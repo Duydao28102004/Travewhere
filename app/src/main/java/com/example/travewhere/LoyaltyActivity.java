@@ -11,8 +11,6 @@ import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.MemberStatus;
 
 import java.util.Objects;
-
-public class LoyaltyActivity extends AppCompatActivity {
 import android.app.Activity;
 import android.os.Bundle;
 
