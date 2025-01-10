@@ -1,20 +1,20 @@
 package com.example.travewhere;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
-import android.view.View;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travewhere.R;
 import com.example.travewhere.adapters.HotelAdapter;
-import com.example.travewhere.models.Coupon;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.viewmodels.HotelViewModel;
 
@@ -24,25 +24,21 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private EditText searchEditText;
-    private Button searchButton;
     private RecyclerView searchResultsRecyclerView;
-    private Button clearButton;
 
     private HotelViewModel hotelViewModel = new HotelViewModel();
     private HotelAdapter hotelAdapter;
     private List<Hotel> hotelResults = new ArrayList<>(); // Filtered list
     private List<Hotel> allHotels = new ArrayList<>();    // Backup list with all hotels
-    private List<Coupon> couponResults = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        getSupportActionBar().hide();
 
         searchEditText = findViewById(R.id.searchEditText);
-        searchButton = findViewById(R.id.searchButton);
         searchResultsRecyclerView = findViewById(R.id.searchResultsRecyclerView);
-        clearButton = findViewById(R.id.clearButton);
 
         // Initialize adapter
         hotelAdapter = new HotelAdapter(this, hotelResults);
@@ -50,6 +46,12 @@ public class SearchActivity extends AppCompatActivity {
 
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchResultsRecyclerView.setAdapter(hotelAdapter);
+
+        RelativeLayout backButton = findViewById(R.id.btnBackLayout);
+
+        backButton.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
         // Observe LiveData once in onCreate
         hotelViewModel.getAllHotels().observe(this, fetchedHotels -> {
@@ -62,19 +64,26 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        searchButton.setOnClickListener(v -> {
-            String query = searchEditText.getText().toString().trim();
-            if (TextUtils.isEmpty(query)) {
-                Toast.makeText(SearchActivity.this, "Enter a search query", Toast.LENGTH_SHORT).show();
-            } else {
-                performSearch(query);
-            }
-        });
+        // Add TextWatcher for auto-search
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-        clearButton.setOnClickListener(v -> {
-            searchEditText.setText(""); // Clear the search input
-            hotelResults.clear();
-            hotelAdapter.prefetch(() -> hotelAdapter.updateHotelList(allHotels));});
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String query = s.toString().trim();
+                if (!TextUtils.isEmpty(query)) {
+                    performSearch(query);
+                } else {
+                    // Show all hotels when search query is cleared
+                    hotelResults.clear();
+                    hotelAdapter.prefetch(() -> hotelAdapter.updateHotelList(allHotels));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
     private void performSearch(String query) {
@@ -88,7 +97,7 @@ public class SearchActivity extends AppCompatActivity {
         hotelAdapter.prefetch(() -> hotelAdapter.updateHotelList(filteredResults));
 
         if (filteredResults.isEmpty()) {
-            Toast.makeText(this, "No results found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SearchActivity.this, "No results found", Toast.LENGTH_SHORT).show();
         }
     }
 }

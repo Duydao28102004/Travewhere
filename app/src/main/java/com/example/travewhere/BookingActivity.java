@@ -3,6 +3,7 @@ package com.example.travewhere;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class BookingActivity extends AppCompatActivity {
     private TextView hotelName, hotelAddress, roomType, roomPrice, totalPrice;
     private Button btnCheckInTime, btnCheckOutTime, bookNowButton;
+    private RelativeLayout backbutton;
     private String roomId;
     private HotelViewModel hotelViewModel = new HotelViewModel();
     private RoomViewModel roomViewModel = new RoomViewModel();
@@ -51,6 +53,11 @@ public class BookingActivity extends AppCompatActivity {
         btnCheckOutTime = findViewById(R.id.btnCheckOutTime);
         totalPrice = findViewById(R.id.total_price_text_view);
         bookNowButton = findViewById(R.id.book_now_button);
+        backbutton = findViewById(R.id.btnBackLayout);
+
+        backbutton.setOnClickListener(v -> {
+            finish();
+        });
 
         // Set onClickListeners for date pickers
         btnCheckInTime.setOnClickListener(v -> showDatePicker((day, month, year) -> {
@@ -121,28 +128,33 @@ public class BookingActivity extends AppCompatActivity {
                         hotelName.setText(hotel.getName());
                         hotelAddress.setText(hotel.getAddress());
                         selectedHotelId = hotel.getId();
+                        roomViewModel.getRoomsByHotel(selectedHotelId).observe(this, rooms -> {
+                            for (Room room : rooms) {
+                                if (room.getId().equals(roomId)) {
+                                    roomType.setText(room.getRoomType());
+                                    roomPricePerNight = room.getPricePerNight();
+                                    roomPrice.setText(String.format("%s$ per night", roomPricePerNight));
+                                    updateTotalPrice();
+                                    break;
+                                }
+                            }
+                        });
                         break;
                     }
                 }
-                roomViewModel.getRoomsByHotel(hotel.getId()).observe(this, rooms -> {
-                    for (Room room : rooms) {
-                        if (room.getId().equals(roomId)) {
-                            roomType.setText(room.getRoomType());
-                            roomPricePerNight = room.getPricePerNight();
-                            roomPrice.setText(String.format("%s$ per night", roomPricePerNight));
-                            updateTotalPrice();
-                            break;
-                        }
-                    }
-                });
+
             }
         });
     }
 
     private void updateTotalPrice() {
+        if (roomPricePerNight <= 0) {
+            Log.w("BookingActivity", "Room price not initialized yet.");
+            return;
+        }
+
         if (checkInDate != null && checkOutDate != null) {
             long diffInMillis = checkOutDate.getTime() - checkInDate.getTime();
-
             if (diffInMillis < 0) {
                 totalPrice.setText("Total Price: Invalid Date Range");
                 Log.e("BookingActivity", "Invalid date range: Check-in is after Check-out");
@@ -158,6 +170,7 @@ public class BookingActivity extends AppCompatActivity {
             Log.d("BookingActivity", "Dates not set; total price not updated.");
         }
     }
+
 
 
     // Callback interface for date picking
