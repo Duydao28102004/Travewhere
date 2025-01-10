@@ -252,6 +252,9 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback {
         LatLng hotelLocation = new LatLng(hotel.getLatitude(), hotel.getLongitude());
         googleMapInstance.animateCamera(CameraUpdateFactory.newLatLngZoom(hotelLocation, 15));
 
+        // Show the hotel details when user selects a hotel on the matching results of the search
+        showHotelDetails(hotel);
+
         // Retrieve the existing marker from the markerHotelMap
         Marker marker = null;
         for (String markerId : markerHotelMap.keySet()) {
