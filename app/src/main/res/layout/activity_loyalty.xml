@@ -104,9 +104,8 @@
 
             <!-- Bronze User-->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center">
 
@@ -114,12 +113,12 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_bronze_user"
-                    android:contentDescription="Bronze User Icon" />
+                    android:contentDescription="@string/bronze_user_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bronze"
+                    android:text="@string/bronze"
                     android:textColor="@color/secondary_text"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -127,7 +126,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 PTS"
+                    android:text="@string/zero_pts"
                     android:textColor="@color/neutral_text"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -144,12 +143,12 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_gold_user"
-                    android:contentDescription="Gold User Icon" />
+                    android:contentDescription="@string/gold_user_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gold"
+                    android:text="@string/gold"
                     android:textColor="@color/secondary_text"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -157,16 +156,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="500 PTS"
+                    android:text="@string/five_hundred_pts"
                     android:textColor="@color/neutral_text"
                     android:textSize="12sp" />
             </LinearLayout>
 
             <!-- Diamond User-->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center">
 
@@ -174,12 +172,12 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_diamond_user"
-                    android:contentDescription="Diamond User Icon" />
+                    android:contentDescription="@string/diamond_user_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Diamond"
+                    android:text="@string/diamond"
                     android:textColor="@color/secondary_text"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -187,7 +185,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000 PTS"
+                    android:text="@string/one_thousand_pts"
                     android:textColor="@color/neutral_text"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -197,7 +195,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="8dp"
             android:paddingVertical="8dp"
             android:paddingHorizontal="16dp">
 
@@ -207,7 +205,6 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:progress="50"
                 android:max="1000"
                 android:progressTint="@color/secondary"
                 android:backgroundTint="@color/secondary_text" />
@@ -243,6 +240,16 @@
                 android:scaleType="fitEnd"/>
         </RelativeLayout>
 
+        <!-- Customer's Current Point TextView display-->
+        <TextView
+            android:id="@+id/customerCurrentPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/neutral_text"
+            android:textSize="16sp"
+            android:text="@string/current_points"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="32dp"/>
 
         <!-- Rewards System Level Progress Text Description-->
         <LinearLayout
@@ -256,7 +263,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="How it works?"
+                android:text="@string/how_it_works"
                 android:textColor="@color/neutral_text"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -275,16 +282,16 @@
                     android:layout_height="40dp"
                     android:src="@drawable/ic_percent"
                     android:background="@drawable/round_button"
-                    android:contentDescription="Percent Icon"
+                    android:contentDescription="@string/percent_icon"
                     android:padding="8dp" />
 
                 <!-- Text -->
                 <TextView
+                    android:id="@+id/exclusiveDiscountDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="When reaching gold member, you will have 10% off discount for each booking"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -303,16 +310,16 @@
                     android:layout_height="40dp"
                     android:src="@drawable/ic_giftbox"
                     android:background="@drawable/round_button"
-                    android:contentDescription="Gift Box Icon"
+                    android:contentDescription="@string/gift_box_icon"
                     android:padding="8dp" />
 
                 <!-- Text -->
                 <TextView
+                    android:id="@+id/exclusiveBirthdayGiftDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="Special gifts in birthday month"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -331,16 +338,16 @@
                     android:layout_height="40dp"
                     android:src="@drawable/ic_offer"
                     android:background="@drawable/round_button"
-                    android:contentDescription="Special Offer Icon"
+                    android:contentDescription="@string/special_offer_icon"
                     android:padding="8dp" />
 
                 <!-- Text -->
                 <TextView
+                    android:id="@+id/exclusiveSpecialOfferDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="Limited special offer(s) for gold members only"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>
