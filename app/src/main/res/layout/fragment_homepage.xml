@@ -21,6 +21,7 @@
 
             <!-- Inner LinearLayout for Search Bar -->
             <LinearLayout
+                android:id="@+id/searchBar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -133,6 +134,7 @@
 
                 <!-- Booking -->
                 <LinearLayout
+                    android:id="@+id/bookingLinearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"

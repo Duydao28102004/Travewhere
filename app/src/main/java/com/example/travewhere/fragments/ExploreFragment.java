@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.travewhere.HotelDetailActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.adapters.HotelSearchAdapter;
 import com.example.travewhere.models.Hotel;
@@ -59,6 +60,7 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback {
     private HotelSearchAdapter hotelSearchAdapter;
     private FrameLayout hotelDetailsFrameLayout;
     private TextView hotelNameTextView, hotelAddressTextView;
+    private Button btnViewDetails;
     private ImageView hotelImageView;
 
     private final List<Hotel> allHotels = new ArrayList<>();
@@ -108,6 +110,7 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback {
         hotelAddressTextView = view.findViewById(R.id.hotelAddress);
         hotelImageView = view.findViewById(R.id.hotelImage);
         Button btnDirections = view.findViewById(R.id.btnDirections);
+        btnViewDetails = view.findViewById(R.id.btnViewDetails);
 
         view.findViewById(R.id.btnClose).setOnClickListener(v -> hotelDetailsFrameLayout.setVisibility(View.GONE));
         btnDirections.setOnClickListener(v -> navigateToHotel());
@@ -195,6 +198,11 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback {
         hotelAddressTextView.setText(hotel.getAddress());
         Glide.with(requireContext()).load(hotel.getImageUrl()).into(hotelImageView);
         hotelDetailsFrameLayout.setVisibility(View.VISIBLE);
+        btnViewDetails.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), HotelDetailActivity.class);
+            intent.putExtra("HOTEL_ID", hotel.getId());
+            startActivity(intent);
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
