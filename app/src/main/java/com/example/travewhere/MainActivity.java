@@ -4,27 +4,35 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.travewhere.fragments.ExploreFragment;
 import com.example.travewhere.fragments.HomepageFragment;
+import com.example.travewhere.models.Customer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Customer currentCustomer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
-        // Load the initial HomeFragment with the arguments
+        // Retrieve Customer object from Intent
+        currentCustomer = (Customer) getIntent().getSerializableExtra("customer");
+
+        // Load the initial HomeFragment with the Customer data
         if (savedInstanceState == null) {
             HomepageFragment homeFragment = new HomepageFragment();
+            Bundle args = new Bundle();
+            args.putSerializable("customer", currentCustomer);
+            homeFragment.setArguments(args);
             loadFragment(homeFragment);
         }
 
@@ -38,14 +46,16 @@ public class MainActivity extends AppCompatActivity {
 
             if (itemId == R.id.nav_home) {
                 selectedFragment = new HomepageFragment();
-//                selectedFragment.setArguments(args);
+                Bundle args = new Bundle();
+                args.putSerializable("customer", currentCustomer);
+                selectedFragment.setArguments(args);
             } else if (itemId == R.id.nav_explore) {
                 selectedFragment = new ExploreFragment();
-
+                // Pass customer data if needed
             } else if (itemId == R.id.nav_saved) {
-//                selectedFragment = new SavedFragment();
+                // selectedFragment = new SavedFragment();
             } else if (itemId == R.id.nav_settings) {
-//                selectedFragment = new SettingsFragment();
+                // selectedFragment = new SettingsFragment();
             } else {
                 return false;
             }

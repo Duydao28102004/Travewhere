@@ -109,7 +109,7 @@ public class CreateHotelActivity extends AppCompatActivity {
         selectAddressButton.setOnClickListener(v -> openAutocomplete());
 
         roomAdapter = new RoomAdapter(this, roomViewModel.getRoomList());
-
+        roomAdapter.prefetch(() -> {});
         roomRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         roomRecyclerView.setAdapter(roomAdapter);
 

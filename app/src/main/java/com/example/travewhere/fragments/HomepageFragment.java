@@ -16,17 +16,20 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.travewhere.CouponActivity;
+import com.example.travewhere.BookingHistoryActivity;
 import com.example.travewhere.HotelDetailActivity;
+import com.example.travewhere.LoyaltyActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.adapters.CouponAdapter;
 import com.example.travewhere.adapters.HotelAdapter;
 import com.example.travewhere.models.Coupon;
+import com.example.travewhere.SearchActivity;
+import com.example.travewhere.adapters.HotelAdapter;
+import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.repositories.HotelRepository;
 import com.example.travewhere.viewmodels.CouponViewModel;
 import com.example.travewhere.viewmodels.HotelViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +45,38 @@ public class HomepageFragment extends Fragment {
     private HotelRepository hotelRepository;
     private HotelViewModel hotelViewModel = new HotelViewModel();
     private CouponViewModel couponViewModel = new CouponViewModel();
+    private HotelViewModel hotelViewModel = new HotelViewModel();
+    private Customer currentCustomer;
+    private LinearLayout searchBar, bookingHistoryButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hotelRepository = new HotelRepository();
+
+        // Retrieve the Customer object from the arguments
+        if (getArguments() != null) {
+            currentCustomer = (Customer) getArguments().getSerializable("customer");
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
+      
+        hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
+        searchBar = view.findViewById(R.id.searchBar);
+        bookingHistoryButton = view.findViewById(R.id.bookingLinearLayout);
+
+        // Set click listener for LoyaltyActivity button trigger
+        view.findViewById(R.id.btnLoyalty).setOnClickListener(v -> {
+            if (currentCustomer != null) {
+                Intent intent = new Intent(getContext(), LoyaltyActivity.class);
+                intent.putExtra("customer", currentCustomer);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getContext(), "Customer data is not available", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         LinearLayout couponsLayout = view.findViewById(R.id.linearLayoutCoupons);
 
@@ -75,8 +100,23 @@ public class HomepageFragment extends Fragment {
         couponRecyclerView.setAdapter(couponAdapter);
         couponAdapter.setOrientation(true);
         fetchCoupons();
+      
+        // Trigger search activity
+        searchBar.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), SearchActivity.class);
+            startActivity(intent);
+        });
+
+        // Trigger booking history activity
+        bookingHistoryButton.setOnClickListener(v -> {
+            // Handle the booking history button
+            Intent intent = new Intent(getContext(), BookingHistoryActivity.class);
+            startActivity(intent);
+        });
+
+        // Fetch all hotels and update the RecyclerView
         fetchHotels();
-        
+
         return view;
     }
 

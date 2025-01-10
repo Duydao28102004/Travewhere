@@ -3,7 +3,6 @@ package com.example.travewhere;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
 import android.view.View;
@@ -17,13 +16,10 @@ import android.widget.Toast;
 import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Manager;
 import com.example.travewhere.repositories.AuthenticationRepository;
-import com.example.travewhere.repositories.CustomerRepository;
-import com.example.travewhere.repositories.ManagerRepository;
+import com.example.travewhere.repositories.FirestoreRepository;
 import com.example.travewhere.viewmodels.CustomerViewModel;
 import com.example.travewhere.viewmodels.ManagerViewModel;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.checkerframework.checker.units.qual.C;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
@@ -114,6 +110,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                                 if (customer != null) {
                                     // Redirect to Customer's MainActivity
                                     Intent intent = new Intent(this, MainActivity.class);
+                                    intent.putExtra("customer", customer);
                                     startActivity(intent);
                                     finish();
                                 } else {
@@ -122,6 +119,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                                         if (manager != null) {
                                             // Redirect to ManagerActivity
                                             Intent intent = new Intent(this, ManagerActivity.class);
+                                            intent.putExtra("manager", manager);
                                             startActivity(intent);
                                             finish();
                                         } else {

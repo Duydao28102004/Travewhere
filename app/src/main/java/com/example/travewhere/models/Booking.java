@@ -5,18 +5,20 @@ import java.util.List;
 
 public class Booking {
     private String id;
-    private Customer customer;
+    private String customerId;
     private String roomId;
+    private String hotelId;
     private Date checkInDate;
     private Date checkOutDate;
     private double totalPrice;
 
     public Booking() {}
 
-    public Booking(String id, Customer customer, String roomId, Date checkInDate, Date checkOutDate, double totalPrice) {
+    public Booking(String id, String customerId, String roomId, String hotelId, Date checkInDate, Date checkOutDate, double totalPrice) {
         this.id = id;
-        this.customer = customer;
+        this.customerId = customerId;
         this.roomId = roomId;
+        this.hotelId = hotelId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.totalPrice = totalPrice;
@@ -30,12 +32,12 @@ public class Booking {
         this.id = id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getRoomId() {
@@ -44,6 +46,14 @@ public class Booking {
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    public String getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Date getCheckInDate() {

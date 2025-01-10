@@ -31,6 +31,18 @@
             android:name=".CouponActivity"
             android:exported="false" />
         <activity
+            android:name=".LoyaltyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookingHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditHotelActivity"
             android:exported="false" />
         <activity
