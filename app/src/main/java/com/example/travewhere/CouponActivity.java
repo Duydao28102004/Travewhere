@@ -28,6 +28,7 @@ public class CouponActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon);
+        getSupportActionBar().hide();
 
         btnBackLayout = findViewById(R.id.btnBackLayout);
         searchView = findViewById(R.id.searchView);
@@ -36,6 +37,7 @@ public class CouponActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         couponAdapter = new CouponAdapter(this, new ArrayList<>());
+        couponAdapter.setOrientation(false);
         recyclerView.setAdapter(couponAdapter);
 
         couponViewModel = new ViewModelProvider(this).get(CouponViewModel.class);
@@ -78,8 +80,13 @@ public class CouponActivity extends AppCompatActivity {
             if (filteredCoupons != null && !filteredCoupons.isEmpty()) {
                 couponAdapter.setCoupons(filteredCoupons);
             } else {
+                // Update adapter with an empty list
                 couponAdapter.setCoupons(new ArrayList<>());
+
+                // Show a Toast message to the user
+                Toast.makeText(this, "No coupons found for the search query.", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

@@ -26,6 +26,7 @@ public class CouponDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon_detail);
+        getSupportActionBar().hide();
 
         tvTitle = findViewById(R.id.tvCouponTitle);
         tvCode = findViewById(R.id.tvCouponCode);
