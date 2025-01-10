@@ -3,7 +3,6 @@ package com.example.travewhere;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
 import android.view.View;
@@ -17,13 +16,10 @@ import android.widget.Toast;
 import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Manager;
 import com.example.travewhere.repositories.AuthenticationRepository;
-import com.example.travewhere.repositories.CustomerRepository;
-import com.example.travewhere.repositories.ManagerRepository;
+import com.example.travewhere.repositories.FirestoreRepository;
 import com.example.travewhere.viewmodels.CustomerViewModel;
 import com.example.travewhere.viewmodels.ManagerViewModel;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.checkerframework.checker.units.qual.C;
 
 public class AuthenticationActivity extends AppCompatActivity {
 

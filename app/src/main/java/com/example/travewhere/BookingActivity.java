@@ -1,6 +1,7 @@
 package com.example.travewhere;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ public class BookingActivity extends AppCompatActivity {
             checkInDate = createDate(day, month, year);
             String formattedDate = String.format("%02d-%02d-%04d", day, month, year);
             btnCheckInTime.setText("Check-in: " + formattedDate);
+            Log.d("BookingActivity", "Check-in Date set: " + checkInDate);
             updateTotalPrice();
         }));
 
@@ -63,8 +65,10 @@ public class BookingActivity extends AppCompatActivity {
             checkOutDate = createDate(day, month, year);
             String formattedDate = String.format("%02d-%02d-%04d", day, month, year);
             btnCheckOutTime.setText("Check-out: " + formattedDate);
+            Log.d("BookingActivity", "Check-out Date set: " + checkOutDate);
             updateTotalPrice();
         }));
+
 
         bookNowButton.setOnClickListener(v -> addBooking());
 
@@ -138,21 +142,23 @@ public class BookingActivity extends AppCompatActivity {
     private void updateTotalPrice() {
         if (checkInDate != null && checkOutDate != null) {
             long diffInMillis = checkOutDate.getTime() - checkInDate.getTime();
-            System.out.println("Time Difference in Millis: " + diffInMillis);
 
             if (diffInMillis < 0) {
                 totalPrice.setText("Total Price: Invalid Date Range");
+                Log.e("BookingActivity", "Invalid date range: Check-in is after Check-out");
                 return;
             }
 
             long days = TimeUnit.MILLISECONDS.toDays(diffInMillis) + 1;
-            double totalCost = days * roomPricePerNight;
-            totalPriceValue = totalCost;
-            totalPrice.setText(String.format("Total Price: %.2f$", totalCost));
+            totalPriceValue = days * roomPricePerNight;
+            totalPrice.setText(String.format("Total Price: %.2f$", totalPriceValue));
+            Log.d("BookingActivity", "Total price updated: " + totalPriceValue);
         } else {
             totalPrice.setText("Total Price: $0.00");
+            Log.d("BookingActivity", "Dates not set; total price not updated.");
         }
     }
+
 
     // Callback interface for date picking
     private interface DatePickerCallback {

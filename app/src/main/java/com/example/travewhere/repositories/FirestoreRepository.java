@@ -1,11 +1,10 @@
-package com.example.travewhere;
+package com.example.travewhere.repositories;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.travewhere.models.Customer;
-import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Manager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,9 +12,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class FirestoreRepository {
     FirebaseFirestore db = FirebaseFirestore.getInstance();

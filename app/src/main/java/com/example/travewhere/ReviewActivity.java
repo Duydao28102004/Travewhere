@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.travewhere.adapters.ReviewAdapter;
 import com.example.travewhere.fragments.AddReviewDialogFragment;
 import com.example.travewhere.fragments.ConfirmDeleteDialogFragment;
-import com.example.travewhere.models.Review;
+import com.example.travewhere.repositories.FirestoreRepository;
 import com.example.travewhere.viewmodels.ReviewViewModel;
 
 import java.util.ArrayList;

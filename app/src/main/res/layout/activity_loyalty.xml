@@ -107,6 +107,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center">
 
@@ -115,11 +118,13 @@
                     android:layout_height="48dp"
                     android:src="@drawable/ic_bronze_user"
                     android:contentDescription="@string/bronze_user_icon" />
+                    android:contentDescription="Bronze User Icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bronze"
+                    android:text="Bronze"
                     android:textColor="@color/secondary_text"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -128,6 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/zero_pts"
+                    android:text="0 PTS"
                     android:textColor="@color/neutral_text"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -145,11 +151,13 @@
                     android:layout_height="48dp"
                     android:src="@drawable/ic_gold_user"
                     android:contentDescription="@string/gold_user_icon" />
+                    android:contentDescription="Gold User Icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/gold"
+                    android:text="Gold"
                     android:textColor="@color/secondary_text"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -158,6 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/five_hundred_pts"
+                    android:text="500 PTS"
                     android:textColor="@color/neutral_text"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -166,6 +175,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center">
 
@@ -174,11 +186,13 @@
                     android:layout_height="48dp"
                     android:src="@drawable/ic_diamond_user"
                     android:contentDescription="@string/diamond_user_icon" />
+                    android:contentDescription="Diamond User Icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/diamond"
+                    android:text="Diamond"
                     android:textColor="@color/secondary_text"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -187,6 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/one_thousand_pts"
+                    android:text="1000 PTS"
                     android:textColor="@color/neutral_text"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -197,6 +212,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginBottom="32dp"
             android:paddingVertical="8dp"
             android:paddingHorizontal="16dp">
 
@@ -206,6 +222,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:progress="50"
                 android:max="1000"
                 android:progressTint="@color/secondary"
                 android:backgroundTint="@color/secondary_text" />
@@ -241,6 +258,7 @@
                 android:scaleType="fitEnd"/>
         </RelativeLayout>
 
+
         <!-- Customer's Current Point TextView display-->
         <TextView
             android:id="@+id/customerCurrentPoint"
@@ -265,6 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/how_it_works"
+                android:text="How it works?"
                 android:textColor="@color/neutral_text"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -284,6 +303,7 @@
                     android:src="@drawable/ic_percent"
                     android:background="@drawable/round_button"
                     android:contentDescription="@string/percent_icon"
+                    android:contentDescription="Percent Icon"
                     android:padding="8dp" />
 
                 <!-- Text -->
@@ -293,6 +313,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
+                    android:text="When reaching gold member, you will have 10% off discount for each booking"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -312,6 +333,7 @@
                     android:src="@drawable/ic_giftbox"
                     android:background="@drawable/round_button"
                     android:contentDescription="@string/gift_box_icon"
+                    android:contentDescription="Gift Box Icon"
                     android:padding="8dp" />
 
                 <!-- Text -->
@@ -321,6 +343,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
+                    android:text="Special gifts in birthday month"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -340,6 +363,7 @@
                     android:src="@drawable/ic_offer"
                     android:background="@drawable/round_button"
                     android:contentDescription="@string/special_offer_icon"
+                    android:contentDescription="Special Offer Icon"
                     android:padding="8dp" />
 
                 <!-- Text -->
@@ -349,6 +373,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
+                    android:text="Limited special offer(s) for gold members only"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>
