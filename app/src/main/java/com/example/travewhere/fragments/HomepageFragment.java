@@ -17,14 +17,14 @@ import android.widget.Toast;
 
 import com.example.travewhere.BookingHistoryActivity;
 import com.example.travewhere.HotelDetailActivity;
+import com.example.travewhere.LoyaltyActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.SearchActivity;
 import com.example.travewhere.adapters.HotelAdapter;
+import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.repositories.HotelRepository;
 import com.example.travewhere.viewmodels.HotelViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +35,17 @@ public class HomepageFragment extends Fragment {
     private HotelAdapter hotelAdapter;
     private List<Hotel> hotelList;
     private HotelViewModel hotelViewModel = new HotelViewModel();
+    private Customer currentCustomer;
     private LinearLayout searchBar, bookingHistoryButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Retrieve the Customer object from the arguments
+        if (getArguments() != null) {
+            currentCustomer = (Customer) getArguments().getSerializable("customer");
+        }
     }
 
     @Override
@@ -48,6 +54,17 @@ public class HomepageFragment extends Fragment {
         hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
         searchBar = view.findViewById(R.id.searchBar);
         bookingHistoryButton = view.findViewById(R.id.bookingLinearLayout);
+
+        // Set click listener for LoyaltyActivity button trigger
+        view.findViewById(R.id.btnLoyalty).setOnClickListener(v -> {
+            if (currentCustomer != null) {
+                Intent intent = new Intent(getContext(), LoyaltyActivity.class);
+                intent.putExtra("customer", currentCustomer);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getContext(), "Customer data is not available", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Set layout manager for the RecyclerView
         hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -73,7 +90,7 @@ public class HomepageFragment extends Fragment {
 
         // Fetch all hotels and update the RecyclerView
         fetchHotels();
-        
+
         return view;
     }
 

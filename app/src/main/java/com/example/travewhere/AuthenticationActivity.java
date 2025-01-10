@@ -110,6 +110,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                                 if (customer != null) {
                                     // Redirect to Customer's MainActivity
                                     Intent intent = new Intent(this, MainActivity.class);
+                                    intent.putExtra("customer", customer);
                                     startActivity(intent);
                                     finish();
                                 } else {
@@ -118,6 +119,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                                         if (manager != null) {
                                             // Redirect to ManagerActivity
                                             Intent intent = new Intent(this, ManagerActivity.class);
+                                            intent.putExtra("manager", manager);
                                             startActivity(intent);
                                             finish();
                                         } else {
