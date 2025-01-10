@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".HomepageActivity">
+  
     <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -67,63 +69,108 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <GridLayout
+            android:orientation="vertical"
+            android:background="@color/primary"
+            android:padding="30dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="4"
-                android:rowCount="1"
-                android:padding="8dp"
+                android:orientation="horizontal"
                 android:background="@drawable/rounded_rectangle"
-                android:layout_gravity="center">
+                android:padding="12dp"
+                android:elevation="4dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center_vertical">
 
-                <!-- Hotels -->
-                <LinearLayout
-                    android:layout_width="0dp"
+                <!-- Search Icon -->
+                <ImageView
+                    android:id="@+id/search_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/neutral_text" />
+
+                <!-- Search Text -->
+                <TextView
+                    android:id="@+id/search_text"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
+                    android:layout_marginStart="8dp"
+                    android:text="Search accommodations..."
+                    android:textColor="@color/neutral_text"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:rowCount="1"
+                    android:padding="8dp"
+                    android:background="@drawable/rounded_rectangle"
+                    android:layout_gravity="center">
+
+                    <!-- Hotels -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:background="@color/accent">
-                        <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@drawable/ic_hotel" />
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:background="@color/accent">
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/ic_hotel" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hotels"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black" />
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hotels"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/black" />
-                </LinearLayout>
-
-                <!-- Coupons -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
-
+                    <!-- Coupons -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/linearLayoutCoupons"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:background="@color/accent">
-                        <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@drawable/ic_coupon" />
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:background="@color/accent">
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/ic_coupon" />
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Coupons"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black" />
                     </LinearLayout>
+                  
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -142,97 +189,107 @@
                     android:gravity="center"
                     android:padding="8dp">
 
+                    <!-- Booking -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:background="@color/accent">
-                        <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@drawable/ic_booking" />
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:background="@color/accent">
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/ic_booking" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Booking"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black" />
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Booking"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/black" />
-                </LinearLayout>
-
-                <!-- Maps -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
-
+                    <!-- Maps -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:background="@color/accent">
-                        <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@drawable/ic_map" />
-                    </LinearLayout>
+                        android:layout_columnWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Maps"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/black" />
-                </LinearLayout>
-            </GridLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:background="@color/accent">
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/ic_map" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maps"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black" />
+                    </LinearLayout>
+                </GridLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="✨ Special deals for you!"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/accommodationRecyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:scrollbars="horizontal" />
-    </LinearLayout>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Coupons for our beloved customers!"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✨ Special deals for you!"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/coupon_recycler_view"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/accommodationRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="horizontal" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coupons for our beloved customers!"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/couponRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

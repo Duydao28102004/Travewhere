@@ -15,15 +15,20 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.travewhere.CouponActivity;
 import com.example.travewhere.BookingHistoryActivity;
 import com.example.travewhere.HotelDetailActivity;
 import com.example.travewhere.LoyaltyActivity;
 import com.example.travewhere.R;
+import com.example.travewhere.adapters.CouponAdapter;
+import com.example.travewhere.adapters.HotelAdapter;
+import com.example.travewhere.models.Coupon;
 import com.example.travewhere.SearchActivity;
 import com.example.travewhere.adapters.HotelAdapter;
 import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.repositories.HotelRepository;
+import com.example.travewhere.viewmodels.CouponViewModel;
 import com.example.travewhere.viewmodels.HotelViewModel;
 
 import java.util.ArrayList;
@@ -32,8 +37,14 @@ import java.util.List;
 public class HomepageFragment extends Fragment {
 
     private RecyclerView hotelRecyclerView;
+    private RecyclerView couponRecyclerView;
     private HotelAdapter hotelAdapter;
+    private CouponAdapter couponAdapter;
     private List<Hotel> hotelList;
+    private List<Coupon> couponList;
+    private HotelRepository hotelRepository;
+    private HotelViewModel hotelViewModel = new HotelViewModel();
+    private CouponViewModel couponViewModel = new CouponViewModel();
     private HotelViewModel hotelViewModel = new HotelViewModel();
     private Customer currentCustomer;
     private LinearLayout searchBar, bookingHistoryButton;
@@ -51,6 +62,7 @@ public class HomepageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
+      
         hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
         searchBar = view.findViewById(R.id.searchBar);
         bookingHistoryButton = view.findViewById(R.id.bookingLinearLayout);
@@ -66,15 +78,29 @@ public class HomepageFragment extends Fragment {
             }
         });
 
-        // Set layout manager for the RecyclerView
-        hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        LinearLayout couponsLayout = view.findViewById(R.id.linearLayoutCoupons);
 
-        // Initialize the list and adapter
+        couponsLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), CouponActivity.class);
+            startActivity(intent);
+        });
+
+        hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
+        couponRecyclerView = view.findViewById(R.id.couponRecyclerView);
+        hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        couponRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
         hotelList = new ArrayList<>();
         hotelAdapter = new HotelAdapter(this.getContext(), hotelList);
         hotelRecyclerView.setAdapter(hotelAdapter);
         hotelAdapter.setOrientation(true);
 
+        couponList = new ArrayList<>();
+        couponAdapter = new CouponAdapter(this.getContext(), couponList);
+        couponRecyclerView.setAdapter(couponAdapter);
+        couponAdapter.setOrientation(true);
+        fetchCoupons();
+      
         // Trigger search activity
         searchBar.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), SearchActivity.class);
@@ -107,9 +133,22 @@ public class HomepageFragment extends Fragment {
         });
     }
 
+    private void fetchCoupons() {
+        couponViewModel.getAllCoupons().observe(getViewLifecycleOwner(), allCoupons -> {
+            if (allCoupons != null && !allCoupons.isEmpty()) {
+                couponAdapter.prefetch(() -> {
+                    couponAdapter.updateCouponList(allCoupons);
+                });
+            } else {
+                Toast.makeText(getContext(), "No coupons found", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         fetchHotels();
+        fetchCoupons();
     }
 }
