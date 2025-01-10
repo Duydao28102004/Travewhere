@@ -22,6 +22,9 @@
         android:theme="@style/Theme.Travewhere"
         tools:targetApi="31">
         <activity
+            android:name=".BookingDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".BookingHistoryActivity"
             android:exported="false" />
         <activity

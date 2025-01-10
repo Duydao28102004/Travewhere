@@ -1,11 +1,14 @@
 package com.example.travewhere.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -15,6 +18,7 @@ import com.example.travewhere.R;
 import com.example.travewhere.models.Booking;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Room;
+import com.example.travewhere.viewmodels.BookingViewModel;
 import com.example.travewhere.viewmodels.HotelViewModel;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
@@ -29,6 +33,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
     private final Context context;
     private final HotelViewModel hotelViewModel = new HotelViewModel();
     private final RoomViewModel roomViewModel = new RoomViewModel();
+    private final BookingViewModel bookingViewModel = new BookingViewModel();
     private final Map<String, Hotel> hotelCache = new HashMap<>();
     private final Map<String, Room> roomCache = new HashMap<>();
 
@@ -100,7 +105,41 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
         holder.hotelName.setText(hotel != null ? hotel.getName() : "Loading...");
         holder.roomType.setText(room != null ? room.getRoomType() : "Loading...");
+
+        holder.cancelButton.setOnClickListener(v -> cancelBooking(booking, position));
     }
+
+    private void cancelBooking(Booking booking, int position) {
+        long currentTime = System.currentTimeMillis();
+        long checkInTime = booking.getCheckInDate().getTime();
+
+        if (currentTime < checkInTime) {
+            // Show confirmation dialog
+            new AlertDialog.Builder(context)
+                    .setTitle("Cancel Booking")
+                    .setMessage("Are you sure you want to cancel this booking?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        // Proceed with cancellation
+                        bookingList.remove(position);
+                        notifyItemRemoved(position);
+
+                        // Remove booking from the database (example with Firebase)
+                        bookingViewModel.deleteBooking(booking.getId());
+
+                        Toast.makeText(context, "Booking canceled successfully.", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                        // Dismiss dialog
+                        dialog.dismiss();
+                    })
+                    .create()
+                    .show();
+        } else {
+            // Notify user that cancellation is not allowed
+            Toast.makeText(context, "Cannot cancel booking after check-in date.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public int getItemCount() {
@@ -109,6 +148,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
     public static class BookingViewHolder extends RecyclerView.ViewHolder {
         TextView hotelName, roomType, checkInDate, checkOutDate, totalPrice;
+        Button cancelButton;
+
 
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -117,6 +158,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             checkInDate = itemView.findViewById(R.id.tv_check_in_date);
             checkOutDate = itemView.findViewById(R.id.tv_check_out_date);
             totalPrice = itemView.findViewById(R.id.tv_total_price);
+            cancelButton = itemView.findViewById(R.id.btn_cancel);
         }
     }
 }

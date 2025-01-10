@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travewhere.FirestoreRepository;
+import com.example.travewhere.repositories.FirestoreRepository;
 import com.example.travewhere.R;
 import com.example.travewhere.models.Review;
 

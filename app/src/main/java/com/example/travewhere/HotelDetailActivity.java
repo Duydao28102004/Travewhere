@@ -3,8 +3,6 @@ package com.example.travewhere;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -19,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.travewhere.adapters.RoomAdapter;
-import com.example.travewhere.helpers.DateTimeHelper;
-import com.example.travewhere.models.Room;
+import com.example.travewhere.repositories.FirestoreRepository;
 import com.example.travewhere.viewmodels.HotelViewModel;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
