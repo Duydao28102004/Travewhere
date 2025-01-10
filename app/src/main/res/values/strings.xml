@@ -29,4 +29,18 @@
     <string name="member_status_icon">Member Status Icon</string>
     <string name="you_are_a">You are a</string>
     <string name="rewards_system">Rewards System</string>
+    <string name="current_points">Current Points: %d</string>
+    <string name="bronze_user_icon">Bronze User Icon</string>
+    <string name="bronze">Bronze</string>
+    <string name="zero_pts">0 PTS</string>
+    <string name="gold_user_icon">Gold User Icon</string>
+    <string name="gold">Gold</string>
+    <string name="five_hundred_pts">500 PTS</string>
+    <string name="diamond_user_icon">Diamond User Icon</string>
+    <string name="diamond">Diamond</string>
+    <string name="one_thousand_pts">1000 PTS</string>
+    <string name="special_offer_icon">Special Offer Icon</string>
+    <string name="gift_box_icon">Gift Box Icon</string>
+    <string name="percent_icon">Percent Icon</string>
+    <string name="how_it_works">How it works?</string>
 </resources>
