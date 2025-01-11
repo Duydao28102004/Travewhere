@@ -9,13 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.content.Context;
+import androidx.annotation.NonNull;
 
+import com.example.travewhere.AboutUsActivity;
 import com.example.travewhere.AuthenticationActivity;
 import com.example.travewhere.LanguageSettingsActivity;
 import com.example.travewhere.PreferencesSettingsActivity;
 import com.example.travewhere.R;
+import com.example.travewhere.helpers.LanguageHelper;
 import com.example.travewhere.repositories.AuthenticationRepository;
-
 
 public class SettingsFragment extends Fragment {
 
@@ -39,6 +42,7 @@ public class SettingsFragment extends Fragment {
             // Open the preferences settings activity
             Intent intent = new Intent(getActivity(), PreferencesSettingsActivity.class);
             startActivity(intent);
+            requireActivity().finish(); // Close the current activity
         });
 
         LinearLayout securitySettingsButton = view.findViewById(R.id.security_settings);
@@ -54,6 +58,8 @@ public class SettingsFragment extends Fragment {
         LinearLayout aboutSettingsButton = view.findViewById(R.id.about_us_settings);
         aboutSettingsButton.setOnClickListener(v -> {
             // Open the about settings activity
+            Intent intent = new Intent(getActivity(), AboutUsActivity.class);
+            startActivity(intent);
         });
 
         LinearLayout faqSettingsButton = view.findViewById(R.id.faq_settings);
@@ -69,8 +75,9 @@ public class SettingsFragment extends Fragment {
         LinearLayout customLogoutButton = view.findViewById(R.id.logout_button);
         customLogoutButton.setOnClickListener(v -> {
             // Log out the user
-            authRepository.logout();
+            authRepository.logout(); // Ensure this clears user session
             Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
             // Finish the current activity
@@ -80,5 +87,11 @@ public class SettingsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LanguageHelper.applyLanguage(requireContext());
     }
 }

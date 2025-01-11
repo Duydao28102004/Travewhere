@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.example.travewhere.fragments.ExploreFragment;
 import com.example.travewhere.fragments.HomepageFragment;
 import com.example.travewhere.fragments.SettingsFragment;
+import com.example.travewhere.helpers.LanguageHelper;
 import com.example.travewhere.models.Customer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -20,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Apply language before super call
+        LanguageHelper.applyLanguage(this);
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -74,5 +79,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LanguageHelper.applyLanguage(this);
     }
 }
