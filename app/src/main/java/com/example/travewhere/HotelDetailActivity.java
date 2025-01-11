@@ -58,6 +58,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         tvCallAccommodation = findViewById(R.id.tvCallAccommodation);
         getDirection = findViewById(R.id.getDirection);
         showReviews = findViewById(R.id.showReviews);
+        tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         roomListRecyclerView = findViewById(R.id.roomListRecyclerView);
 
         // Get the hotel ID from the intent
@@ -71,7 +72,27 @@ public class HotelDetailActivity extends AppCompatActivity {
         }
 
         btnBackLayout.setOnClickListener(v -> finish());
-        
+
+        LinearLayout linearLayoutGetDirection = findViewById(R.id.linearLayoutGetDirection);
+        linearLayoutGetDirection.setOnClickListener(v -> {
+            hotelViewModel.getHotelById(hotelId).observe(this, hotel -> {
+                if (hotel != null) {
+                    double latitude = hotel.getLatitude();
+                    double longitude = hotel.getLongitude();
+                    String uri = String.format(Locale.ENGLISH, "geo:%f,%f?q=%f,%f(%s)", latitude, longitude, latitude, longitude, Uri.encode(hotel.getName()));
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    intent.setPackage("com.google.android.apps.maps");
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(HotelDetailActivity.this, "Google Maps is not installed", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(HotelDetailActivity.this, "Hotel details not available", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
 
         LinearLayout linearLayoutCallAccommodation = findViewById(R.id.linearLayoutCallAccommodation);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
