@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1008968567382",
+    "firebase_url": "https://travewhere-ede39-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "travewhere-ede39",
     "storage_bucket": "travewhere-ede39.firebasestorage.app"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.travewhere"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1008968567382-qvijbgc9b4f1q1jdpiddv9ub6bg8sco4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travewhere",
+            "certificate_hash": "1b2a1d0b793e1c52ef4e3ab42f96bb934ab437bd"
+          }
+        },
+        {
+          "client_id": "1008968567382-34dnmjmk9kips6gvmacbso136bale9qo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC4N8NQ81GgOLwXRE08XJG1R8aQF6RGVf8"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008968567382-34dnmjmk9kips6gvmacbso136bale9qo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

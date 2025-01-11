@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -15,8 +16,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
-        android:visibility="visible"
-        tools:layout_editor_absoluteX="24dp">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/loginTitle"
@@ -81,13 +81,41 @@
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/button_background"
             android:backgroundTint="@color/primary"
             android:gravity="center"
             android:padding="12dp"
             android:text="LOGIN"
             android:textColor="@android:color/white" />
+
+        <LinearLayout
+            android:id="@+id/googleSignInButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/primary"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/googleLogo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/google_logo" />
+
+            <TextView
+                android:id="@+id/googleSignInText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Sign in with Google"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/switchToSignup"
@@ -99,7 +127,6 @@
             android:textColor="@color/highlight_state"
             android:textSize="14sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -110,8 +137,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="24dp">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/signupTitle"
@@ -204,7 +230,5 @@
             android:textColor="@color/highlight_state"
             android:textSize="14sp"
             android:textStyle="bold" />
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
