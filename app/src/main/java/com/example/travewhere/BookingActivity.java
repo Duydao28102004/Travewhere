@@ -234,7 +234,9 @@ public class BookingActivity extends AppCompatActivity {
 
         customerViewModel.getCustomerById(authenticationRepository.getCurrentUser().getUid()).observe(this, customer -> {
             if (customer != null) {
-                customer.setPoint(customer.getPoint() + 20);
+                if (customer.getPoint() < 1000) {
+                    customer.setPoint(customer.getPoint() + 20);
+                }
                 customerViewModel.updateCustomer(customer);
             }
         });

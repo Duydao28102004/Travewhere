@@ -62,10 +62,10 @@ public class CouponDetailActivity extends AppCompatActivity {
     }
 
     private void displayCouponDetails(Coupon coupon) {
-        tvTitle.setText("Discount: " + coupon.getDiscount() + " VND");
+        tvTitle.setText("Discount: " + coupon.getDiscount() + " %");
         tvCode.setText("Code: " + coupon.getCode());
-        tvDiscount.setText("Discount: " + coupon.getDiscount() + " VND");
-        tvMinSpend.setText("Min Spend: " + coupon.getMinSpend() + " VND");
+        tvDiscount.setText("Discount: " + coupon.getDiscount() + " %");
+        tvMinSpend.setText("Min Spend: " + coupon.getMinSpend() + " $");
         tvDetails.setText("Details:\n\n• Use this coupon for amazing discounts.\n• Apply it during checkout.");
     }
 

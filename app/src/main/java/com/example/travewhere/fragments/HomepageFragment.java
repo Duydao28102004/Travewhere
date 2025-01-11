@@ -84,6 +84,14 @@ public class HomepageFragment extends Fragment {
             startActivity(intent);
         });
 
+        LinearLayout hotelLinearLayout = view.findViewById(R.id.hotelLinearLayout);
+
+        hotelLinearLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), SearchActivity.class);
+            startActivity(intent);
+        });
+
+
         hotelRecyclerView = view.findViewById(R.id.accommodationRecyclerView);
         couponRecyclerView = view.findViewById(R.id.couponRecyclerView);
         hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

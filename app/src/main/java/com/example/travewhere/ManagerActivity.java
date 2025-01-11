@@ -2,6 +2,7 @@ package com.example.travewhere;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,16 @@ public class ManagerActivity extends AppCompatActivity {
         bookingsSeeMore.setOnClickListener(v -> {
             Intent intent = new Intent(ManagerActivity.this, BookingHistoryActivity.class);
             startActivity(intent);
+        });
+
+        LinearLayout customLogoutButton = findViewById(R.id.logout_button);
+        customLogoutButton.setOnClickListener(v -> {
+            // Log out the user
+            authenticationRepository.logout();
+            Intent intent = new Intent(this, AuthenticationActivity.class);
+            startActivity(intent);
+
+            finish();
         });
 
         // Initialize RecyclerView and Adapter
