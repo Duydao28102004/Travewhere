@@ -33,14 +33,23 @@ public class CouponViewModel extends ViewModel {
 
     public LiveData<List<Coupon>> getCouponsByCode(String code) {
         MutableLiveData<List<Coupon>> filteredCouponsLiveData = new MutableLiveData<>();
-        couponRepository.getCouponsByCode(code)
-                .addOnSuccessListener(filteredCouponsLiveData::postValue)
+        couponRepository.getAllCoupons() // Fetch all coupons
+                .addOnSuccessListener(coupons -> {
+                    List<Coupon> filteredCoupons = new ArrayList<>();
+                    for (Coupon coupon : coupons) {
+                        if (coupon.getCode() != null && coupon.getCode().toLowerCase().contains(code.toLowerCase())) {
+                            filteredCoupons.add(coupon);
+                        }
+                    }
+                    filteredCouponsLiveData.postValue(filteredCoupons);
+                })
                 .addOnFailureListener(e -> {
-                    Log.d("CouponViewModel", "Error fetching coupons by code: " + e.getMessage());
-                    filteredCouponsLiveData.postValue(new ArrayList<>());
+                    Log.d("CouponViewModel", "Error fetching coupons: " + e.getMessage());
+                    filteredCouponsLiveData.postValue(new ArrayList<>()); // Return an empty list on failure
                 });
         return filteredCouponsLiveData;
     }
+
 
     public LiveData<Coupon> getCouponById(String couponId) {
         couponRepository.getCouponById(couponId).addOnSuccessListener(coupon -> {

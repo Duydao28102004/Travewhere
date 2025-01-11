@@ -1,173 +1,256 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/primary"
-    android:padding="16dp">
-    <RelativeLayout
-        android:id="@+id/btnBackLayout"
+    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="20dp"
-        android:padding="10dp">
-
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:contentDescription="Back Button"
-            android:src="@drawable/ic_arrow_back"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true" />
-
-        <TextView
-            android:id="@+id/tvPageTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/btnBack"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:text="Detail Bookings"
-            android:textColor="@android:color/white"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@drawable/rounded_rectangle">
-        <!-- Hotel Information Section -->
-        <TextView
-            android:id="@+id/hotel_name_text_view"
+        android:padding="16dp">
+        <RelativeLayout
+            android:id="@+id/btnBackLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hotel Name"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp" />
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="20dp"
+            android:padding="10dp">
 
-        <TextView
-            android:id="@+id/hotel_address_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hotel Address"
-            android:layout_marginBottom="8dp" />
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="Back Button"
+                android:src="@drawable/ic_arrow_back"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
 
-        <!-- Room Information Section -->
-        <TextView
-            android:id="@+id/room_type_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Room Type"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:id="@+id/room_price_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Price Per Night"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Date and Coupon Section -->
+            <TextView
+                android:id="@+id/tvPageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/btnBack"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:text="Detail Bookings"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/white">
+            <!-- Hotel Information Section -->
+            <TextView
+                android:id="@+id/hotel_name_text_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_white_background"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:text="Hotel Name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp" />
 
-                <TextView
-                    android:id="@+id/tvCheckInLabel"
+            <TextView
+                android:id="@+id/hotel_address_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hotel Address"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Room Information Section -->
+            <TextView
+                android:id="@+id/room_type_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Room Type"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/room_price_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Price Per Night"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Date and Coupon Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_white_background"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tvCheckInLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Checkin"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnCheckInTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select DateTime"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/secondary_text" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imgArrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Checkin"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:src="@drawable/ic_arrow_right" />
 
-                <Button
-                    android:id="@+id/btnCheckInTime"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_white_background"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tvCheckOutLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Checkout"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnCheckOutTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:text="Select DateTime"
+                        android:textColor="@color/secondary_text" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Coupon Section -->
+            <EditText
+                android:id="@+id/coupon_code_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Coupon Code"
+                android:inputType="text"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                android:id="@+id/apply_coupon_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Apply Coupon"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Display Applied Coupon -->
+            <RelativeLayout
+                android:id="@+id/coupon_display_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_rectangle"
+                android:padding="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/applied_coupon_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Select DateTime"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@color/secondary_text" />
-            </LinearLayout>
+                    android:text="No coupon applied"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:paddingEnd="40dp"
+                    android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/imgArrow"
-                android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/clear_coupon_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:src="@drawable/ic_close"
+                    android:contentDescription="Clear Coupon"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+
+            <!-- Total Price and Book Now Section -->
+            <TextView
+                android:id="@+id/total_price_text_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_right" />
-
+                android:text="Total Price: $0.0"
+                android:padding="10dp"
+                android:layout_marginBottom="8dp" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_white_background"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_marginTop="16dp">
 
                 <TextView
-                    android:id="@+id/tvCheckOutLabel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Checkout"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:text="Select Payment Method"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
 
-                <Button
-                    android:id="@+id/btnCheckOutTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:text="Select DateTime"
-                    android:textColor="@color/secondary_text" />
+                <RadioGroup
+                    android:id="@+id/payment_method_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/payment_visa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Visa Card" />
+
+                    <RadioButton
+                        android:id="@+id/payment_mastercard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MasterCard" />
+
+                    <RadioButton
+                        android:id="@+id/payment_paypal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PayPal" />
+                    <Button
+                        android:id="@+id/submit_payment_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Submit Payment"
+                        android:backgroundTint="@color/accent"
+                        android:textColor="@android:color/white"
+                        android:layout_marginTop="16dp" />
+                </RadioGroup>
             </LinearLayout>
+
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/coupon_code_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Coupon Code"
-            android:inputType="text"
-            android:layout_marginBottom="8dp" />
-
-        <Button
-            android:id="@+id/apply_coupon_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Apply Coupon"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:id="@+id/total_price_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Total Price: $0.0"
-            android:padding="10dp"
-            android:layout_marginBottom="8dp" />
-
-        <Button
-            android:id="@+id/book_now_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Book Now" />
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

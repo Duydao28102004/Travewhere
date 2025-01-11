@@ -76,8 +76,8 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
         Coupon coupon = couponList.get(position);
 
         // Set coupon details
-        holder.tvTitle.setText("Discount: " + coupon.getDiscount() + " VND");
-        holder.tvMinSpend.setText("Min spend: " + coupon.getMinSpend() + " VND");
+        holder.tvTitle.setText("Discount: " + coupon.getDiscount() + " %");
+        holder.tvMinSpend.setText("Min spend: " + coupon.getMinSpend() + " $");
         holder.tvCode.setText(coupon.getCode());
         holder.ivCouponImage.setImageResource(R.drawable.ic_coupon);
 

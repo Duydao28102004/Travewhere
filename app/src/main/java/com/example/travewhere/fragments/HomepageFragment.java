@@ -45,7 +45,6 @@ public class HomepageFragment extends Fragment {
     private HotelRepository hotelRepository;
     private HotelViewModel hotelViewModel = new HotelViewModel();
     private CouponViewModel couponViewModel = new CouponViewModel();
-    private HotelViewModel hotelViewModel = new HotelViewModel();
     private Customer currentCustomer;
     private LinearLayout searchBar, bookingHistoryButton;
 
@@ -78,7 +77,7 @@ public class HomepageFragment extends Fragment {
             }
         });
 
-        LinearLayout couponsLayout = view.findViewById(R.id.linearLayoutCoupons);
+        LinearLayout couponsLayout = view.findViewById(R.id.couponLinearLayout);
 
         couponsLayout.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), CouponActivity.class);

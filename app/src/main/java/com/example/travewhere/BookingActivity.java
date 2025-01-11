@@ -2,36 +2,57 @@ package com.example.travewhere;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travewhere.models.Booking;
+import com.example.travewhere.models.Coupon;
+import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Room;
 import com.example.travewhere.repositories.AuthenticationRepository;
 import com.example.travewhere.viewmodels.BookingViewModel;
+import com.example.travewhere.viewmodels.CouponViewModel;
+import com.example.travewhere.viewmodels.CustomerViewModel;
 import com.example.travewhere.viewmodels.HotelViewModel;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class BookingActivity extends AppCompatActivity {
-    private TextView hotelName, hotelAddress, roomType, roomPrice, totalPrice;
-    private Button btnCheckInTime, btnCheckOutTime, bookNowButton;
+    private TextView hotelName, hotelAddress, roomType, roomPrice, totalPrice, appliedCouponTextView;
+    private Button btnCheckInTime, btnCheckOutTime, applyCouponButton, submitPaymentButton;
+    private ImageView clearCouponButton;
+    private EditText couponCodeEditText;
+    private RelativeLayout backbutton, couponDisplayLayout;
+    private RadioGroup paymentMethodGroup;
+    private String selectedPaymentMethod = null;
     private String roomId;
     private HotelViewModel hotelViewModel = new HotelViewModel();
     private RoomViewModel roomViewModel = new RoomViewModel();
     private BookingViewModel bookingViewModel = new BookingViewModel();
+    private CustomerViewModel customerViewModel = new CustomerViewModel();
+    private CouponViewModel couponViewModel = new CouponViewModel();
     private AuthenticationRepository authenticationRepository = new AuthenticationRepository();
     private Date checkInDate, checkOutDate;
     private double roomPricePerNight;
     private double totalPriceValue;
     private String selectedHotelId;
+    private List<Coupon> couponList = new ArrayList<>();
+    private Coupon appliedCoupon = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +71,11 @@ public class BookingActivity extends AppCompatActivity {
         btnCheckInTime = findViewById(R.id.btnCheckInTime);
         btnCheckOutTime = findViewById(R.id.btnCheckOutTime);
         totalPrice = findViewById(R.id.total_price_text_view);
-        bookNowButton = findViewById(R.id.book_now_button);
+        backbutton = findViewById(R.id.btnBackLayout);
+
+        backbutton.setOnClickListener(v -> {
+            finish();
+        });
 
         // Set onClickListeners for date pickers
         btnCheckInTime.setOnClickListener(v -> showDatePicker((day, month, year) -> {
@@ -69,14 +94,116 @@ public class BookingActivity extends AppCompatActivity {
             updateTotalPrice();
         }));
 
-
-        bookNowButton.setOnClickListener(v -> addBooking());
-
         // Fetch and display hotel and room details
         fetchHotelAndRoomDetails();
+
+        // Fetch coupons
+        fetchCoupons();
+
+        clearCouponButton = findViewById(R.id.clear_coupon_button);
+        applyCouponButton = findViewById(R.id.apply_coupon_button);
+        couponCodeEditText = findViewById(R.id.coupon_code_edit_text);
+        appliedCouponTextView = findViewById(R.id.applied_coupon_text_view);
+        couponDisplayLayout = findViewById(R.id.coupon_display_layout);
+
+        applyCouponButton.setOnClickListener(v -> {
+            if (appliedCoupon != null) {
+                Toast.makeText(this, "A coupon is already applied. Clear it to apply another.", Toast.LENGTH_SHORT).show();
+                return; // Exit early if a coupon is already applied
+            }
+
+            String couponCode = couponCodeEditText.getText().toString().trim();
+
+            if (!couponCode.isEmpty()) {
+                // Search the coupon list for a matching coupon code
+                Coupon matchedCoupon = null;
+                for (Coupon coupon : couponList) {
+                    if (coupon.getCode().equalsIgnoreCase(couponCode)) { // Case-insensitive comparison
+                        matchedCoupon = coupon;
+                        break;
+                    }
+                }
+
+                if (matchedCoupon != null) {
+                    appliedCoupon = matchedCoupon; // Mark the coupon as applied
+                    double discountPercent = matchedCoupon.getDiscount(); // Get discount in percentage
+                    double discountAmount = (totalPriceValue * discountPercent) / 100;
+
+                    // Display layout and clear button
+                    couponDisplayLayout.setVisibility(View.VISIBLE);
+                    clearCouponButton.setVisibility(View.VISIBLE);
+
+                    // Update total price
+                    totalPriceValue -= discountAmount;
+
+                    // Display the applied coupon and updated total price
+                    appliedCouponTextView.setText("Applied Coupon: " + matchedCoupon.getCode() +
+                            "\nDiscount: " + discountPercent + "% (-$" + String.format("%.2f", discountAmount) + ")");
+                    appliedCouponTextView.setVisibility(View.VISIBLE);
+
+                    totalPrice.setText(String.format("Total Price: %.2f$", totalPriceValue));
+
+                    Toast.makeText(this, "Coupon applied successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Invalid coupon code", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Please enter a coupon code", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        clearCouponButton.setOnClickListener(v -> {
+            // Reset the applied coupon
+            appliedCoupon = null; // Clear the applied coupon
+            appliedCouponTextView.setText("");
+            appliedCouponTextView.setVisibility(View.GONE);
+
+            // Hide the coupon display layout and clear button
+            couponDisplayLayout.setVisibility(View.GONE);
+            clearCouponButton.setVisibility(View.GONE);
+
+            // Reset total price to the original calculation
+            updateTotalPrice();
+
+            // Clear the coupon code input
+            couponCodeEditText.setText("");
+
+            Toast.makeText(this, "Coupon cleared", Toast.LENGTH_SHORT).show();
+        });
+
+        // Initialize Payment Method Views
+        paymentMethodGroup = findViewById(R.id.payment_method_group);
+        submitPaymentButton = findViewById(R.id.submit_payment_button);
+
+        // Handle payment method selection
+        paymentMethodGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.payment_visa) {
+                selectedPaymentMethod = "Visa Card";
+            } else if (checkedId == R.id.payment_mastercard) {
+                selectedPaymentMethod = "MasterCard";
+            } else if (checkedId == R.id.payment_paypal) {
+                selectedPaymentMethod = "PayPal";
+            } else {
+                selectedPaymentMethod = null;
+            }
+
+            Toast.makeText(this, "Selected: " + selectedPaymentMethod, Toast.LENGTH_SHORT).show();
+        });
+
+
+
+        // Handle Submit Payment
+        submitPaymentButton.setOnClickListener(v -> {
+            if (selectedPaymentMethod == null) {
+                Toast.makeText(this, "Please select a payment method.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            simulatePayment();
+        });
     }
 
-    private void addBooking() {
+    private void simulatePayment() {
         // Validate all data is entered
         if (checkInDate == null || checkOutDate == null) {
             Toast.makeText(this, "Please select check-in and check-out dates", Toast.LENGTH_SHORT).show();
@@ -87,9 +214,43 @@ public class BookingActivity extends AppCompatActivity {
             return;
         }
 
+        Toast.makeText(this, "Processing payment via " + selectedPaymentMethod + "...", Toast.LENGTH_SHORT).show();
+
+        // Simulate a 2-second payment delay
+        new android.os.Handler().postDelayed(() -> {
+            Toast.makeText(this, "Payment successful via " + selectedPaymentMethod + "!", Toast.LENGTH_SHORT).show();
+
+            // Proceed to finalize booking
+            onPaymentSuccess();
+        }, 2000); // 2-second delay
+    }
+
+    private void onPaymentSuccess() {
+        // Add booking to the database
+        addBooking();
+    }
+
+    private void addBooking() {
+
+        customerViewModel.getCustomerById(authenticationRepository.getCurrentUser().getUid()).observe(this, customer -> {
+            if (customer != null) {
+                customer.setPoint(customer.getPoint() + 20);
+                customerViewModel.updateCustomer(customer);
+            }
+        });
+
         bookingViewModel.addBooking(new Booking(bookingViewModel.getUID(), authenticationRepository.getCurrentUser().getUid(), roomId, selectedHotelId, checkInDate, checkOutDate, totalPriceValue));
         Toast.makeText(this, "Booking added successfully!", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private void fetchCoupons() {
+        couponViewModel.getAllCoupons().observe(this, coupons -> {
+            couponList.clear();
+            if (coupons != null) {
+                couponList.addAll(coupons);
+            }
+        });
     }
 
     private void showDatePicker(DatePickerCallback callback) {
@@ -121,28 +282,33 @@ public class BookingActivity extends AppCompatActivity {
                         hotelName.setText(hotel.getName());
                         hotelAddress.setText(hotel.getAddress());
                         selectedHotelId = hotel.getId();
+                        roomViewModel.getRoomsByHotel(selectedHotelId).observe(this, rooms -> {
+                            for (Room room : rooms) {
+                                if (room.getId().equals(roomId)) {
+                                    roomType.setText(room.getRoomType());
+                                    roomPricePerNight = room.getPricePerNight();
+                                    roomPrice.setText(String.format("%s$ per night", roomPricePerNight));
+                                    updateTotalPrice();
+                                    break;
+                                }
+                            }
+                        });
                         break;
                     }
                 }
-                roomViewModel.getRoomsByHotel(hotel.getId()).observe(this, rooms -> {
-                    for (Room room : rooms) {
-                        if (room.getId().equals(roomId)) {
-                            roomType.setText(room.getRoomType());
-                            roomPricePerNight = room.getPricePerNight();
-                            roomPrice.setText(String.format("%s$ per night", roomPricePerNight));
-                            updateTotalPrice();
-                            break;
-                        }
-                    }
-                });
+
             }
         });
     }
 
     private void updateTotalPrice() {
+        if (roomPricePerNight <= 0) {
+            Log.w("BookingActivity", "Room price not initialized yet.");
+            return;
+        }
+
         if (checkInDate != null && checkOutDate != null) {
             long diffInMillis = checkOutDate.getTime() - checkInDate.getTime();
-
             if (diffInMillis < 0) {
                 totalPrice.setText("Total Price: Invalid Date Range");
                 Log.e("BookingActivity", "Invalid date range: Check-in is after Check-out");
@@ -151,14 +317,28 @@ public class BookingActivity extends AppCompatActivity {
 
             long days = TimeUnit.MILLISECONDS.toDays(diffInMillis) + 1;
             totalPriceValue = days * roomPricePerNight;
-            totalPrice.setText(String.format("Total Price: %.2f$", totalPriceValue));
+
+            // Apply the coupon if one is active
+            if (appliedCoupon != null) {
+                double discountPercent = appliedCoupon.getDiscount();
+                double discountAmount = (totalPriceValue * discountPercent) / 100;
+                totalPriceValue -= discountAmount; // Apply discount
+                appliedCouponTextView.setText(String.format(
+                        "Applied Coupon: %s\nDiscount: %.0f%% (-$%.2f)",
+                        appliedCoupon.getCode(),
+                        discountPercent,
+                        discountAmount
+                ));
+            }
+
+            // Update the total price TextView
+            totalPrice.setText(String.format("Total Price: %.2f$ (%d nights)", totalPriceValue, days));
             Log.d("BookingActivity", "Total price updated: " + totalPriceValue);
         } else {
             totalPrice.setText("Total Price: $0.00");
             Log.d("BookingActivity", "Dates not set; total price not updated.");
         }
     }
-
 
     // Callback interface for date picking
     private interface DatePickerCallback {
