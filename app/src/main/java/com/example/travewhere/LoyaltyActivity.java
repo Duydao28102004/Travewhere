@@ -31,6 +31,10 @@ public class LoyaltyActivity extends AppCompatActivity {
         // Hide the top bar
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        findViewById(R.id.btnBackLayout).setOnClickListener(v -> {
+            finish();
+        });
+
         // Fetch and wait for customer data
         fetchUser();
     }

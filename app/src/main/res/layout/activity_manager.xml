@@ -145,6 +145,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp" />
 
-
     </LinearLayout>
+    <!-- Custom Log Out Button -->
+    <LinearLayout
+        android:id="@+id/logout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:backgroundTint="@color/red"
+        android:background="@drawable/rounded_rectangle">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logout_icon"
+            android:layout_marginEnd="8dp"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/logout_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/log_out"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+    </LinearLayout>
+
 </LinearLayout>
