@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".AboutUsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/about_us_logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/facebook"
+            android:contentDescription="@string/app_name"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Heading -->
+        <TextView
+            android:id="@+id/about_us_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_us_label"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/about_us_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_us_description"
+            android:textSize="16sp"
+            android:lineSpacingExtra="2dp"
+            android:ellipsize="none"
+            android:textColor="@color/neutral_text"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Contact Information -->
+        <TextView
+            android:id="@+id/about_us_contact_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_us_label"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/about_us_contact_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email_support_travewhere_com"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/about_us_contact_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_84_123_456_789"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Social Media Links -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start|center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/follow_us"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginEnd="16dp" />
+
+            <ImageView
+                android:id="@+id/about_us_social_facebook"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/facebook"
+                android:contentDescription="@string/facebook_icon"
+                android:layout_marginHorizontal="8dp" />
+
+            <ImageView
+                android:id="@+id/about_us_social_instagram"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/instagram"
+                android:contentDescription="@string/instagram_icon"
+                android:layout_marginHorizontal="8dp" />
+
+            <ImageView
+                android:id="@+id/about_us_social_twitter"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/twitter"
+                android:contentDescription="@string/twitter_icon"
+                android:layout_marginHorizontal="8dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
