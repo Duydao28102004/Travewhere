@@ -107,7 +107,7 @@
     <string name="add_review">Add Review</string>
     <string name="search">Search</string>
     <string name="search_for_hotels">Search for hotels</string>
-    <string name="search_accommodations">Search accommodations...</string>
+    <string name="search_accommodations">Search accommodations…</string>
     <string name="hotels">Hotels</string>
     <string name="booking">Booking</string>
     <string name="maps">Maps</string>
@@ -126,4 +126,6 @@
     <string name="delete">Delete</string>
     <string name="book">Book</string>
     <string name="language_settings_icon">Language Settings Icon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 </resources>
