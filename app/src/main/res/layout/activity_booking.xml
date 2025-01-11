@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@drawable/rounded_rectangle">
+        android:background="@color/white">
         <!-- Hotel Information Section -->
         <TextView
             android:id="@+id/hotel_name_text_view"
@@ -140,6 +140,7 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!-- Coupon Section -->
         <EditText
             android:id="@+id/coupon_code_edit_text"
             android:layout_width="match_parent"
@@ -155,6 +156,41 @@
             android:text="Apply Coupon"
             android:layout_marginBottom="8dp" />
 
+        <!-- Display Applied Coupon -->
+        <RelativeLayout
+            android:id="@+id/coupon_display_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_rectangle"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/applied_coupon_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No coupon applied"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:paddingEnd="40dp"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/clear_coupon_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:src="@drawable/ic_close"
+                android:contentDescription="Clear Coupon"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+
+        <!-- Total Price and Book Now Section -->
         <TextView
             android:id="@+id/total_price_text_view"
             android:layout_width="match_parent"

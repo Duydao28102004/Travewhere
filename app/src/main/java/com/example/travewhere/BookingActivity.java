@@ -2,7 +2,10 @@ package com.example.travewhere;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,30 +13,40 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travewhere.models.Booking;
+import com.example.travewhere.models.Coupon;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Room;
 import com.example.travewhere.repositories.AuthenticationRepository;
 import com.example.travewhere.viewmodels.BookingViewModel;
+import com.example.travewhere.viewmodels.CouponViewModel;
 import com.example.travewhere.viewmodels.HotelViewModel;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class BookingActivity extends AppCompatActivity {
-    private TextView hotelName, hotelAddress, roomType, roomPrice, totalPrice;
-    private Button btnCheckInTime, btnCheckOutTime, bookNowButton;
-    private RelativeLayout backbutton;
+    private TextView hotelName, hotelAddress, roomType, roomPrice, totalPrice, appliedCouponTextView;
+    private Button btnCheckInTime, btnCheckOutTime, bookNowButton, applyCouponButton;
+    private ImageView clearCouponButton;
+    private EditText couponCodeEditText;
+    private RelativeLayout backbutton, couponDisplayLayout;
     private String roomId;
     private HotelViewModel hotelViewModel = new HotelViewModel();
     private RoomViewModel roomViewModel = new RoomViewModel();
     private BookingViewModel bookingViewModel = new BookingViewModel();
+    private CouponViewModel couponViewModel = new CouponViewModel();
     private AuthenticationRepository authenticationRepository = new AuthenticationRepository();
     private Date checkInDate, checkOutDate;
     private double roomPricePerNight;
     private double totalPriceValue;
     private String selectedHotelId;
+    private List<Coupon> couponList = new ArrayList<>();
+    private Coupon appliedCoupon = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +94,82 @@ public class BookingActivity extends AppCompatActivity {
 
         // Fetch and display hotel and room details
         fetchHotelAndRoomDetails();
+
+        // Fetch coupons
+        fetchCoupons();
+
+        clearCouponButton = findViewById(R.id.clear_coupon_button);
+        applyCouponButton = findViewById(R.id.apply_coupon_button);
+        couponCodeEditText = findViewById(R.id.coupon_code_edit_text);
+        appliedCouponTextView = findViewById(R.id.applied_coupon_text_view);
+        couponDisplayLayout = findViewById(R.id.coupon_display_layout);
+
+        applyCouponButton.setOnClickListener(v -> {
+            if (appliedCoupon != null) {
+                Toast.makeText(this, "A coupon is already applied. Clear it to apply another.", Toast.LENGTH_SHORT).show();
+                return; // Exit early if a coupon is already applied
+            }
+
+            String couponCode = couponCodeEditText.getText().toString().trim();
+
+            if (!couponCode.isEmpty()) {
+                // Search the coupon list for a matching coupon code
+                Coupon matchedCoupon = null;
+                for (Coupon coupon : couponList) {
+                    if (coupon.getCode().equalsIgnoreCase(couponCode)) { // Case-insensitive comparison
+                        matchedCoupon = coupon;
+                        break;
+                    }
+                }
+
+                if (matchedCoupon != null) {
+                    appliedCoupon = matchedCoupon; // Mark the coupon as applied
+                    double discountPercent = matchedCoupon.getDiscount(); // Get discount in percentage
+                    double discountAmount = (totalPriceValue * discountPercent) / 100;
+
+                    // Display layout and clear button
+                    couponDisplayLayout.setVisibility(View.VISIBLE);
+                    clearCouponButton.setVisibility(View.VISIBLE);
+
+                    // Update total price
+                    totalPriceValue -= discountAmount;
+
+                    // Display the applied coupon and updated total price
+                    appliedCouponTextView.setText("Applied Coupon: " + matchedCoupon.getCode() +
+                            "\nDiscount: " + discountPercent + "% (-$" + String.format("%.2f", discountAmount) + ")");
+                    appliedCouponTextView.setVisibility(View.VISIBLE);
+
+                    totalPrice.setText(String.format("Total Price: %.2f$", totalPriceValue));
+
+                    Toast.makeText(this, "Coupon applied successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Invalid coupon code", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Please enter a coupon code", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        clearCouponButton.setOnClickListener(v -> {
+            // Reset the applied coupon
+            appliedCoupon = null; // Clear the applied coupon
+            appliedCouponTextView.setText("");
+            appliedCouponTextView.setVisibility(View.GONE);
+
+            // Hide the coupon display layout and clear button
+            couponDisplayLayout.setVisibility(View.GONE);
+            clearCouponButton.setVisibility(View.GONE);
+
+            // Reset total price to the original calculation
+            updateTotalPrice();
+
+            // Clear the coupon code input
+            couponCodeEditText.setText("");
+
+            Toast.makeText(this, "Coupon cleared", Toast.LENGTH_SHORT).show();
+        });
+
     }
 
     private void addBooking() {
@@ -97,6 +186,15 @@ public class BookingActivity extends AppCompatActivity {
         bookingViewModel.addBooking(new Booking(bookingViewModel.getUID(), authenticationRepository.getCurrentUser().getUid(), roomId, selectedHotelId, checkInDate, checkOutDate, totalPriceValue));
         Toast.makeText(this, "Booking added successfully!", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private void fetchCoupons() {
+        couponViewModel.getAllCoupons().observe(this, coupons -> {
+            couponList.clear();
+            if (coupons != null) {
+                couponList.addAll(coupons);
+            }
+        });
     }
 
     private void showDatePicker(DatePickerCallback callback) {
@@ -163,15 +261,28 @@ public class BookingActivity extends AppCompatActivity {
 
             long days = TimeUnit.MILLISECONDS.toDays(diffInMillis) + 1;
             totalPriceValue = days * roomPricePerNight;
-            totalPrice.setText(String.format("Total Price: %.2f$", totalPriceValue));
+
+            // Apply the coupon if one is active
+            if (appliedCoupon != null) {
+                double discountPercent = appliedCoupon.getDiscount();
+                double discountAmount = (totalPriceValue * discountPercent) / 100;
+                totalPriceValue -= discountAmount; // Apply discount
+                appliedCouponTextView.setText(String.format(
+                        "Applied Coupon: %s\nDiscount: %.0f%% (-$%.2f)",
+                        appliedCoupon.getCode(),
+                        discountPercent,
+                        discountAmount
+                ));
+            }
+
+            // Update the total price TextView
+            totalPrice.setText(String.format("Total Price: %.2f$ (%d nights)", totalPriceValue, days));
             Log.d("BookingActivity", "Total price updated: " + totalPriceValue);
         } else {
             totalPrice.setText("Total Price: $0.00");
             Log.d("BookingActivity", "Dates not set; total price not updated.");
         }
     }
-
-
 
     // Callback interface for date picking
     private interface DatePickerCallback {
