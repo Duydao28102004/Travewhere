@@ -29,6 +29,7 @@ public class BookingHistoryActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_history);
+        getSupportActionBar().hide();
 
         // Initialize components
         bookingRecyclerView = findViewById(R.id.recycler_view_bookings);
@@ -40,6 +41,10 @@ public class BookingHistoryActivity extends AppCompatActivity {
 
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
         authenticationRepository = new AuthenticationRepository();
+
+        findViewById(R.id.btnBackLayout).setOnClickListener(v -> {
+            finish();
+        });
 
         fetchUserBookings();
     }

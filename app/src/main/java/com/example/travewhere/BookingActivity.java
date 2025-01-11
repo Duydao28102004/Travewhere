@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,11 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travewhere.models.Booking;
 import com.example.travewhere.models.Coupon;
+import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Room;
 import com.example.travewhere.repositories.AuthenticationRepository;
 import com.example.travewhere.viewmodels.BookingViewModel;
 import com.example.travewhere.viewmodels.CouponViewModel;
+import com.example.travewhere.viewmodels.CustomerViewModel;
 import com.example.travewhere.viewmodels.HotelViewModel;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
@@ -30,14 +33,17 @@ import java.util.concurrent.TimeUnit;
 
 public class BookingActivity extends AppCompatActivity {
     private TextView hotelName, hotelAddress, roomType, roomPrice, totalPrice, appliedCouponTextView;
-    private Button btnCheckInTime, btnCheckOutTime, bookNowButton, applyCouponButton;
+    private Button btnCheckInTime, btnCheckOutTime, applyCouponButton, submitPaymentButton;
     private ImageView clearCouponButton;
     private EditText couponCodeEditText;
     private RelativeLayout backbutton, couponDisplayLayout;
+    private RadioGroup paymentMethodGroup;
+    private String selectedPaymentMethod = null;
     private String roomId;
     private HotelViewModel hotelViewModel = new HotelViewModel();
     private RoomViewModel roomViewModel = new RoomViewModel();
     private BookingViewModel bookingViewModel = new BookingViewModel();
+    private CustomerViewModel customerViewModel = new CustomerViewModel();
     private CouponViewModel couponViewModel = new CouponViewModel();
     private AuthenticationRepository authenticationRepository = new AuthenticationRepository();
     private Date checkInDate, checkOutDate;
@@ -65,7 +71,6 @@ public class BookingActivity extends AppCompatActivity {
         btnCheckInTime = findViewById(R.id.btnCheckInTime);
         btnCheckOutTime = findViewById(R.id.btnCheckOutTime);
         totalPrice = findViewById(R.id.total_price_text_view);
-        bookNowButton = findViewById(R.id.book_now_button);
         backbutton = findViewById(R.id.btnBackLayout);
 
         backbutton.setOnClickListener(v -> {
@@ -88,9 +93,6 @@ public class BookingActivity extends AppCompatActivity {
             Log.d("BookingActivity", "Check-out Date set: " + checkOutDate);
             updateTotalPrice();
         }));
-
-
-        bookNowButton.setOnClickListener(v -> addBooking());
 
         // Fetch and display hotel and room details
         fetchHotelAndRoomDetails();
@@ -150,7 +152,6 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
-
         clearCouponButton.setOnClickListener(v -> {
             // Reset the applied coupon
             appliedCoupon = null; // Clear the applied coupon
@@ -170,9 +171,39 @@ public class BookingActivity extends AppCompatActivity {
             Toast.makeText(this, "Coupon cleared", Toast.LENGTH_SHORT).show();
         });
 
+        // Initialize Payment Method Views
+        paymentMethodGroup = findViewById(R.id.payment_method_group);
+        submitPaymentButton = findViewById(R.id.submit_payment_button);
+
+        // Handle payment method selection
+        paymentMethodGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.payment_visa) {
+                selectedPaymentMethod = "Visa Card";
+            } else if (checkedId == R.id.payment_mastercard) {
+                selectedPaymentMethod = "MasterCard";
+            } else if (checkedId == R.id.payment_paypal) {
+                selectedPaymentMethod = "PayPal";
+            } else {
+                selectedPaymentMethod = null;
+            }
+
+            Toast.makeText(this, "Selected: " + selectedPaymentMethod, Toast.LENGTH_SHORT).show();
+        });
+
+
+
+        // Handle Submit Payment
+        submitPaymentButton.setOnClickListener(v -> {
+            if (selectedPaymentMethod == null) {
+                Toast.makeText(this, "Please select a payment method.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            simulatePayment();
+        });
     }
 
-    private void addBooking() {
+    private void simulatePayment() {
         // Validate all data is entered
         if (checkInDate == null || checkOutDate == null) {
             Toast.makeText(this, "Please select check-in and check-out dates", Toast.LENGTH_SHORT).show();
@@ -182,6 +213,31 @@ public class BookingActivity extends AppCompatActivity {
             Toast.makeText(this, "Check-out date must be after check-in date", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        Toast.makeText(this, "Processing payment via " + selectedPaymentMethod + "...", Toast.LENGTH_SHORT).show();
+
+        // Simulate a 2-second payment delay
+        new android.os.Handler().postDelayed(() -> {
+            Toast.makeText(this, "Payment successful via " + selectedPaymentMethod + "!", Toast.LENGTH_SHORT).show();
+
+            // Proceed to finalize booking
+            onPaymentSuccess();
+        }, 2000); // 2-second delay
+    }
+
+    private void onPaymentSuccess() {
+        // Add booking to the database
+        addBooking();
+    }
+
+    private void addBooking() {
+
+        customerViewModel.getCustomerById(authenticationRepository.getCurrentUser().getUid()).observe(this, customer -> {
+            if (customer != null) {
+                customer.setPoint(customer.getPoint() + 20);
+                customerViewModel.updateCustomer(customer);
+            }
+        });
 
         bookingViewModel.addBooking(new Booking(bookingViewModel.getUID(), authenticationRepository.getCurrentUser().getUid(), roomId, selectedHotelId, checkInDate, checkOutDate, totalPriceValue));
         Toast.makeText(this, "Booking added successfully!", Toast.LENGTH_SHORT).show();
