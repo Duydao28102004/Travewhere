@@ -85,6 +85,7 @@
                 android:padding="8dp">
 
                 <LinearLayout
+                    android:id="@+id/hotelLinearLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -158,34 +159,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/booking"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
-
-            <!-- Maps -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="8dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:background="@color/accent">
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_map" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/maps"
                     android:textSize="14sp"
                     android:textColor="@android:color/black" />
             </LinearLayout>

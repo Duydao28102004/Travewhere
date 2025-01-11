@@ -40,7 +40,7 @@ public class CouponActivity extends AppCompatActivity {
         couponAdapter.setOrientation(false);
         recyclerView.setAdapter(couponAdapter);
 
-        couponViewModel = new ViewModelProvider(this).get(CouponViewModel.class);
+        couponViewModel = new CouponViewModel();
 
         couponViewModel.getAllCoupons().observe(this, this::updateCoupons);
         btnBackLayout.setOnClickListener(v -> finish());
