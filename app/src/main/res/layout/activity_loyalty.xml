@@ -297,7 +297,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="When reaching gold member, you will have 10% off discount for each booking"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -326,7 +325,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="Special gifts in birthday month"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -355,7 +353,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="Limited special offer(s) for gold members only"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>

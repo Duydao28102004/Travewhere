@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Mui Ne"
+            android:text="@string/mui_ne"
             android:textSize="12sp"
             android:textColor="@android:color/darker_gray" />
 
@@ -33,7 +33,7 @@
             android:id="@+id/accommodationName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hotel Mui Ne"
+            android:text="@string/hotel_mui_ne"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="4dp" />
@@ -48,7 +48,7 @@
                 android:id="@+id/ratingTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10/10"
+                android:text="@string/_10_10"
                 android:textSize="14sp"
                 android:textColor="@android:color/holo_green_dark" />
 
@@ -56,7 +56,7 @@
                 android:id="@+id/reviewsCountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(85)"
+                android:text="@string/_85"
                 android:textSize="12sp"
                 android:layout_marginStart="4dp"
                 android:textColor="@android:color/darker_gray" />
@@ -66,7 +66,7 @@
             android:id="@+id/priceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="500.000 VND"
+            android:text="@string/_500_000_vnd"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@android:color/holo_orange_dark"
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Excluded tax and fees"
+            android:text="@string/excluded_tax_and_fees"
             android:textSize="12sp"
             android:textColor="@android:color/darker_gray"
             android:layout_marginTop="4dp" />

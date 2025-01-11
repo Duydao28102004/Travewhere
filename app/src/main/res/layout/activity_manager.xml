@@ -14,7 +14,7 @@
         android:id="@+id/greetingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome back, Phuc Hoang Thai!"
+        android:text="@string/welcome_back_phuc_hoang_thai"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:layout_marginTop="16dp"
@@ -42,7 +42,7 @@
                 android:id="@+id/totalIncomeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Income"
+                android:text="@string/total_income"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -50,7 +50,7 @@
                 android:id="@+id/totalIncomeValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12,332 $"
+                android:text="@string/_12_332"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -59,7 +59,7 @@
                 android:id="@+id/incomeSeeMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="see more >>"
+                android:text="@string/see_more"
                 android:textColor="@color/secondary_text"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -78,7 +78,7 @@
                 android:id="@+id/totalBookingsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Bookings"
+                android:text="@string/total_bookings"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -86,7 +86,7 @@
                 android:id="@+id/totalBookingsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3,232"
+                android:text="@string/_3_232"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -95,7 +95,7 @@
                 android:id="@+id/bookingsSeeMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="see more >>"
+                android:text="@string/see_more"
                 android:textColor="@color/secondary_text"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -103,7 +103,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="16dp"
@@ -119,7 +119,7 @@
                 android:id="@+id/accommodationListLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Accommodations List"
+                android:text="@string/accommodations_list"
                 android:textColor="@color/neutral_text"
                 android:textStyle="bold"
                 android:textSize="26sp" />
@@ -132,7 +132,7 @@
                 android:layout_gravity="end"
                 android:layout_marginStart="30dp"
                 android:src="@drawable/ic_add"
-                android:contentDescription="Add Hotel"
+                android:contentDescription="@string/add_hotel"
                 app:backgroundTint="@color/primary"
                 app:tint="@color/white" />
         </LinearLayout>
@@ -141,8 +141,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/accommodationList"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp" />
 
 

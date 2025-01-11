@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:contentDescription="Back Button"
+                android:contentDescription="@string/back_button"
                 android:src="@drawable/ic_arrow_back"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
@@ -39,9 +39,9 @@
                 android:layout_toEndOf="@id/btnBack"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
-                android:text="Coupons"
+                android:text="@string/coupons"
                 android:textColor="@android:color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -64,7 +64,7 @@
         android:id="@+id/tvCouponsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Coupons for new users!"
+        android:text="@string/coupons_for_new_users"
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="16dp"

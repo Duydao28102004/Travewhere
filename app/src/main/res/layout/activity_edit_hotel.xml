@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="20dp"
         android:padding="10dp">
 
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:contentDescription="Back Button"
+            android:contentDescription="@string/back_button"
             android:src="@drawable/ic_arrow_back"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
@@ -31,9 +31,9 @@
             android:layout_toEndOf="@id/btnBack"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:text="Edit Hotel"
+            android:text="@string/edit_hotel"
             android:textColor="@android:color/black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -41,62 +41,62 @@
         android:id="@+id/editNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Hotel Name" />
+        android:hint="@string/hotel_name" />
 
     <EditText
         android:id="@+id/editPhoneEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone Number" />
+        android:hint="@string/phone_number" />
 
     <TextView
         android:id="@+id/editAddressTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Selected Address" />
+        android:text="@string/selected_address" />
 
     <Button
         android:id="@+id/editSelectAddressButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Address" />
+        android:text="@string/select_address" />
 
     <ImageView
         android:id="@+id/editHotelImageView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        android:contentDescription="Hotel Image" />
+        android:contentDescription="@string/hotel_image" />
 
     <Button
         android:id="@+id/editUploadImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Image" />
+        android:text="@string/change_image" />
 
     <EditText
         android:id="@+id/roomTypeEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Room Type" />
+        android:hint="@string/room_type" />
 
     <EditText
         android:id="@+id/priceEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Price per Night" />
+        android:hint="@string/price_per_night" />
 
     <EditText
         android:id="@+id/capacityEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Capacity" />
+        android:hint="@string/room_capacity" />
 
     <Button
         android:id="@+id/addRoomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Room" />
+        android:text="@string/add_room" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/editRoomRecyclerView"
@@ -108,5 +108,5 @@
         android:id="@+id/editSaveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Changes" />
+        android:text="@string/save_changes" />
 </LinearLayout>

@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
 
@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:contentDescription="Back Button"
+                    android:contentDescription="@string/back_button"
                     android:src="@drawable/ic_arrow_back"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
@@ -46,9 +46,9 @@
                     android:layout_toEndOf="@id/btnBack"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
-                    android:text="Create Hotel"
+                    android:text="@string/create_hotel"
                     android:textColor="@android:color/black"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -57,7 +57,7 @@
                 android:id="@+id/nameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Name"
+                android:hint="@string/enter_name"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp" />
 
@@ -66,7 +66,7 @@
                 android:id="@+id/phoneEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Phone Number"
+                android:hint="@string/enter_phone_number"
                 android:inputType="phone"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp" />
@@ -76,7 +76,7 @@
                 android:id="@+id/addressTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Selected Address"
+                android:text="@string/selected_address"
                 android:textSize="18sp"
                 android:layout_marginBottom="8dp" />
 
@@ -85,7 +85,7 @@
                 android:id="@+id/selectAddressButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Address"
+                android:text="@string/select_address"
                 android:layout_marginBottom="8dp" />
 
             <!-- Image Preview -->
@@ -102,14 +102,14 @@
                 android:id="@+id/uploadImageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Upload Image"
+                android:text="@string/upload_image"
                 android:layout_marginBottom="8dp" />
 
             <!-- Room Details -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Room Types"
+                android:text="@string/add_room_types"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp" />
 
@@ -117,34 +117,34 @@
                 android:id="@+id/roomTypeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Room Type" />
+                android:hint="@string/room_type" />
 
             <EditText
                 android:id="@+id/priceEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Price per Night"
+                android:hint="@string/price_per_night"
                 android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/capacityEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Room Capacity"
+                android:hint="@string/room_capacity"
                 android:inputType="number" />
 
             <Button
                 android:id="@+id/addRoomButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Room" />
+                android:text="@string/add_room" />
 
             <!-- Room List -->
             <TextView
                 android:id="@+id/roomListLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Room List:"
+                android:text="@string/room_list"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp" />
 
@@ -159,7 +159,7 @@
                 android:id="@+id/saveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save Details" />
+                android:text="@string/save_details" />
 
         </LinearLayout>
     </LinearLayout>
