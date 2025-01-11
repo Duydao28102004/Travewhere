@@ -116,20 +116,17 @@ public class ChatActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d("ChatActivity", "Message sent successfully");
-                        runOnUiThread(() -> {
-                            messageEditText.setText("");
-                            messageList.add(message);
-                            chatAdapter.notifyItemInserted(messageList.size() - 1);
-                            chatRecyclerView.scrollToPosition(messageList.size() - 1);
-                        });
+                        runOnUiThread(() -> messageEditText.setText(""));
                     } else {
                         Log.e("ChatActivity", "Failed to send message: " + task.getException());
                         Toast.makeText(this, "Failed to send message: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
         String messagePath = chatDatabase.child(chatId).child("messages").child(messageId).toString();
         Log.d("FirebasePath", "Database path: " + messagePath);
     }
+
 
 
     private boolean isConnected() {
