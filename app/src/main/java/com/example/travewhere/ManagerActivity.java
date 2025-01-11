@@ -2,6 +2,7 @@ package com.example.travewhere;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -10,8 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travewhere.adapters.HotelAdapter;
+import com.example.travewhere.models.Booking;
 import com.example.travewhere.models.Hotel;
+import com.example.travewhere.models.Manager;
 import com.example.travewhere.repositories.AuthenticationRepository;
+import com.example.travewhere.viewmodels.BookingViewModel;
 import com.example.travewhere.viewmodels.HotelViewModel;
 import com.example.travewhere.viewmodels.ManagerViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,8 +26,12 @@ import java.util.List;
 public class ManagerActivity extends AppCompatActivity {
     ManagerViewModel managerViewModel;
     HotelViewModel hotelViewModel;
+    BookingViewModel bookingViewModel;
     AuthenticationRepository authenticationRepository;
     private HotelAdapter hotelAdapter;
+    private List<Booking> bookingList = new ArrayList<>();
+    private Manager currentManager = null;
+    TextView greetingText, totalBookingsValue, totalIncomeValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +43,21 @@ public class ManagerActivity extends AppCompatActivity {
         authenticationRepository = new AuthenticationRepository();
         managerViewModel = new ManagerViewModel();
         hotelViewModel = new HotelViewModel();
+        bookingViewModel = new BookingViewModel();
+
+        greetingText = findViewById(R.id.greetingText);
+        totalBookingsValue = findViewById(R.id.totalBookingsValue);
+        totalIncomeValue = findViewById(R.id.totalIncomeValue);
 
         FloatingActionButton addHotelButton = findViewById(R.id.addHotelButton);
         addHotelButton.setOnClickListener(v -> {
             Intent intent = new Intent(ManagerActivity.this, CreateHotelActivity.class);
+            startActivity(intent);
+        });
+
+        TextView bookingsSeeMore = findViewById(R.id.bookingsSeeMore);
+        bookingsSeeMore.setOnClickListener(v -> {
+            Intent intent = new Intent(ManagerActivity.this, BookingHistoryActivity.class);
             startActivity(intent);
         });
 
@@ -49,17 +68,46 @@ public class ManagerActivity extends AppCompatActivity {
         hotelRecyclerView.setAdapter(hotelAdapter);
         hotelAdapter.setOrientation(false);
 
-        fetchHotels(); // Fetch hotels on activity creation
+        fetchHotelsAndBookings(); // Fetch hotels on activity creation
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        fetchHotels(); // Refetch hotels when the activity resumes
+        fetchHotelsAndBookings(); // Refetch hotels when the activity resumes
     }
 
-    private void fetchHotels() {
+    private void fetchHotelsAndBookings() {
         String currentManagerId = authenticationRepository.getCurrentUser().getUid();
+
+        managerViewModel.getManagerById(authenticationRepository.getCurrentUser().getUid()).observe(this, manager -> {
+            if (manager != null) {
+                currentManager = manager;
+                greetingText.setText("Welcome back, " + manager.getName() + "!");
+                bookingViewModel.getAllBooking().observe(this, allBookings -> {
+                    if (allBookings != null && !allBookings.isEmpty()) {
+                        // Filter bookings by manager ID
+                        List<Booking> filteredBookings = new ArrayList<>();
+                        double totalEarning = 0;
+                        for (Booking booking : allBookings) {
+                            if (currentManager.getHotelList().contains(booking.getHotelId())) {
+                                filteredBookings.add(booking);
+                                totalEarning += booking.getTotalPrice();
+                            }
+                        }
+
+                        totalBookingsValue.setText(String.valueOf(filteredBookings.size()));
+                        totalIncomeValue.setText(String.format("$ %.2f", totalEarning));
+
+                        // Update the booking list
+                        bookingList.clear();
+                        bookingList.addAll(filteredBookings);
+                    } else {
+                        Toast.makeText(this, "No bookings found", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
         hotelViewModel.getAllHotels().observe(this, allHotels -> {
             if (allHotels != null && !allHotels.isEmpty()) {
@@ -79,5 +127,6 @@ public class ManagerActivity extends AppCompatActivity {
                 Toast.makeText(this, "No hotels found", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }
