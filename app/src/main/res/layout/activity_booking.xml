@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:background="@color/primary"
     >
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
         <RelativeLayout
@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:contentDescription="Back Button"
+                android:contentDescription="@string/back_button"
                 android:src="@drawable/ic_arrow_back"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
@@ -35,9 +35,9 @@
                 android:layout_toEndOf="@id/btnBack"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
-                android:text="Detail Bookings"
+                android:text="@string/detail_bookings"
                 android:textColor="@android:color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
         <LinearLayout
@@ -51,7 +51,7 @@
                 android:id="@+id/hotel_name_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hotel Name"
+                android:text="@string/hotel_name"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="4dp" />
@@ -60,7 +60,7 @@
                 android:id="@+id/hotel_address_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hotel Address"
+                android:text="@string/hotel_address"
                 android:layout_marginBottom="8dp" />
 
             <!-- Room Information Section -->
@@ -68,21 +68,21 @@
                 android:id="@+id/room_type_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Room Type"
+                android:text="@string/room_type"
                 android:layout_marginBottom="4dp" />
 
             <TextView
                 android:id="@+id/room_price_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Price Per Night"
+                android:text="@string/price_per_night"
                 android:layout_marginBottom="16dp" />
 
             <!-- Date and Coupon Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginVertical="16dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -99,7 +99,7 @@
                         android:id="@+id/tvCheckInLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Checkin"
+                        android:text="@string/check_in"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -107,7 +107,7 @@
                         android:id="@+id/btnCheckInTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Select DateTime"
+                        android:text="@string/select_date_time"
                         android:backgroundTint="@color/white"
                         android:textColor="@color/secondary_text" />
                 </LinearLayout>
@@ -116,6 +116,7 @@
                     android:id="@+id/imgArrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/arrow_right"
                     android:src="@drawable/ic_arrow_right" />
 
                 <LinearLayout
@@ -131,7 +132,7 @@
                         android:id="@+id/tvCheckOutLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Checkout"
+                        android:text="@string/checkout"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -140,7 +141,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
-                        android:text="Select DateTime"
+                        android:text="@string/select_date_time"
                         android:textColor="@color/secondary_text" />
                 </LinearLayout>
             </LinearLayout>
@@ -150,7 +151,8 @@
                 android:id="@+id/coupon_code_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Coupon Code"
+                android:autofillHints="@string/enter_coupon_code"
+                android:hint="@string/enter_coupon_code"
                 android:inputType="text"
                 android:layout_marginBottom="8dp" />
 
@@ -158,7 +160,7 @@
                 android:id="@+id/apply_coupon_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Apply Coupon"
+                android:text="@string/apply_coupon"
                 android:layout_marginBottom="8dp" />
 
             <!-- Display Applied Coupon -->
@@ -175,9 +177,10 @@
                     android:id="@+id/applied_coupon_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No coupon applied"
+                    android:text="@string/no_coupon_applied"
                     android:textSize="16sp"
                     android:textColor="@android:color/white"
+                    android:paddingStart="0dp"
                     android:paddingEnd="40dp"
                     android:visibility="gone" />
 
@@ -189,7 +192,7 @@
                     android:layout_centerVertical="true"
                     android:background="@null"
                     android:src="@drawable/ic_close"
-                    android:contentDescription="Clear Coupon"
+                    android:contentDescription="@string/clear_coupon"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -200,7 +203,6 @@
                 android:id="@+id/total_price_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total Price: $0.0"
                 android:padding="10dp"
                 android:layout_marginBottom="8dp" />
             <LinearLayout
@@ -212,7 +214,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Select Payment Method"
+                    android:text="@string/select_payment_method"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp" />
@@ -226,24 +228,24 @@
                         android:id="@+id/payment_visa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Visa Card" />
+                        android:text="@string/visa_card" />
 
                     <RadioButton
                         android:id="@+id/payment_mastercard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MasterCard" />
+                        android:text="@string/mastercard" />
 
                     <RadioButton
                         android:id="@+id/payment_paypal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PayPal" />
+                        android:text="@string/paypal" />
                     <Button
                         android:id="@+id/submit_payment_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Submit Payment"
+                        android:text="@string/submit_payment"
                         android:backgroundTint="@color/accent"
                         android:textColor="@android:color/white"
                         android:layout_marginTop="16dp" />

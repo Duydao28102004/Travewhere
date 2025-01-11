@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Search accommodations..."
+                    android:text="@string/search_accommodations"
                     android:textColor="@color/neutral_text"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hotels"
+                    android:text="@string/hotels"
                     android:textSize="14sp"
                     android:textColor="@android:color/black" />
             </LinearLayout>
@@ -120,15 +120,15 @@
                     android:background="@color/accent">
 
                     <ImageView
-                        android:layout_width="55dp"
-                        android:layout_height="43dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:src="@drawable/ic_coupon" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Coupons"
+                    android:text="@string/coupons"
                     android:textSize="14sp"
                     android:textColor="@android:color/black" />
             </LinearLayout>
@@ -157,7 +157,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Booking"
+                    android:text="@string/booking"
                     android:textSize="14sp"
                     android:textColor="@android:color/black" />
             </LinearLayout>
@@ -185,7 +185,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Maps"
+                    android:text="@string/maps"
                     android:textSize="14sp"
                     android:textColor="@android:color/black" />
             </LinearLayout>
@@ -202,7 +202,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="✨ Special deals for you!"
+                android:text="@string/special_deals_for_you"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:paddingBottom="8dp" />
@@ -216,7 +216,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Coupons for our beloved customers!"
+                android:text="@string/coupons_for_our_beloved_customers"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />

@@ -36,12 +36,12 @@
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
         android:background="?attr/selectableItemBackground"
-        android:contentDescription="Delete"
+        android:contentDescription="@string/delete"
         android:layout_gravity="center" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Book"
+        android:text="@string/book"
         android:id="@+id/bookButton"
         android:background="@color/primary"
         android:layout_gravity="center" />

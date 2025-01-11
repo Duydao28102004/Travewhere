@@ -13,9 +13,12 @@ import android.widget.LinearLayout;
 import com.example.travewhere.LanguageSettingsActivity;
 import com.example.travewhere.PreferencesSettingsActivity;
 import com.example.travewhere.R;
+import com.example.travewhere.repositories.AuthenticationRepository;
 
 
 public class SettingsFragment extends Fragment {
+
+    private AuthenticationRepository authRepository;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +67,8 @@ public class SettingsFragment extends Fragment {
 
         LinearLayout customLogoutButton = view.findViewById(R.id.logout_button);
         customLogoutButton.setOnClickListener(v -> {
-            // Logout the user
+            // Log out the user
+            authRepository.logout();
         });
 
         return view;

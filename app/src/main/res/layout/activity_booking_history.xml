@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:contentDescription="Back Button"
+            android:contentDescription="@string/back_button"
             android:src="@drawable/ic_arrow_back"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true" />
@@ -30,9 +30,9 @@
             android:layout_toEndOf="@id/btnBack"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:text="Detail Bookings"
+            android:text="@string/detail_bookings"
             android:textColor="@android:color/white"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </RelativeLayout>
     <LinearLayout
@@ -45,7 +45,7 @@
             android:id="@+id/tv_booking_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Booking History"
+            android:text="@string/booking_history"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />

@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Username"
+            android:text="@string/username"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="#000000" />
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="12/31/2025 10:45 AM"
+        android:text="@string/_12_31_2025_10_45_am"
         android:textSize="12sp"
         android:textColor="#888888" />
 
@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="This is the review content. It provides user feedback on their experience with the hotel."
+        android:text="@string/review_description"
         android:textSize="14sp"
         android:textColor="#444444" />
 
@@ -68,7 +68,7 @@
         android:layout_gravity="end"
         android:layout_marginTop="8dp"
         android:background="@null"
-        android:contentDescription="Delete Review"
+        android:contentDescription="@string/delete_review"
         android:src="@drawable/ic_delete" />
     
 </LinearLayout>
