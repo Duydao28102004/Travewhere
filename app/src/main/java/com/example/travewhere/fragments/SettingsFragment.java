@@ -19,7 +19,7 @@ import com.example.travewhere.repositories.AuthenticationRepository;
 
 public class SettingsFragment extends Fragment {
 
-    private AuthenticationRepository authRepository;
+    private AuthenticationRepository authRepository = new AuthenticationRepository();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +72,11 @@ public class SettingsFragment extends Fragment {
             authRepository.logout();
             Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
             startActivity(intent);
+
+            // Finish the current activity
+            if (getActivity() != null) {
+                getActivity().finish();
+            }
         });
 
         return view;
