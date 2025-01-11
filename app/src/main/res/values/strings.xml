@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">Travewhere</string>
+    <string name="app_name" translatable="false">Travewhere</string>
     <string name="user_profile_image">User Profile Image</string>
     <string name="greeting_user_name">Hi, Duy Dao!</string>
     <string name="settings_label">Settings</string>
-    <string name="language_settings_icon">Language Settings Icon</string>
     <string name="languages_label">Languages</string>
     <string name="preferences_label">Preferences</string>
     <string name="security_label">Security</string>
@@ -16,9 +15,6 @@
     <string name="languages_selection">Languages Selection</string>
     <string name="language_en">English</string>
     <string name="language_vn">Vietnamese</string>
-    <string name="language_es">Spanish</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="relocate">Relocate</string>
     <string name="get_directions">Directions</string>
     <string name="hotel_image">Hotel Image</string>
@@ -48,9 +44,9 @@
     <string name="hotel_address">Hotel Address</string>
     <string name="room_type">Room Type</string>
     <string name="price_per_night">Price Per Night</string>
-    <string name="check_in">Check-in</string>
+    <string name="check_in" translatable="false">Check-in</string>
     <string name="select_date_time">Select Date - Time</string>
-    <string name="checkout">Checkout</string>
+    <string name="checkout" translatable="false">Checkout</string>
     <string name="enter_coupon_code">Enter Coupon Code</string>
     <string name="apply_coupon">Apply Coupon</string>
     <string name="no_coupon_applied">No coupon applied</string>
@@ -58,7 +54,7 @@
     <string name="select_payment_method">Select Payment Method</string>
     <string name="visa_card">Visa Card</string>
     <string name="mastercard">MasterCard</string>
-    <string name="paypal">PayPal</string>
+    <string name="paypal" translatable="false">PayPal</string>
     <string name="submit_payment">Submit Payment</string>
     <string name="arrow_right">Arrow Right</string>
     <string name="booking_history">Booking History</string>
@@ -66,7 +62,7 @@
     <string name="coupons_for_new_users">Coupons for new users!</string>
     <string name="min_spend_400k_vnd">Min Spend: 400k VND</string>
     <string name="discount_80k_vnd">Discount: 80k VND</string>
-    <string name="coupon_description">• Valid for bookings made through the app from 1st December 2024 to 25th January 2025.\n• Minimum spending is 400k VND.\n• Offer valid for one-time use per account.\n• Cannot be combined with other discounts or promotions.\n• Taxes and fees not included in the discount.</string>
+    <string name="coupon_description">• Valid for bookings made through the app from 1st December 2024 to 25th January 2025. • Minimum spending is 400k VND. • Offer valid for one-time use per account. • Cannot be combined with other discounts or promotions. • Taxes and fees not included in the discount.</string>
     <string name="copy_coupon_code">Copy Coupon Code</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
@@ -101,10 +97,10 @@
     <string name="confirm">Confirm</string>
     <string name="welcome_back_phuc_hoang_thai">Welcome back, Phuc Hoang Thai!</string>
     <string name="total_income">Total Income</string>
-    <string name="_12_332">12,332 $</string>
-    <string name="see_more"><![CDATA[see more >>]]></string>
+    <string name="_12_332" translatable="false">12,332 $</string>
+    <string name="see_more" translatable="false"><![CDATA[see more >>]]></string>
     <string name="total_bookings">Total Bookings</string>
-    <string name="_3_232">3,232</string>
+    <string name="_3_232" translatable="false">3,232</string>
     <string name="accommodations_list">Accommodations List</string>
     <string name="add_hotel">Add Hotel</string>
     <string name="reviews">Reviews</string>
@@ -119,14 +115,15 @@
     <string name="coupons_for_our_beloved_customers">Coupons for our beloved customers!</string>
     <string name="mui_ne">Mui Ne</string>
     <string name="hotel_mui_ne">Hotel Mui Ne</string>
-    <string name="_10_10">10/10</string>
-    <string name="_85">(85)</string>
-    <string name="_500_000_vnd">500.000 VND</string>
+    <string name="_10_10" translatable="false">10/10</string>
+    <string name="_85" translatable="false">(85)</string>
+    <string name="_500_000_vnd" translatable="false">500.000 VND</string>
     <string name="excluded_tax_and_fees">Excluded tax and fees</string>
     <string name="username">Username</string>
-    <string name="_12_31_2025_10_45_am">12/31/2025 10:45 AM</string>
+    <string name="_12_31_2025_10_45_am" translatable="false">12/31/2025 10:45 AM</string>
     <string name="review_description">This is the review content. It provides user feedback on their experience with the hotel.</string>
     <string name="delete_review">Delete Review</string>
     <string name="delete">Delete</string>
     <string name="book">Book</string>
+    <string name="language_settings_icon">Language Settings Icon</string>
 </resources>
