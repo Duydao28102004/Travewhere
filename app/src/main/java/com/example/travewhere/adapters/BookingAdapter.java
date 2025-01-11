@@ -2,6 +2,7 @@ package com.example.travewhere.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travewhere.ChatActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.models.Booking;
 import com.example.travewhere.models.Hotel;
@@ -107,6 +109,31 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         holder.roomType.setText(room != null ? room.getRoomType() : "Loading...");
 
         holder.cancelButton.setOnClickListener(v -> cancelBooking(booking, position));
+        holder.chatButton.setOnClickListener(v -> {
+            if (hotel == null || hotel.getManager() == null) {
+                Toast.makeText(context, "Unable to start chat: Hotel or manager not available", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String chatId = generateChatId(booking.getCustomerId(), hotel.getManager().getUid());
+            String currentUserId = booking.getCustomerId();
+            String receiverId = hotel.getManager().getUid();
+
+            Log.d("ChatIntent", "chatId: " + chatId);
+            Log.d("ChatIntent", "currentUserId: " + currentUserId);
+            Log.d("ChatIntent", "receiverId: " + receiverId);
+
+            Intent intent = new Intent(context, ChatActivity.class);
+            intent.putExtra("chatId", chatId);
+            intent.putExtra("currentUserId", currentUserId);
+            intent.putExtra("receiverId", receiverId);
+            context.startActivity(intent);
+        });
+
+    }
+
+    private String generateChatId(String user1, String user2) {
+        return user1.compareTo(user2) > 0 ? user1 + "_" + user2 : user2 + "_" + user1;
     }
 
     private void cancelBooking(Booking booking, int position) {
@@ -148,7 +175,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
     public static class BookingViewHolder extends RecyclerView.ViewHolder {
         TextView hotelName, roomType, checkInDate, checkOutDate, totalPrice;
-        Button cancelButton;
+        Button cancelButton, chatButton;
 
 
         public BookingViewHolder(@NonNull View itemView) {
@@ -159,6 +186,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             checkOutDate = itemView.findViewById(R.id.tv_check_out_date);
             totalPrice = itemView.findViewById(R.id.tv_total_price);
             cancelButton = itemView.findViewById(R.id.btn_cancel);
+            chatButton = itemView.findViewById(R.id.btnStartChat);
         }
     }
 }

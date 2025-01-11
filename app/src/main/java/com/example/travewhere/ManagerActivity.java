@@ -38,7 +38,17 @@ public class ManagerActivity extends AppCompatActivity {
 
         FloatingActionButton addHotelButton = findViewById(R.id.addHotelButton);
         addHotelButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ManagerActivity.this, CreateHotelActivity.class);
+//            Intent intent = new Intent(ManagerActivity.this, CreateHotelActivity.class);
+//            startActivity(intent);
+            // Create the Intent and pass the necessary data
+            String currentUserId = "lS4dvHaQ1DOAFVe1j7sxIYSPdS72";
+            String receiverId = "EjeAKYUM0DchImtHlR096Zi5XJH2";
+            String chatId = generateChatId(receiverId, currentUserId); // You can generate chatId based on both users' IDs
+
+            Intent intent = new Intent(this, ChatActivity.class);
+            intent.putExtra("chatId", chatId);
+            intent.putExtra("currentUserId", currentUserId);
+            intent.putExtra("receiverId", receiverId);
             startActivity(intent);
         });
 
@@ -79,5 +89,9 @@ public class ManagerActivity extends AppCompatActivity {
                 Toast.makeText(this, "No hotels found", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private String generateChatId(String user1, String user2) {
+        return user1.compareTo(user2) > 0 ? user1 + "_" + user2 : user2 + "_" + user1;
     }
 }
