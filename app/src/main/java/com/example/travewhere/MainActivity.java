@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.travewhere.fragments.ExploreFragment;
 import com.example.travewhere.fragments.HomepageFragment;
+import com.example.travewhere.fragments.SettingsFragment;
 import com.example.travewhere.models.Customer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_saved) {
                 // selectedFragment = new SavedFragment();
             } else if (itemId == R.id.nav_settings) {
-                // selectedFragment = new SettingsFragment();
+                 selectedFragment = new SettingsFragment();
             } else {
                 return false;
             }
