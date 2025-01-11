@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travewhere.adapters.ChatAdapter;
 import com.example.travewhere.models.Message;
+import com.example.travewhere.viewmodels.CustomerViewModel;
+import com.example.travewhere.viewmodels.ManagerViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,11 +31,15 @@ import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView chatRecyclerView;
+    private RelativeLayout btnBackLayout;
+    private TextView tvPageTitle;
     private EditText messageEditText;
     private Button sendButton;
     private ChatAdapter chatAdapter;
     private List<Message> messageList = new ArrayList<>();
 
+    private ManagerViewModel managerViewModel = new ManagerViewModel();
+    private CustomerViewModel customerViewModel = new CustomerViewModel();
     private DatabaseReference chatDatabase;
     private String currentUserId;
     private String chatId;
@@ -41,19 +49,43 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        getSupportActionBar().hide();
 
         chatRecyclerView = findViewById(R.id.chatRecyclerView);
         messageEditText = findViewById(R.id.messageEditText);
         sendButton = findViewById(R.id.sendButton);
+        btnBackLayout = findViewById(R.id.btnBackLayout);
+        tvPageTitle = findViewById(R.id.tvPageTitle);
+
+        chatId = getIntent().getStringExtra("chatId");
+        currentUserId = getIntent().getStringExtra("currentUserId");
+        receiverId = getIntent().getStringExtra("receiverId");
+
+        if (chatId == null || currentUserId == null || receiverId == null) {
+            Toast.makeText(this, "Missing chat or user information", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        managerViewModel.getManagerById(receiverId).observe(this, manager -> {
+            if (manager != null) {
+                tvPageTitle.setText(manager.getName());
+            }
+        });
+
+        customerViewModel.getCustomerById(receiverId).observe(this, customer -> {
+            if (customer != null) {
+                tvPageTitle.setText(customer.getName());
+            }
+        });
+        btnBackLayout.setOnClickListener(v -> finish());
 
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         chatDatabase = FirebaseDatabase.getInstance().getReference("chats");
 
         // Retrieve chatId, currentUserId, and receiverId from intent
-        chatId = getIntent().getStringExtra("chatId");
-        currentUserId = getIntent().getStringExtra("currentUserId");
-        receiverId = getIntent().getStringExtra("receiverId");
+
 
         if (chatId == null || currentUserId == null || receiverId == null) {
             Toast.makeText(this, "Missing chat or user information", Toast.LENGTH_SHORT).show();

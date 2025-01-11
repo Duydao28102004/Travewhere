@@ -20,8 +20,10 @@ import com.example.travewhere.R;
 import com.example.travewhere.models.Booking;
 import com.example.travewhere.models.Hotel;
 import com.example.travewhere.models.Room;
+import com.example.travewhere.repositories.AuthenticationRepository;
 import com.example.travewhere.viewmodels.BookingViewModel;
 import com.example.travewhere.viewmodels.HotelViewModel;
+import com.example.travewhere.viewmodels.ManagerViewModel;
 import com.example.travewhere.viewmodels.RoomViewModel;
 
 import java.text.SimpleDateFormat;
@@ -36,8 +38,11 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
     private final HotelViewModel hotelViewModel = new HotelViewModel();
     private final RoomViewModel roomViewModel = new RoomViewModel();
     private final BookingViewModel bookingViewModel = new BookingViewModel();
+    private final ManagerViewModel managerViewModel = new ManagerViewModel();
+    private final AuthenticationRepository authenticationRepository = new AuthenticationRepository();
     private final Map<String, Hotel> hotelCache = new HashMap<>();
     private final Map<String, Room> roomCache = new HashMap<>();
+    private boolean isManager = false;
 
     public BookingAdapter(Context context, List<Booking> bookingList) {
         this.context = context;
@@ -46,7 +51,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
     public void prefetch(Runnable onComplete) {
         final int[] completedTasks = {0};
-        final int totalTasks = 2; // Number of async tasks (Hotels and Rooms)
+        final int totalTasks = 3; // Number of async tasks (Hotels and Rooms)
 
         // Fetch all hotels
         hotelViewModel.getAllHotels().observe((LifecycleOwner) context, hotels -> {
@@ -83,6 +88,18 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
                 onComplete.run();
             }
         });
+
+        managerViewModel.getManagerById(authenticationRepository.getCurrentUser().getUid()).observe((LifecycleOwner) context, manager -> {
+            if (manager != null) {
+                isManager = true;
+            } else {
+                isManager = false;
+            }
+            completedTasks[0]++;
+            if (completedTasks[0] == totalTasks) {
+                onComplete.run();
+            }
+        });
     }
 
     @NonNull
@@ -108,7 +125,14 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         holder.hotelName.setText(hotel != null ? hotel.getName() : "Loading...");
         holder.roomType.setText(room != null ? room.getRoomType() : "Loading...");
 
-        holder.cancelButton.setOnClickListener(v -> cancelBooking(booking, position));
+        // Hide the cancel button if the user is a manager
+        if (isManager) {
+            holder.cancelButton.setVisibility(View.INVISIBLE);
+        } else {
+            holder.cancelButton.setVisibility(View.VISIBLE);
+            holder.cancelButton.setOnClickListener(v -> cancelBooking(booking, position));
+        }
+
         holder.chatButton.setOnClickListener(v -> {
             if (hotel == null || hotel.getManager() == null) {
                 Toast.makeText(context, "Unable to start chat: Hotel or manager not available", Toast.LENGTH_SHORT).show();
@@ -116,8 +140,15 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             }
 
             String chatId = generateChatId(booking.getCustomerId(), hotel.getManager().getUid());
-            String currentUserId = booking.getCustomerId();
-            String receiverId = hotel.getManager().getUid();
+            String receiverId;
+            String currentUserId;
+            if (isManager) {
+                currentUserId =  hotel.getManager().getUid();
+                receiverId = booking.getCustomerId();
+            } else {
+                currentUserId = booking.getCustomerId();
+                receiverId = hotel.getManager().getUid();
+            }
 
             Log.d("ChatIntent", "chatId: " + chatId);
             Log.d("ChatIntent", "currentUserId: " + currentUserId);
@@ -129,7 +160,6 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             intent.putExtra("receiverId", receiverId);
             context.startActivity(intent);
         });
-
     }
 
     private String generateChatId(String user1, String user2) {
