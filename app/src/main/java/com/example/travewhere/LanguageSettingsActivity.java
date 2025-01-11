@@ -58,4 +58,9 @@ public class LanguageSettingsActivity extends AppCompatActivity {
         config.setLocale(newLocale);
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
+
+    public static String getPreferredLanguage(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+        return preferences.getString("preferred_language", "en");
+    }
 }

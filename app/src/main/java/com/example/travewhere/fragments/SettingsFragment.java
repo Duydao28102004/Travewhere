@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.travewhere.AuthenticationActivity;
 import com.example.travewhere.LanguageSettingsActivity;
 import com.example.travewhere.PreferencesSettingsActivity;
 import com.example.travewhere.R;
@@ -69,6 +70,8 @@ public class SettingsFragment extends Fragment {
         customLogoutButton.setOnClickListener(v -> {
             // Log out the user
             authRepository.logout();
+            Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
+            startActivity(intent);
         });
 
         return view;
