@@ -40,7 +40,8 @@
     <!-- User Profile Settings -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:paddingVertical="8dp">
 
@@ -109,64 +110,65 @@
         </LinearLayout>
 
         <!-- Security Settings -->
-        <LinearLayout
-            android:id="@+id/security_settings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="4dp">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/security_settings"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_marginBottom="4dp">-->
 
-            <TextView
-                android:id="@+id/security_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/security_label"
-                android:textColor="@color/neutral_text"
-                android:textSize="20sp"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                app:drawableEndCompat="@drawable/security_icon" />
+<!--            <TextView-->
+<!--                android:id="@+id/security_label"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/security_label"-->
+<!--                android:textColor="@color/neutral_text"-->
+<!--                android:textSize="20sp"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:padding="8dp"-->
+<!--                app:drawableEndCompat="@drawable/security_icon" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="8dp"
-                android:background="@color/secondary" />
-        </LinearLayout>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginHorizontal="8dp"-->
+<!--                android:background="@color/secondary" />-->
+<!--        </LinearLayout>-->
 
         <!-- Currency Settings -->
-        <LinearLayout
-            android:id="@+id/currency_settings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="4dp">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/currency_settings"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_marginBottom="4dp">-->
 
-            <TextView
-                android:id="@+id/currency_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/currency_label"
-                android:textColor="@color/neutral_text"
-                android:textSize="20sp"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                app:drawableEndCompat="@drawable/currency_icon" />
+<!--            <TextView-->
+<!--                android:id="@+id/currency_label"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/currency_label"-->
+<!--                android:textColor="@color/neutral_text"-->
+<!--                android:textSize="20sp"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:padding="8dp"-->
+<!--                app:drawableEndCompat="@drawable/currency_icon" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="8dp"
-                android:background="@color/secondary" />
-        </LinearLayout>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginHorizontal="8dp"-->
+<!--                android:background="@color/secondary" />-->
+<!--        </LinearLayout>-->
     </LinearLayout>
 
     <!-- User Support -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:paddingVertical="8dp">
 
