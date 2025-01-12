@@ -36,6 +36,7 @@
             android:text="@string/hotel_mui_ne"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="@color/neutral_text"
             android:layout_marginTop="4dp" />
 
         <LinearLayout

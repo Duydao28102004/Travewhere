@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/greeting_user_name"
-            android:textColor="@color/neutral_text"
             android:textSize="32sp"
             android:textStyle="bold"
             android:drawablePadding="8dp"
@@ -51,7 +50,6 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/settings_label"
-            android:textColor="@color/neutral_text"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -68,7 +66,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/languages_label"
-                android:textColor="@color/neutral_text"
                 android:textSize="20sp"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
@@ -95,7 +92,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/preferences_label"
-                android:textColor="@color/neutral_text"
                 android:textSize="20sp"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
@@ -178,7 +174,6 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/support_label"
-            android:textColor="@color/neutral_text"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -195,7 +190,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/about_us_label"
-                android:textColor="@color/neutral_text"
                 android:textSize="20sp"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
@@ -222,7 +216,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/faqs_label"
-                android:textColor="@color/neutral_text"
                 android:textSize="20sp"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
@@ -249,7 +242,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/contact_us_label"
-                android:textColor="@color/neutral_text"
                 android:textSize="20sp"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"

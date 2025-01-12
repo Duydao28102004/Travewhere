@@ -15,18 +15,21 @@
             android:id="@+id/roomTypeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/neutral_text"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/priceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/neutral_text"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/capacityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/neutral_text"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -44,5 +47,6 @@
         android:text="@string/book"
         android:id="@+id/bookButton"
         android:background="@color/primary"
+        android:textColor="@color/white"
         android:layout_gravity="center" />
 </LinearLayout>

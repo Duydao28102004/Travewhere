@@ -16,7 +16,6 @@
         android:text="@string/languages_selection"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:textColor="@color/neutral_text"
         android:layout_marginBottom="32dp"/>
 
     <RadioGroup
@@ -33,9 +32,7 @@
             android:layout_height="wrap_content"
             android:text="@string/language_en"
             android:textSize="24sp"
-            android:layout_marginBottom="4dp"
-            android:textColor="@color/neutral_text"
-            android:buttonTint="@color/neutral_text"/>
+            android:layout_marginBottom="4dp"/>
 
         <RadioButton
             android:id="@+id/vietnamese"
@@ -43,9 +40,7 @@
             android:layout_height="wrap_content"
             android:text="@string/language_vn"
             android:textSize="24sp"
-            android:layout_marginBottom="4dp"
-            android:textColor="@color/neutral_text"
-            android:buttonTint="@color/neutral_text"/>
+            android:layout_marginBottom="4dp" />
 
     </RadioGroup>
 
