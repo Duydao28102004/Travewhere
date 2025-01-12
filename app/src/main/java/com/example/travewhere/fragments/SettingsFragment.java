@@ -20,10 +20,11 @@ import com.example.travewhere.LanguageSettingsActivity;
 import com.example.travewhere.PreferencesSettingsActivity;
 import com.example.travewhere.R;
 import com.example.travewhere.helpers.LanguageHelper;
+import com.example.travewhere.helpers.ThemeHelper;
 import com.example.travewhere.repositories.AuthenticationRepository;
 
 public class SettingsFragment extends Fragment {
-
+    private boolean isRecreating = false;
     private AuthenticationRepository authRepository = new AuthenticationRepository();
 
     @Override
@@ -44,18 +45,17 @@ public class SettingsFragment extends Fragment {
             // Open the preferences settings activity
             Intent intent = new Intent(getActivity(), PreferencesSettingsActivity.class);
             startActivity(intent);
-            requireActivity().finish(); // Close the current activity
         });
 
-        LinearLayout securitySettingsButton = view.findViewById(R.id.security_settings);
-        securitySettingsButton.setOnClickListener(v -> {
-            // Open the security settings activity
-        });
-
-        LinearLayout currencySettingsButton = view.findViewById(R.id.currency_settings);
-        currencySettingsButton.setOnClickListener(v -> {
-            // Open the currency settings activity
-        });
+//        LinearLayout securitySettingsButton = view.findViewById(R.id.security_settings);
+//        securitySettingsButton.setOnClickListener(v -> {
+//            // Open the security settings activity
+//        });
+//
+//        LinearLayout currencySettingsButton = view.findViewById(R.id.currency_settings);
+//        currencySettingsButton.setOnClickListener(v -> {
+//            // Open the currency settings activity
+//        });
 
         LinearLayout aboutSettingsButton = view.findViewById(R.id.about_us_settings);
         aboutSettingsButton.setOnClickListener(v -> {
@@ -98,6 +98,11 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        // Apply language when the fragment is resumed
         LanguageHelper.applyLanguage(requireContext());
+
+        // Apply theme when the fragment is resumed
+        ThemeHelper.applyTheme(requireContext());
     }
 }

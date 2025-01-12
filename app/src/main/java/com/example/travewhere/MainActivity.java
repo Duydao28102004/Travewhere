@@ -1,5 +1,6 @@
 package com.example.travewhere;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -10,6 +11,7 @@ import com.example.travewhere.fragments.ExploreFragment;
 import com.example.travewhere.fragments.HomepageFragment;
 import com.example.travewhere.fragments.SettingsFragment;
 import com.example.travewhere.helpers.LanguageHelper;
+import com.example.travewhere.helpers.ThemeHelper;
 import com.example.travewhere.models.Customer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -21,6 +23,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+
+        // Check for invalid data in the theme key
+        Object theme = prefs.getAll().get(ThemeHelper.THEME_KEY);
+        if (!(theme instanceof String)) {
+            // Reset invalid theme value to System Default
+            prefs.edit().remove(ThemeHelper.THEME_KEY).putString(ThemeHelper.THEME_KEY, "System Default").apply();
+        }
+        // Apply theme before super call
+        ThemeHelper.applyTheme(this);
 
         // Apply language before super call
         LanguageHelper.applyLanguage(this);
@@ -82,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Apply language when the activity is resumed
         LanguageHelper.applyLanguage(this);
+
+        // Apply theme when the activity is resumed
+        ThemeHelper.applyTheme(this);
     }
 }
