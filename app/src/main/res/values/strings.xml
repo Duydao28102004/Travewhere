@@ -126,6 +126,20 @@
     <string name="delete">Delete</string>
     <string name="book">Book</string>
     <string name="language_settings_icon">Language Settings Icon</string>
+    <string name="about_us_description" formatted="false">
+        Welcome to TraveWhere! We are your trusted partner in finding the perfect accommodation for your travels, whether you\'re planning a relaxing vacation, an adventurous journey, or a business trip. Our platform is designed to make the process of booking accommodations seamless, secure, and enjoyable, ensuring you have one less thing to worry about as you explore the world.\n\n
+        Founded with a vision to redefine the way people connect with accommodations, TraveWhere bridges the gap between travelers and property owners. We offer a diverse range of options, from luxurious hotels and resorts to budget-friendly stays and unique homestays. No matter your preferences or budget, TraveWhere ensures that you find the perfect place to call home during your journey.\n\n
+        At TraveWhere, we pride ourselves on transparency and customer satisfaction. Our platform provides detailed property descriptions, high-quality images, and authentic customer reviews to help you make informed decisions. With advanced search filters and real-time availability updates, you can customize your search to match your specific needs and book with confidence.\n\n
+        We believe that every traveler deserves an exceptional experience. That’s why we continuously strive to enhance our platform with innovative features, making it easier for you to discover new destinations and embrace the joys of travel. Whether you’re exploring bustling cities, tranquil countryside, or serene beaches, TraveWhere is here to guide you every step of the way.\n\n
+        Join millions of satisfied customers who have trusted TraveWhere for their accommodation needs. Our 24/7 customer support team is always ready to assist you, ensuring your journey is smooth from start to finish. Your satisfaction is our top priority, and we are committed to delivering excellence in every interaction.\n\n
+        Discover. Book. Stay. Experience the world with TraveWhere, and let us help you create unforgettable memories that last a lifetime.
+    </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="email_support_travewhere_com" translatable="false">Email: support@travewhere.com</string>
+    <string name="phone_84_123_456_789">Phone: +84 123 456 789</string>
+    <string name="follow_us">Follow Us:</string>
+    <string name="facebook_icon">Facebook Icon</string>
+    <string name="instagram_icon">Instagram Icon</string>
+    <string name="twitter_icon">Twitter Icon</string>
 </resources>
