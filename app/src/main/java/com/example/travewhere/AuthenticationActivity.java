@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.travewhere.helpers.ThemeHelper;
 import com.example.travewhere.models.Customer;
 import com.example.travewhere.models.Manager;
 import com.example.travewhere.repositories.AuthenticationRepository;
@@ -69,6 +70,8 @@ public class AuthenticationActivity extends AppCompatActivity {
         setupSwitchListeners();
         setupLoginListener();
         setupSignupListener();
+
+        ThemeHelper.applyTheme(this);
     }
 
     private void setupSwitchListeners() {

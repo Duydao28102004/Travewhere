@@ -17,9 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/faqs_title"
-            android:textSize="24sp"
+            android:textSize="32sp"
             android:textStyle="bold"
-            android:textColor="@color/neutral_text"
             android:layout_marginBottom="16dp" />
 
         <View
@@ -42,7 +41,6 @@
                 android:text="@string/faq_q1"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/neutral_text"
                 android:layout_marginTop="8dp" />
             <TextView
                 android:id="@+id/answer_1"
@@ -60,7 +58,6 @@
                 android:text="@string/faq_q2"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/neutral_text"
                 android:layout_marginTop="8dp" />
             <TextView
                 android:id="@+id/answer_2"
@@ -78,7 +75,6 @@
                 android:text="@string/faq_q3"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/neutral_text"
                 android:layout_marginTop="8dp" />
             <TextView
                 android:id="@+id/answer_3"
@@ -96,7 +92,6 @@
                 android:text="@string/faq_q4"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/neutral_text"
                 android:layout_marginTop="8dp" />
             <TextView
                 android:id="@+id/answer_4"
@@ -114,7 +109,6 @@
                 android:text="@string/faq_q5"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/neutral_text"
                 android:layout_marginTop="8dp" />
             <TextView
                 android:id="@+id/answer_5"
@@ -132,7 +126,6 @@
                 android:text="@string/faq_q6"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/neutral_text"
                 android:layout_marginTop="8dp" />
             <TextView
                 android:id="@+id/answer_6"

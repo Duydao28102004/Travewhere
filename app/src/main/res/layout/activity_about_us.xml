@@ -30,7 +30,6 @@
             android:text="@string/about_us_label"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:layout_marginBottom="16dp" />
 
         <!-- Description -->
@@ -42,7 +41,6 @@
             android:textSize="16sp"
             android:lineSpacingExtra="2dp"
             android:ellipsize="none"
-            android:textColor="@color/neutral_text"
             android:layout_marginBottom="16dp" />
 
         <!-- Contact Information -->
@@ -53,7 +51,6 @@
             android:text="@string/contact_us_label"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:layout_marginBottom="8dp" />
 
         <TextView
@@ -85,7 +82,6 @@
                 android:text="@string/follow_us"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_marginEnd="16dp" />
 
             <ImageView
