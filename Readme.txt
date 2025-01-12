@@ -3,6 +3,7 @@
 Project Name: Travewhere
 Course: COSC2657 Android Development
 Lecturer: Mr. Minh Vu Thanh
+Github: https://github.com/Duydao28102004/Travewhere
 Author:
     - Dao Bao Duy: s3978826
     - Tran Nguyen Anh Minh: s3979367
