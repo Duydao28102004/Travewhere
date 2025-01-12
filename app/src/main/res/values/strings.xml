@@ -154,6 +154,7 @@
 
     <!-- FAQ 3 -->
     <string name="faq_q3">What payment methods are supported?</string>
+    <string name="faq_a3">"We accept a variety of payment methods, including Visa, MasterCard, and Paypal. "</string>
 
     <!-- FAQ 4 -->
     <string name="faq_q4">Can I cancel or modify my booking?</string>
@@ -166,5 +167,13 @@
     <!-- FAQ 6 -->
     <string name="faq_q6">Does TraveWhere offer discounts or promotions?</string>
     <string name="faq_a6">Yes, we frequently offer special discounts and promotions. Keep an eye on our website or app to take advantage of these deals.</string>
-    <string name="faq_a3">"We accept a variety of payment methods, including Visa, MasterCard, and Paypal. "</string>
+
+    <string name="contact_us_title">Contact Us</string>
+    <string name="contact_us_description">We are here to help! Feel free to reach out to us via email, phone, or by submitting the form below.</string>
+    <string name="contact_us_name_hint">Your Name</string>
+    <string name="contact_us_email_hint">Your Email</string>
+    <string name="contact_us_message_hint">Your Message</string>
+    <string name="contact_us_submit">Submit</string>
+    <string name="contact_us_call">Call Us</string>
+    <string name="contact_us_email">Email Us</string>
 </resources>
