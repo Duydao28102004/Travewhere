@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 
 import com.example.travewhere.AboutUsActivity;
 import com.example.travewhere.AuthenticationActivity;
+import com.example.travewhere.ContactUsActivity;
+import com.example.travewhere.FAQsActivity;
 import com.example.travewhere.LanguageSettingsActivity;
 import com.example.travewhere.PreferencesSettingsActivity;
 import com.example.travewhere.R;
@@ -65,11 +67,15 @@ public class SettingsFragment extends Fragment {
         LinearLayout faqSettingsButton = view.findViewById(R.id.faq_settings);
         faqSettingsButton.setOnClickListener(v -> {
             // Open the faq settings activity
+            Intent intent = new Intent(getActivity(), FAQsActivity.class);
+            startActivity(intent);
         });
 
         LinearLayout contactUsSettingsButton = view.findViewById(R.id.contact_us_settings);
         contactUsSettingsButton.setOnClickListener(v -> {
             // Open the contact us settings activity
+            Intent intent = new Intent(getActivity(), ContactUsActivity.class);
+            startActivity(intent);
         });
 
         LinearLayout customLogoutButton = view.findViewById(R.id.logout_button);

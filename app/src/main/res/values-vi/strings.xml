@@ -122,4 +122,25 @@
     <string name="facebook_icon">Biểu tượng Facebook</string>
     <string name="instagram_icon">Biểu tượng Instagram</string>
     <string name="twitter_icon">Biểu tượng Twitter</string>
+    <string name="faqs_title">Câu hỏi thường gặp</string>
+    <string name="faq_q1">Travewhere là gì?</string>
+    <string name="faq_a1">TraveWhere là một nền tảng kết nối du khách với các chỗ ở hoàn hảo cho chuyến đi của họ. Chúng tôi cung cấp nhiều lựa chọn, từ khách sạn sang trọng đến các chỗ ở phù hợp với ngân sách.</string>
+    <string name="faq_q2">Làm sao tôi có thể đặt phòng trên Travewhere?</string>
+    <string name="faq_a2">Chỉ cần tìm kiếm điểm đến mà bạn mong muốn, chọn chỗ ở phù hợp với nhu cầu của bạn và làm theo các bước đặt chỗ. Bạn có thể thanh toán an toàn thông qua nền tảng của chúng tôi.</string>
+    <string name="faq_q3">Đâu là những phương thức thanh toán được hỗ trợ?</string>
+    <string name="faq_q4">Tôi có thể hủy hoặc điều chỉnh lịch đặt phòng của tôi được không?</string>
+    <string name="faq_a4">Có, việc hủy hoặc thay đổi đặt chỗ là có thể, tùy thuộc vào chính sách của chỗ ở. Vui lòng kiểm tra các điều khoản cụ thể trước khi đặt chỗ hoặc liên hệ với đội ngũ hỗ trợ của chúng tôi để được trợ giúp.</string>
+    <string name="faq_q5">Dịch vụ hỗ trợ khách hàng có hoạt động không?</string>
+    <string name="faq_a5">Chắc chắn rồi! Đội ngũ hỗ trợ khách hàng của chúng tôi luôn sẵn sàng 24/7 để hỗ trợ bạn với bất kỳ câu hỏi hoặc vấn đề nào bạn gặp phải.</string>
+    <string name="faq_q6">Travewhere có các chương trình khuyến mãi và mã giảm giá không?</string>
+    <string name="faq_a6">Vâng, chúng tôi thường xuyên cung cấp các chương trình giảm giá và khuyến mãi đặc biệt. Hãy theo dõi trang web hoặc ứng dụng của chúng tôi để tận dụng những ưu đãi này.</string>
+    <string name="faq_a3">Chúng tôi chấp nhận nhiều phương thức thanh toán khác nhau, bao gồm Visa, MasterCard và Paypal.</string>
+    <string name="contact_us_title">Liên hệ chúng tôi</string>
+    <string name="contact_us_description">Chúng tôi luôn sẵn sàng hỗ trợ bạn! Hãy liên hệ với chúng tôi qua email, điện thoại, hoặc bằng cách gửi biểu mẫu bên dưới.</string>
+    <string name="contact_us_name_hint">Tên của bạn</string>
+    <string name="contact_us_email_hint">Email của bạn</string>
+    <string name="contact_us_message_hint">Tin nhắn của bạn</string>
+    <string name="contact_us_submit">Gửi</string>
+    <string name="contact_us_call">Gọi chúng tôi</string>
+    <string name="contact_us_email">Email cho chúng tôi</string>
 </resources>

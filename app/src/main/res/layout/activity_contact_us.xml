@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ContactUsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/contact_us_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_us_title"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/neutral_text"
+            android:layout_marginBottom="16dp"
+            android:gravity="center" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/contact_us_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_us_description"
+            android:textSize="16sp"
+            android:textColor="@color/neutral_text"
+            android:layout_marginBottom="16dp"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/primary"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Name Field -->
+        <EditText
+            android:id="@+id/contact_us_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="John Doe"
+            android:hint="@string/contact_us_name_hint"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Email Field -->
+        <EditText
+            android:id="@+id/contact_us_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="johndoe@example.com"
+            android:hint="@string/contact_us_email_hint"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Message Field -->
+        <EditText
+            android:id="@+id/contact_us_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="How can I book a room in Viet Nam?"
+            android:hint="@string/contact_us_message_hint"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:gravity="top"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/contact_us_submit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_us_submit"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/white"
+            android:background="@drawable/button_background"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Call Us Button -->
+        <Button
+            android:id="@+id/contact_us_call_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_us_call"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/white"
+            android:background="@drawable/button_background"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Email Us Button -->
+        <Button
+            android:id="@+id/contact_us_mail_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_us_email"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/white"
+            android:background="@drawable/button_background" />
+    </LinearLayout>
+</ScrollView>
