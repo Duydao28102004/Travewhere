@@ -139,7 +139,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
                 return;
             }
 
-            String chatId = generateChatId(booking.getCustomerId(), hotel.getManager().getUid());
+            String chatId = generateChatId(booking.getCustomerId(), hotel.getManager().getUid(), booking.getId());
             String receiverId;
             String currentUserId;
             if (isManager) {
@@ -162,8 +162,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         });
     }
 
-    private String generateChatId(String user1, String user2) {
-        return user1.compareTo(user2) > 0 ? user1 + "_" + user2 : user2 + "_" + user1;
+    private String generateChatId(String user1, String user2, String bookingId) {
+        return user1.compareTo(user2) > 0 ? user1 + "_" + user2 + "_" + bookingId: user2 + "_" + user1 + "_" + bookingId;
     }
 
     private void cancelBooking(Booking booking, int position) {

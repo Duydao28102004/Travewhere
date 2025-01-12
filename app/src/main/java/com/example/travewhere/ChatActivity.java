@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travewhere.adapters.ChatAdapter;
 import com.example.travewhere.models.Message;
+import com.example.travewhere.receivers.NetworkChangeReceiver;
 import com.example.travewhere.viewmodels.CustomerViewModel;
 import com.example.travewhere.viewmodels.ManagerViewModel;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import android.content.IntentFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,9 @@ public class ChatActivity extends AppCompatActivity {
     private DatabaseReference chatDatabase;
     private String currentUserId;
     private String chatId;
-    private String receiverId; // Receiver's user ID
+    private String receiverId;
+
+    private NetworkChangeReceiver networkChangeReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,11 +132,6 @@ public class ChatActivity extends AppCompatActivity {
             return;
         }
 
-        if (!isConnected()) {
-            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         long timestamp = System.currentTimeMillis();
         Message message = new Message(currentUserId, receiverId, messageText, timestamp);
 
@@ -159,11 +158,19 @@ public class ChatActivity extends AppCompatActivity {
         Log.d("FirebasePath", "Database path: " + messagePath);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        networkChangeReceiver = new NetworkChangeReceiver();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeReceiver, filter);
+    }
 
-
-    private boolean isConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnected();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (networkChangeReceiver != null) {
+            unregisterReceiver(networkChangeReceiver);
+        }
     }
 }

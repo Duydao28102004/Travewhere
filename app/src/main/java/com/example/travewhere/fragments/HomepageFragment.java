@@ -130,8 +130,12 @@ public class HomepageFragment extends Fragment {
     private void fetchHotels() {
         hotelViewModel.getAllHotels().observe(getViewLifecycleOwner(), allHotels -> {
             if (allHotels != null && !allHotels.isEmpty()) {
+                List<Hotel> lastFourHotels = allHotels.size() > 4
+                        ? allHotels.subList(0, 4)
+                        : allHotels;
+
                 hotelAdapter.prefetch(() -> {
-                    hotelAdapter.updateHotelList(allHotels);
+                    hotelAdapter.updateHotelList(lastFourHotels);
                 });
             } else {
                 Toast.makeText(getContext(), "No hotels found", Toast.LENGTH_SHORT).show();
