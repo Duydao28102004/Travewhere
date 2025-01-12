@@ -1,8 +1,6 @@
 package com.example.travewhere;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -10,7 +8,7 @@ import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Locale;
+import com.example.travewhere.helpers.LanguageHelper;
 
 public class LanguageSettingsActivity extends AppCompatActivity {
 
@@ -27,40 +25,23 @@ public class LanguageSettingsActivity extends AppCompatActivity {
         vietnameseRadioButton = findViewById(R.id.vietnamese);
         LinearLayout confirmButton = findViewById(R.id.confirm_language_button);
 
+        // Set current language selection
         setCurrentLanguageSelection();
 
         confirmButton.setOnClickListener(v -> {
             String selectedLanguage = englishRadioButton.isChecked() ? "en" : "vi";
-            changeLanguage(selectedLanguage);
+            LanguageHelper.setLanguage(this, selectedLanguage);
             setResult(RESULT_OK); // Notify parent activity
             finish();
         });
     }
 
     private void setCurrentLanguageSelection() {
-        String currentLanguage = getPreferredLanguage(this);
-
+        String currentLanguage = LanguageHelper.getLanguage(this);
         if ("en".equals(currentLanguage)) {
             englishRadioButton.setChecked(true);
         } else if ("vi".equals(currentLanguage)) {
             vietnameseRadioButton.setChecked(true);
         }
-    }
-
-    private void changeLanguage(String languageCode) {
-        SharedPreferences prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        prefs.edit().putString("language", languageCode).apply();
-
-        Locale newLocale = new Locale(languageCode);
-        Locale.setDefault(newLocale);
-
-        Configuration config = new Configuration();
-        config.setLocale(newLocale);
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-    }
-
-    public static String getPreferredLanguage(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
-        return preferences.getString("preferred_language", "en");
     }
 }
