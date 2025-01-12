@@ -71,4 +71,5 @@ Author:
 
 ------------------------------------------------------------
 **Open Issues & Known Bugs That Have Not Been Fixed**
-
+1. Language Selection: The SettingsFragment does not update the language immediately after changing the language preference. Users need to tap onto the Setting tab to apply the new language settings or navigate to different views and come back later to apply the changes.
+2. Theme Selection: Not all the colours and styles are updated when changing the theme. The theme change is not applied to the entire application, and some components may not be updated accordingly due to primary colours and the relevant components need contrast to display.
