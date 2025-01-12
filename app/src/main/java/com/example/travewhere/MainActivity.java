@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_explore) {
                 selectedFragment = new ExploreFragment();
                 // Pass customer data if needed
-            } else if (itemId == R.id.nav_saved) {
-                // selectedFragment = new SavedFragment();
             } else if (itemId == R.id.nav_settings) {
                  selectedFragment = new SettingsFragment();
             } else {
